@@ -1,0 +1,59 @@
+.page-home {
+    .jumbotron {
+        background: $white;
+    }
+    .social-providers {
+        .btn {
+            &.btn-social {
+                padding: 12px 12px 12px 64px;
+                font-size: 18px;
+                font-weight: 600;
+                border-color: rgba(0, 0, 0, .2);
+                color: $white;
+                position: relative;
+                text-align: left;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                i {
+                    padding: 5px;
+                    width: 50px;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    font-size: 1.6em;
+                    text-align: center;
+                    border-right: 1px solid rgba(0, 0, 0, .2);
+                }
+            }
+        }
+    }
+    .auth-form {
+        border-left: 1px solid $gray-light;
+        padding-left: 30px;
+        .form-group {
+            margin: 0;
+            .input-group {
+                border: 0 none;
+                border-bottom: 1px solid $gray-light;
+                .input-group-addon,
+                .form-control {
+                    border: 0 none;
+                    background: none;
+                    box-shadow: none;
+                    border-radius: 0;
+                    color: $gray-light;
+                    font-weight: normal;
+                }
+                .input-group-addon {
+                    font-size: 32px;
+                }
+                .form-control {
+                    font-size: 18px;
+                    padding: 30px 10px
+                }
+            }
+        }
+    }
+}
