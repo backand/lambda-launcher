@@ -1,108 +1,146 @@
-
-._100{
-  font-weight: 100;
-}
-._200{
-  font-weight: 200;
-}
-._300{
-  font-weight: 300;
-}
-._400{
-  font-weight: 400;
-}
-._500{
-  font-weight: 500;
-}
-._600{
-  font-weight: 600;
-}
-._700{
-  font-weight: 700;
-}
-._800{
-  font-weight: 800;
+._100 {
+    font-weight: 100;
 }
 
-.text{
-  font-size: 1rem;
-}
-.text-xs{
-  font-size: $font-size-xs;
-}
-.text-sm{
-  font-size: $font-size-sm;
-}
-.text-md{
-  font-size: $font-size-md;
-}
-.text-lg{
-  font-size: $font-size-lg;
+._200 {
+    font-weight: 200;
 }
 
-.text-2x{
-  font-size: 2em;
-}
-.text-3x{
-  font-size: 3em;
-}
-.text-4x{
-  font-size: 4em;
+._300 {
+    font-weight: 300;
 }
 
-.l-h{
-  line-height: $line-height;
-}
-.l-h-1x{
-  line-height: 1;
-}
-.l-h-2x{
-  line-height: 2em;
+._400 {
+    font-weight: 400;
 }
 
-.l-s-1x{
-  letter-spacing: 1px;
-}
-.l-s-2x{
-  letter-spacing: 2px;
-}
-.l-s-3x{
-  letter-spacing: 3px;
-}
-.l-s-4x{
-  letter-spacing: 4px;
+._500 {
+    font-weight: 500;
 }
 
-.l-s-n-1x{
-  letter-spacing: -1px;
-}
-.l-s-n-2x{
-  letter-spacing: -2px;
-}
-.l-s-n-3x{
-  letter-spacing: -3px;
-}
-.l-s-n-4x{
-  letter-spacing: -4px;
+._600 {
+    font-weight: 600;
 }
 
-.text-u-c{
-  text-transform: uppercase;
-}
-.text-l-t{
-  text-decoration: line-through;
-}
-.text-u-l{
-  text-decoration: underline;
+._700 {
+    font-weight: 700;
 }
 
-.text-ellipsis{
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow:ellipsis;
+._800 {
+    font-weight: 800;
 }
 
-.text-shadow{
-  text-shadow: 0 1px 0 rgba(0,0,0,.1);
+.text {
+    font-size: 1rem;
+}
+
+.text-xs {
+    font-size: $font-size-xs;
+}
+
+.text-sm {
+    font-size: $font-size-sm;
+}
+
+.text-md {
+    font-size: $font-size-md;
+}
+
+.text-lg {
+    font-size: $font-size-lg;
+}
+
+.text-2x {
+    font-size: 2em;
+}
+
+.text-3x {
+    font-size: 3em;
+}
+
+.text-4x {
+    font-size: 4em;
+}
+
+.l-h {
+    line-height: $line-height;
+}
+
+.l-h-1x {
+    line-height: 1;
+}
+
+.l-h-2x {
+    line-height: 2em;
+}
+
+.l-s-1x {
+    letter-spacing: 1px;
+}
+
+.l-s-2x {
+    letter-spacing: 2px;
+}
+
+.l-s-3x {
+    letter-spacing: 3px;
+}
+
+.l-s-4x {
+    letter-spacing: 4px;
+}
+
+.l-s-n-1x {
+    letter-spacing: -1px;
+}
+
+.l-s-n-2x {
+    letter-spacing: -2px;
+}
+
+.l-s-n-3x {
+    letter-spacing: -3px;
+}
+
+.l-s-n-4x {
+    letter-spacing: -4px;
+}
+
+.text-u-c {
+    text-transform: uppercase;
+}
+
+.text-l-t {
+    text-decoration: line-through;
+}
+
+.text-u-l {
+    text-decoration: underline;
+}
+
+.text-primary {
+    color: $brand-primary;
+}
+
+.text-white {
+    color: $white;
+}
+
+.text-white-dark {
+    color: $white-dark;
+}
+
+.text-white-light {
+    color: $white-light;
+}
+
+.text-ellipsis {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-shadow {
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
 }

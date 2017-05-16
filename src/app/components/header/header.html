@@ -1,6 +1,22 @@
 <div class="header signin-header clearfix">
-  <section class="logo text-center">
+  <section class="logo text-center" data-ng-if="!$ctrl.isAuthenticated">
     <a ui-sref="index" title="Lambda Functions">
             <img src="../assets/images/logo-white.png"></a>
   </section>
+  <div data-ng-if="$ctrl.isAuthenticated">
+    <nav class="app-right-nav">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="" class="text-2x"> <i class="ion-ios-person-outline"></i> </a>
+        </li>
+        <li class="seprator">
+          <div></div>
+        </li>
+        <li>
+          <a href="">Logout</a>
+        </li>
+      </ul>
+    </nav>
+    <h1 class="text-muted _300">Select App</h1>
+  </div>
 </div>

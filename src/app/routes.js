@@ -10,7 +10,7 @@
  * 
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -22,15 +22,19 @@
     $stateProvider
       .state('index', {
         url: '/',
-        component:'home'
+        component: 'home'
       })
       .state('login', {
         url: '/login',
-        component:'home'
+        component: 'home'
       })
-      .state('dashboard', {
-        url: '/dashboard',
-        component:'dashboard'
+      .state('applications', {
+        url: '/applications',
+        component: 'applications'
+      })
+      .state('applications_details', {
+        url: '/applications/:app_id',
+        component: 'application'
       });
 
     $urlRouterProvider.otherwise('/login');

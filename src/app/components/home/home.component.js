@@ -67,7 +67,7 @@
             Backand
               .socialSignin(provider)
               .then(function (response) {
-                $state.go('dashboard')
+                $state.go('applications')
               }, function (error) {
                 //handle error
                 $log.error(error);

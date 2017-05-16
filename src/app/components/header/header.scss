@@ -1,10 +1,34 @@
 /* Custom page header */
+
 .header {
     margin-bottom: 30px;
     &.signin-header {
         margin-top: 50px;
         @media (min-height: 768px) {
             margin-top: 150px;
+        }
+    }
+    .app-right-nav {
+        li {
+            &.seprator {
+                padding-top: 20px;
+                >div {
+                    display: inline-block;
+                    width: 2px;
+                    height: 20px;
+                    background: $white;
+                }
+            }
+            >a {
+                color: $white-light;
+                //padding: 0;
+                &:hover,
+                &:focus {
+                    background: none;
+                    color: $brand-primary;
+                }
+                line-height: 28px;
+            }
         }
     }
 }

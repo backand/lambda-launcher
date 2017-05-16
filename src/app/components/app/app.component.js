@@ -15,12 +15,12 @@
   angular
     .module('LambdaLauncher')
     .component('app', {
-      template: '<div class="app-content" id="app-content"><div class="container"><app-header></app-header></div><div ui-view></div><div class="container"><app-footer></app-footer></div></div>',
+      template: '<div class="app-content" id="app-content"><div class="container"><app-header data-is-authenticated="$ctrl.isAuthenticated"></app-header></div><div ui-view></div><div class="container"><app-footer></app-footer></div></div>',
       controller: [
         '$log',
         'Backand',
-        '$stateParams',
-        function ($log, Backand, $stateParams) {
+        '$state',
+        function ($log, Backand,  $state) {
           var $ctrl = this;
 
           /**
@@ -43,7 +43,7 @@
             */
           function initialization() {
             $log.info('app component initialized');
-            $log.info('State params' , $stateParams);
+            $ctrl.isAuthenticated = true;
           }
         }]
     });

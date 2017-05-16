@@ -1,6 +1,12 @@
 .page-home {
     .jumbotron {
-        background: $white;
+        &.signIn {
+            background: $white;
+            width: 52em;
+            max-width: 52em;
+            padding: 30px;
+            margin: 10px auto;
+        }
     }
     .social-providers {
         .btn {
@@ -29,7 +35,7 @@
             }
         }
     }
-    .auth-form {
+    .signin-form {
         border-left: 1px solid $gray-light;
         padding-left: 30px;
         .form-group {

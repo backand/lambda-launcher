@@ -1,11 +1,11 @@
 /**
  * @ngdoc Component
- * @name LambdaLauncher.component.header
+ * @name LambdaLauncher.component.applications
  *
  * @module LambdaLauncher
  *
  * @description
- * header component - A application header
+ * applications component - List of applications
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -13,15 +13,13 @@
   'use strict';
   angular
     .module('LambdaLauncher')
-    .component('appHeader', {
-      templateUrl: 'app/components/header/header.html',
-      bindings : {
-        isAuthenticated : '<'
-      },
+    .component('applications', {
+      templateUrl: 'app/components/applications/applications.html',
       controller: [
-        '$log',
         'Backand',
-        function ($log, Backand) {
+        '$log',
+        '$state',
+        function (Backand, $log, $state) {
           var $ctrl = this;
 
           /**
@@ -32,10 +30,11 @@
           /**
            * public methods
            */
-          $ctrl.logout = logout;
+          $ctrl.viewApp = viewApp;
           /**
            * public properties
            */
+
           /**
             * @function
             * @name initialization
@@ -44,14 +43,27 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            $log.info('header component initialized');
+            getItems();
           }
 
-          function logout() {
-            Backand.signout().then(function () {
-              $state.go('login');
+          function viewApp(item){
+            $state.go('applications_details', {app_id : item.id});
+          }
+
+          function getItems() {
+            Backand.object.getList("items", {
+              "pageSize": 20,
+              "pageNumber": 1,
+              "filter": [
+              ],
+              "sort": []
+            }).then(function (response) {
+              $ctrl.items = response.data;
+            }, function (error) {
+              console.log(error);
             });
           }
+
         }]
     })
 })();

@@ -1,30 +1,27 @@
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
-$white : #fff;
-$gray-base:              #000 !default;
-$gray-darker:            lighten($gray-base, 13.5%) !default; // #282828
-$gray-dark:              lighten($gray-base, 20%) !default;   // #404040
-$gray:                   lighten($gray-base, 33.5%) !default; // #616161
-$gray-light:             lighten($gray-base, 80%) !default; // #ccc
-$gray-lighter:           lighten($gray-base, 93.5%) !default; // #eeeeee
-
-$brand-primary:         darken(#f26724, 6.5%) !default; // #337ab7
-$brand-success:         #5cb85c !default;
-$brand-info:            #5bc0de !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #d9534f !default;
-
-$border-color : $gray-lighter;
-
-$font-size:          	  	0.875rem;
-$line-height:			  	1.5;
-
-$font-size-lg:            	1.5rem;
-$font-size-md:              1.125rem;
-$font-size-sm:            	0.80rem;
-$font-size-xs:            	0.75rem;
-
-$spacer:				  		1.125rem;
-$spacer-x:				  		1.125rem;
-$spacer-y:						1.125rem;
+$white: rgba(255, 255, 255, 1);
+$white-dark: rgba(255, 255, 255, 0.87);
+$white-light: #f1f1f1;
+$gray-base : #000 !default;
+$gray-darker : lighten($gray-base, 13.5%) !default; // #282828 
+$gray-dark : lighten($gray-base, 20%) !default; // #404040
+$gray : lighten($gray-base, 33.5%) !default; // #616161
+$gray-light : lighten($gray-base, 80%) !default; // #ccc
+$gray-lighter : lighten($gray-base, 93.5%) !default; // #eeeeee
+$brand-primary : #f26724;
+$brand-success : #5cb85c !default;
+$brand-info : #5bc0de !default;
+$brand-warning : #f0ad4e !default;
+$brand-danger : #d9534f !default;
+$border-color: $gray-lighter;
+$font-size : 0.875rem;
+$line-height : 1.5;
+$font-size-lg : 1.5rem;
+$font-size-md : 1.125rem;
+$font-size-sm : 0.80rem;
+$font-size-xs : 0.75rem;
+$spacer: 1.125rem;
+$spacer-x: 1.125rem;
+$spacer-y: 1.125rem;

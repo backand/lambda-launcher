@@ -1,0 +1,54 @@
+.page-applications {
+    @media (max-width: 768px) {
+        .container {
+            padding: 0;
+            .marketing {
+                padding: 0;
+                .panel {
+                    border-radius: 0;
+                    .media-list {
+                        &.app-list {
+                            padding: 30px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .media-list {
+        &.app-list {
+            margin: 0;
+            >.media {
+                cursor: pointer;
+                margin: 0;
+                @include transition(background-color, 0.3s);
+                border-bottom: 1px solid #d5d4d4;
+                &:last-child {
+                    border: 0 none;
+                }
+                .media-heading {
+                    @extend .text-primary;
+                }
+                &:hover {
+                    background: $brand-primary;
+                    @extend .text-white-dark;
+                    .media-heading {
+                        @extend .text-white-dark;
+                    }
+                    .media-left {
+                        .app-icon {
+                            @extend .text-white-dark;
+                        }
+                    }
+                }
+                .media-left {
+                    padding-right: 20px;
+                    .app-icon {
+                        font-size: 48px;
+                        line-height: 48px;
+                    }
+                }
+            }
+        }
+    }
+}

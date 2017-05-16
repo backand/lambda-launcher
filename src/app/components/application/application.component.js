@@ -1,11 +1,11 @@
 /**
  * @ngdoc Component
- * @name LambdaLauncher.component.home
+ * @name LambdaLauncher.component.application
  *
  * @module LambdaLauncher
  *
  * @description
- * Home component - A application landing page
+ * application component - A single application view
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -13,8 +13,8 @@
   'use strict';
   angular
     .module('LambdaLauncher')
-    .component('dashboard', {
-      templateUrl: 'app/components/dashboard/dashboard.html',
+    .component('application', {
+      templateUrl: 'app/components/application/application.html',
       controller: [
         'Backand',
         '$log',
