@@ -1,13 +1,17 @@
-.app-content {
-    min-height: 100%;
-    overflow: hidden;
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: 0;
-    padding-bottom: 50px;
-    background: #000 url(../assets/images/bg/bg.jpg) no-repeat;
-    background-size: cover;
+.page-app {
+    .app-actions {
+        >a {
+            padding-top: 0;
+            padding-bottom: 0;
+            line-height: 0;
+            font-size: 18px;
+        }
+    }
+    .sep {
+        display: inline-block;
+        width: 1px;
+        height: 10px;
+        background: $gray;
+        margin: 0 3px;
+    }
 }

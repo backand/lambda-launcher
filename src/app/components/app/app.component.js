@@ -5,8 +5,7 @@
  * @module LambdaLauncher
  *
  * @description
- * app component - A application main component
- * renders application layout
+ * app component - A single app view
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -15,12 +14,12 @@
   angular
     .module('LambdaLauncher')
     .component('app', {
-      template: '<div class="app-content" id="app-content"><div class="container"><app-header data-is-authenticated="$ctrl.isAuthenticated"></app-header></div><div ui-view></div><div class="container"><app-footer></app-footer></div></div>',
+      templateUrl: 'app/components/app/app.html',
       controller: [
-        '$log',
         'Backand',
+        '$log',
         '$state',
-        function ($log, Backand,  $state) {
+        function (Backand, $log, $state) {
           var $ctrl = this;
 
           /**
@@ -31,9 +30,11 @@
           /**
            * public methods
            */
+          $ctrl.logout = logout;
           /**
            * public properties
            */
+
           /**
             * @function
             * @name initialization
@@ -42,9 +43,29 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            $log.info('app component initialized');
-            $ctrl.isAuthenticated = true;
+            getItems();
           }
+
+          function logout() {
+            Backand.signout().then(function () {
+              $state.go('login');
+            });
+          }
+
+          function getItems() {
+            Backand.object.getList("items", {
+              "pageSize": 20,
+              "pageNumber": 1,
+              "filter": [
+              ],
+              "sort": []
+            }).then(function (response) {
+              $ctrl.items = response.data;
+            }, function (error) {
+              console.log(error);
+            });
+          }
+
         }]
-    });
+    })
 })();

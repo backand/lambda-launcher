@@ -6,7 +6,7 @@ body {
     /* Space out content a bit */
     padding-top: 20px;
     padding-bottom: 20px;
-    color: $gray-darker;
+    color: $gray;
 }
 
 .browsehappy {
@@ -40,9 +40,19 @@ body {
 
 /* Customize container */
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .container {
-       // max-width: 730px;
+        padding: 0;
+        .marketing,
+        .jumbotron {
+            padding: 0;
+            border-radius: 0;
+            border: 0 none;
+        }
+        .panel {
+            border-radius: 0;
+            border: 0 none;
+        }
     }
 }
 

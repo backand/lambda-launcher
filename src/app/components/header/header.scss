@@ -1,34 +1,70 @@
 /* Custom page header */
 
 .header {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    margin-top: 50px;
+    .navbar-brand {
+        @extend .text-2x;
+        color: $white;
+    }
+    .navbar {
+        margin-bottom: 0;
+        .navbar-header {
+            .navbar-toggle {
+                >i {
+                    color: $white;
+                }
+            }
+        }
+        .nav {
+            >li {
+                >a {
+                    color: $white;
+                    background: none;
+                    position: relative;
+                    @extend .text-lg;
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        width: 1px;
+                        height: 10px;
+                        right: 0;
+                        top: 20px;
+                        background: $white;
+                    }
+                    &:hover,
+                    &:focus {
+                        background: none;
+                        color: $brand-primary;
+                    }
+                }
+                &:last-child {
+                    >a {
+                        &:after {
+                            content: none;
+                        }
+                    }
+                }
+            }
+        }
+        @media (max-height: 768px) {
+            .navbar-header {
+                .navbar-toggle {
+                    margin-top: -6px;
+                }
+            }
+        }
+    }
     &.signin-header {
-        margin-top: 50px;
         @media (min-height: 768px) {
             margin-top: 150px;
         }
     }
-    .app-right-nav {
-        li {
-            &.seprator {
-                padding-top: 20px;
-                >div {
-                    display: inline-block;
-                    width: 2px;
-                    height: 20px;
-                    background: $white;
-                }
-            }
-            >a {
-                color: $white-light;
-                //padding: 0;
-                &:hover,
-                &:focus {
-                    background: none;
-                    color: $brand-primary;
-                }
-                line-height: 28px;
-            }
+    @media (max-height: 768px) {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        .container {
+            padding: 0;
         }
     }
 }

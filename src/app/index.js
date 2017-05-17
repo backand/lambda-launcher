@@ -15,6 +15,7 @@
   angular
     .module('LambdaLauncher', [
       'ngResource',
+      'ngAnimate',
       /**
        * @module backand
        *
@@ -44,7 +45,8 @@
        * A module which is created dynamically during build/serve process. This module has a constant service ENV_CONFIG which serves configurations from .env file.
        * .env file is a ENV specific file
        */
-      'LambdaLauncher.envConfig'
+      'LambdaLauncher.envConfig',
+      'toaster'
       ]);
 
 })();

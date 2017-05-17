@@ -1,11 +1,14 @@
-.page-home {
+.page-signin {
     .jumbotron {
         &.signIn {
             background: $white;
-            width: 52em;
             max-width: 52em;
             padding: 30px;
             margin: 10px auto;
+            text-align: center;
+            h4 {
+                margin-bottom: 30px;
+            }
         }
     }
     .social-providers {
@@ -34,6 +37,15 @@
                 }
             }
         }
+        .provider-icon {
+          display: inline-block;
+          cursor: pointer;
+            img {
+                width: 32px;
+                height: 32px;
+                display: none;
+            }
+        }
     }
     .signin-form {
         border-left: 1px solid $gray-light;
@@ -58,6 +70,37 @@
                 .form-control {
                     font-size: 18px;
                     padding: 30px 10px
+                }
+            }
+            &.signin-btn {
+                margin-top: 40px;
+            }
+        }
+    }
+    @media (max-width: 768px) {
+        .jumbotron {
+            &.signIn {
+                h4 {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        .signin-form {
+            border-left: 0 none;
+            padding-left: 0;
+        }
+        .social-providers {
+            .provider {
+                display: inline-block;
+                margin-right: 20px;
+                .btn {
+                    &.btn-social {
+                        display: none;
+                    }
+                }
+                img {
+                    display: block !important;
                 }
             }
         }

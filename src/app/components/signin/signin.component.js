@@ -1,11 +1,11 @@
 /**
  * @ngdoc Component
- * @name LambdaLauncher.component.home
+ * @name LambdaLauncher.component.signin
  *
  * @module LambdaLauncher
  *
  * @description
- * Home component - A application landing page
+ * signin component - A application landing page
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -13,8 +13,8 @@
   'use strict';
   angular
     .module('LambdaLauncher')
-    .component('home', {
-      templateUrl: 'app/components/home/home.html',
+    .component('signin', {
+      templateUrl: 'app/components/signin/signin.html',
       controller: [
         'Backand',
         '$log',
@@ -67,7 +67,7 @@
             Backand
               .socialSignin(provider)
               .then(function (response) {
-                $state.go('applications')
+                $state.go('dashboard.apps')
               }, function (error) {
                 //handle error
                 $log.error(error);

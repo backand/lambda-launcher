@@ -4,19 +4,25 @@
             <img src="../assets/images/logo-white.png"></a>
   </section>
   <div data-ng-if="$ctrl.isAuthenticated">
-    <nav class="app-right-nav">
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="" class="text-2x"> <i class="ion-ios-person-outline"></i> </a>
-        </li>
-        <li class="seprator">
-          <div></div>
-        </li>
-        <li>
-          <a href="">Logout</a>
-        </li>
-      </ul>
+
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+            aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <i class="ion-person text-2x"></i>
+          </button>
+          <a class="navbar-brand _300" ui-sref="index"><i class="ion-ios-arrow-left m-r-md"></i> My Applications</a>
+        </div>
+        <div id="navbar" class="navbar-collapse navbar-right collapse" aria-expanded="false" style="height: 1px;">
+          <ul class="nav navbar-nav">
+            <li><a href="#"><i class="ion-person"></i></a> </li>
+            <li><a href="#">Log Out</a></li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
     </nav>
-    <h1 class="text-muted _300">Select App</h1>
   </div>
 </div>

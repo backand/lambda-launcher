@@ -1,0 +1,17 @@
+.page-appParams {
+    .panel {
+        background: none;
+        border: 0 none;
+        box-shadow: none;
+        @extend .p-y-md;
+        @extend .p-x-lg;
+        .parametersForm {
+            .form-group {
+                color: $white;
+                .control-label {
+                    text-align: left;
+                }
+            }
+        }
+    }
+}

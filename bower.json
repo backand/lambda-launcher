@@ -3,17 +3,19 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery": "~2.1.4",
-    "angular-resource": "~1.5.3",
+    "angular-resource": "~1.5.x",
     "angular-ui-router": "~0.2.15",
     "bootstrap-sass": "~3.3.5",
     "angular-toastr": "~1.5.0",
     "animate.css": "~3.4.0",
-    "angular": "~1.5.3",
+    "angular": "~1.5.x",
     "ui-router-route-to-components": "^0.1.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "AngularJS-Toaster": "angularjs-toaster#^2.1.0",
+    "angular-animate": "~1.5.x"
   },
   "devDependencies": {
-    "angular-mocks": "~1.5.3"
+    "angular-mocks": "~1.5.x"
   },
   "overrides": {
     "bootstrap-sass": {
@@ -29,6 +31,6 @@
   },
   "resolutions": {
     "jquery": "~2.1.4",
-    "angular": "~1.5.3"
+    "angular": "~1.5.x"
   }
 }

@@ -22,19 +22,28 @@
     $stateProvider
       .state('index', {
         url: '/',
-        component: 'home'
+        component: 'signin'
       })
       .state('login', {
         url: '/login',
-        component: 'home'
+        component: 'signin'
       })
-      .state('applications', {
-        url: '/applications',
-        component: 'applications'
+      .state('dashboard', {
+        absolute: true,
+        url: '/dash',
+        template: '<ui-view></ui-view>'
       })
-      .state('applications_details', {
-        url: '/applications/:app_id',
-        component: 'application'
+      .state('dashboard.apps', {
+        url: '/apps',
+        component: 'apps'
+      })
+      .state('dashboard.app', {
+        url: '/app/:app_id',
+        component: 'app'
+      })
+      .state('dashboard.parmas', {
+        url: 'app/:app_id/params/:param_id',
+        component: 'appParams'
       });
 
     $urlRouterProvider.otherwise('/login');

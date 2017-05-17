@@ -5,11 +5,11 @@ $white: rgba(255, 255, 255, 1);
 $white-dark: rgba(255, 255, 255, 0.87);
 $white-light: #f1f1f1;
 $gray-base : #000 !default;
-$gray-darker : lighten($gray-base, 13.5%) !default; // #282828 
-$gray-dark : lighten($gray-base, 20%) !default; // #404040
-$gray : lighten($gray-base, 33.5%) !default; // #616161
-$gray-light : lighten($gray-base, 80%) !default; // #ccc
-$gray-lighter : lighten($gray-base, 93.5%) !default; // #eeeeee
+$gray-darker : #282828;
+$gray-dark : #404040;
+$gray :  #616161;
+$gray-light : #ccc;
+$gray-lighter :  #eeeeee;
 $brand-primary : #f26724;
 $brand-success : #5cb85c !default;
 $brand-info : #5bc0de !default;
@@ -25,3 +25,5 @@ $font-size-xs : 0.75rem;
 $spacer: 1.125rem;
 $spacer-x: 1.125rem;
 $spacer-y: 1.125rem;
+$border-color-lt : #d5d4d4;
+$border-radius-base : 4px;

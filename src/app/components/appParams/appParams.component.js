@@ -1,11 +1,11 @@
 /**
  * @ngdoc Component
- * @name LambdaLauncher.component.application
+ * @name LambdaLauncher.component.appParams
  *
  * @module LambdaLauncher
  *
  * @description
- * application component - A single application view
+ * appParams component - A component to configure settings of an application
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -13,8 +13,8 @@
   'use strict';
   angular
     .module('LambdaLauncher')
-    .component('application', {
-      templateUrl: 'app/components/application/application.html',
+    .component('appParams', {
+      templateUrl: 'app/components/appParams/appParams.html',
       controller: [
         'Backand',
         '$log',

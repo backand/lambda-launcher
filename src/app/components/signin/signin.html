@@ -1,21 +1,22 @@
-<div class="container page-home">
+<div class="container page-signin">
   <div class="jumbotron signIn">
     <!-- /login page content -->
     <div class="row">
       <div class="col-sm-5">
-        <h4 class="text-left m-b-lg">
+        <h4 class="text-left">
           Sign in With
         </h4>
         <div class="social-providers">
-          <div data-ng-repeat="provider in $ctrl.socialProviders track by $index" class="m-b-md">
+          <div data-ng-repeat="provider in $ctrl.socialProviders track by $index" class="m-b-md provider">
             <button class="btn btn-lg btn-block btn-social" data-ng-disabled="$ctrl.isSigning" type="button" ng-style="{'background-color': provider.css.backgroundColor}"
               ng-click="$ctrl.socialSignin(provider.name)"><i ng-class="'ion-social-' + provider.name"></i>{{provider.label}}</button>
+            <a data-ng-href="" title="{{provider.label}}" ng-click="$ctrl.socialSignin(provider.name)" class="provider-icon"><img ng-src="{{'../assets/images/icons/'+provider.name+'.png'}}" /></a>
           </div>
         </div>
       </div>
       <div class="col-sm-7">
-        <h4 class="text-left m-b-lg">
-          Log In
+        <h4 class="text-left">
+          <span class="hidden-xs">Log In</span><span class="visible-xs">Or</span>
         </h4>
         <div class="signin-form">
           <form class="form-horizontal" name="signinForm" ng-submit="signin.signIn()" novalidate>
@@ -55,7 +56,7 @@
                 </div>
               </div>
 
-              <div class="form-group p-b-lg">
+              <div class="form-group p-b-lg signin-btn">
                 <button type="submit" class="btn btn-lg btn-round btn-primary btn-block text-u-c">login</button>
               </div>
 

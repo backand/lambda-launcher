@@ -1,20 +1,4 @@
-.page-applications {
-    @media (max-width: 768px) {
-        .container {
-            padding: 0;
-            .marketing {
-                padding: 0;
-                .panel {
-                    border-radius: 0;
-                    .media-list {
-                        &.app-list {
-                            padding: 30px 0;
-                        }
-                    }
-                }
-            }
-        }
-    }
+.page-apps {
     .media-list {
         &.app-list {
             margin: 0;

@@ -1,11 +1,11 @@
 /**
  * @ngdoc Component
- * @name LambdaLauncher.component.applications
+ * @name LambdaLauncher.component.apps
  *
  * @module LambdaLauncher
  *
  * @description
- * applications component - List of applications
+ * apps component - List of apps
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -13,8 +13,8 @@
   'use strict';
   angular
     .module('LambdaLauncher')
-    .component('applications', {
-      templateUrl: 'app/components/applications/applications.html',
+    .component('apps', {
+      templateUrl: 'app/components/apps/apps.html',
       controller: [
         'Backand',
         '$log',
@@ -47,7 +47,7 @@
           }
 
           function viewApp(item){
-            $state.go('applications_details', {app_id : item.id});
+            $state.go('dashboard.app', {app_id : item.id});
           }
 
           function getItems() {
