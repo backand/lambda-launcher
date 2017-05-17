@@ -19,15 +19,15 @@
           <span class="hidden-xs">Log In</span><span class="visible-xs">Or</span>
         </h4>
         <div class="signin-form">
-          <form class="form-horizontal" name="signinForm" ng-submit="signin.signIn()" novalidate>
+          <form class="form-horizontal" name="signinForm" ng-submit="$ctrl.signin()" novalidate>
             <fieldset>
               <div class="form-group">
                 <div class="input-group input-group-first">
                   <span class="input-group-addon">
                   <i class="ion-ios-person-outline" aria-hidden="true"></i>
                   </span>
-                  <input type="email" class="form-control input-lg" name="uEmail" placeholder="Username" test-hook="signin.username" ng-model="signin.userName"
-                    ng-model-options="{updateOn: 'blur'}" required="">
+                  <input type="email" class="form-control input-lg" name="uEmail" placeholder="Username" ng-model="$ctrl.user.username" ng-model-options="{updateOn: 'blur'}"
+                    required="">
                 </div>
                 <div class="text-danger ng-hide">
                   This is not a valid email.
@@ -38,8 +38,8 @@
                   <span class="input-group-addon">
                   <i class="ion-ios-locked-outline" aria-hidden="true"></i>
                   </span>
-                  <input type="password" class="form-control input-lg" placeholder="Password" test-hook="signin.password" name="uPassword"
-                    ng-model="signin.userPassword" ng-model-options="{debounce: 500}" required="">
+                  <input type="password" class="form-control input-lg" placeholder="Password" name="uPassword" ng-model="$ctrl.user.password"
+                    ng-model-options="{debounce: 500}" required="">
                 </div>
                 <div class="text-danger ng-hide">
                   This is not a valid Password.
@@ -52,7 +52,7 @@
                   <input type="checkbox"> Remember Me
                 </label>
                 <div class="text-right text-danger  pull-right">
-                  <a href="">Forgot your password?</a>
+                  <a data-ng-href="" data-ng-click="$ctrl.forgotPassword()">Forgot your password?</a>
                 </div>
               </div>
 

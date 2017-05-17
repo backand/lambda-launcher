@@ -1,11 +1,11 @@
 /**
  * @ngdoc Component
- * @name LambdaLauncher.component.layout
+ * @name LambdaLauncher.component.resetPassword
  *
  * @module LambdaLauncher
  *
  * @description
- * layout component - A application main component which render application layout
+ * resetPassword component - A componet to reset password
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -13,14 +13,14 @@
   'use strict';
   angular
     .module('LambdaLauncher')
-    .component('layout', {
-      template: '<toaster-container toaster-options="{\'time-out\': 3000}"></toaster-container><div class="app-content" id="app-content"><div class="container"><app-header data-is-authenticated="$ctrl.isAuthenticated"></app-header></div><div ui-view></div><div class="container"><app-footer></app-footer></div></div>',
+    .component('resetPassword', {
+      templateUrl: 'app/components/forgotPassword/resetPassword.html',
       controller: [
-        '$log',
         'Backand',
+        '$log',
         '$state',
-        'toaster',
-        function ($log, Backand, $state,toaster) {
+        '_',
+        function (Backand, $log, $state, _) {
           var $ctrl = this;
 
           /**
@@ -31,6 +31,7 @@
           /**
            * public methods
            */
+          $ctrl.resetPassword = resetPassword;
           /**
            * public properties
            */
@@ -42,9 +43,21 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            $log.info('app component initialized');
-            $ctrl.isAuthenticated = true;
           }
+
+          function resetPassword() {
+            Backand
+              .resetPassword({
+                newPassword: 'newPassword',
+                resetToken: 'resetToken'
+              })
+              .then(function (response) {
+                $log.info(response);
+              }, function (error) {
+                $log.error(error);
+              });
+          }
+
         }]
     });
 })();

@@ -38,12 +38,11 @@
             }
         }
         .provider-icon {
-          display: inline-block;
-          cursor: pointer;
+            cursor: pointer;
+            display: none;
             img {
                 width: 32px;
                 height: 32px;
-                display: none;
             }
         }
     }
@@ -99,8 +98,8 @@
                         display: none;
                     }
                 }
-                img {
-                    display: block !important;
+                .provider-icon {
+                    display: inline-block !important;
                 }
             }
         }

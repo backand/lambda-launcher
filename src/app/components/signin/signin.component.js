@@ -20,7 +20,8 @@
         '$log',
         '$state',
         '_',
-        function (Backand, $log, $state, _) {
+        '$uibModal',
+        function (Backand, $log, $state, _, $uibModal) {
           var $ctrl = this;
 
           /**
@@ -32,6 +33,8 @@
            * public methods
            */
           $ctrl.socialSignin = socialSignin;
+          $ctrl.signin = signin;
+          $ctrl.forgotPassword = forgotPassword;
           /**
            * public properties
            */
@@ -73,6 +76,25 @@
                 $log.error(error);
                 $ctrl.isSigning = false;
               });
+          }
+
+          function signin() {
+            Backand
+              .signin($ctrl.user)
+              .then(function (response) {
+                $log.info(response);
+              }, function (error) {
+                $log.error(error);
+              });
+          }
+
+          function forgotPassword() {
+            $uibModal.open({
+              component: 'requestResetPassword',
+              backdrop: 'static',
+              resolve: {
+              }
+            });
           }
 
         }]

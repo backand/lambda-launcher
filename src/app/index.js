@@ -46,7 +46,8 @@
        * .env file is a ENV specific file
        */
       'LambdaLauncher.envConfig',
-      'toaster'
+      'toaster',
+      'ui.bootstrap'
       ]);
 
 })();
