@@ -17,8 +17,12 @@
       templateUrl: 'app/components/appParams/appParams.html',
       controller: [
         '$log',
-        function ($log) {
-          var $ctrl = this;
+        '$stateParams',
+        'Lambda',
+        '$state',
+        function ($log, $stateParams, Lambda, $state) {
+          var $ctrl = this, function_id;
+          function_id = $stateParams.function_id;
 
           /**
            * component's lifeCycle hooks
@@ -28,6 +32,7 @@
           /**
            * public methods
            */
+          $ctrl.updateParameters = updateParameters;
           /**
            * public properties
            */
@@ -40,11 +45,28 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            getFunctions();
+            if (!function_id) {
+              throw Error('function_id not found');
+            }
+            getFunctionParameters(function_id);
           }
 
-          function getFunctions() {
+          function getFunctionParameters(function_id) {
+            Lambda
+              .getParameters(function_id)
+              .then(function (parameters) {
+                $ctrl.parameters = parameters;
+              });
+          }
 
+          function updateParameters() {
+            var params = angular.copy($ctrl.parameters);
+            Lambda
+              .saveParameters(function_id, params)
+              .then(function () {
+                $log.info('Parameters updated.');
+                $state.go('dashboard.appFunctions');
+              });
           }
 
         }]

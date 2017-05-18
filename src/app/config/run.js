@@ -17,7 +17,7 @@
     .run(run);
   /** @ngInject */
   function run(Auth, $rootScope, App) {
-    //unregister underscore lib from window. underscore '_' is available as dependency
+    //unregister lodadh lib from window. lodadh '_' is available as dependency
     window._ = undefined;
 
     //authenticate route before state transition

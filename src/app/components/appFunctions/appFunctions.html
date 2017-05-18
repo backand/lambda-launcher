@@ -7,8 +7,8 @@
             <li class="list-item" data-ng-repeat="function in $ctrl.functions track by $index">
               <div class="list-body">
                 <div class="pull-right app-actions" data-ng-if="function.inputParameters !== ''">
-                  <a href="" class="btn btn-xs" data-ui-sref="dashboard.parmas({app_id : 323, param_id : 57345})"><i class="ion-gear-b"></i></a>
-                  <a href="" class="btn btn-xs" data-ui-sref="dashboard.parmas({app_id : 323, param_id : 57345})"><i class="ion-play"></i></a>
+                  <a href="" class="btn btn-xs" data-ui-sref="dashboard.parameters({function_id : function.iD})"><i class="ion-gear-b"></i></a>
+                  <a href="" class="btn btn-xs" data-ui-sref="dashboard.parameters({function_id : function.iD})"><i class="ion-play"></i></a>
                 </div>
                 <div>
                   <div class="text-lg m-b-0">

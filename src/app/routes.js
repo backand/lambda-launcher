@@ -51,8 +51,8 @@
           title: 'Functions'
         },
       })
-      .state('dashboard.parmas', {
-        url: 'app/:app_id/params/:param_id',
+      .state('dashboard.parameters', {
+        url: '/functions/:function_id/parameters',
         component: 'appParams',
         data: {
           requiresLogin: true,

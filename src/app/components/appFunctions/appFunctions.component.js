@@ -19,7 +19,8 @@
         'Lambda',
         '$log',
         '$state',
-        function (Lambda, $log, $state) {
+        '_',
+        function (Lambda, $log, $state, _) {
           var $ctrl = this;
 
           /**
@@ -41,7 +42,7 @@
             * A component's lifeCycle hook which is called after all the controllers on an element have
             * been constructed and had their bindings initialized
             */
-           function initialization() {
+          function initialization() {
             getFunctions();
           }
 
@@ -59,15 +60,41 @@
             Lambda
               .getFunctions(params)
               .then(function (data) {
-                $ctrl.functions = data ? data.data : [];
+                functionsHandler(data);
               }).catch(function (data) {
                 console.error(data);
               });
           }
 
+          function functionsHandler(data) {
+            var functions = data ? data.data : [];
+            $ctrl.functions = functions;
+            if (functions.length > 0) {
+              updateFunctionParameters(functions);
+            }
+          }
+
+          function updateFunctionParameters(functions) {
+            _.forEach(functions, function (f) {
+              $log.info('function', f);
+              if (!_.isEmpty(f.inputParameters)) {
+                var params = _.split(f.inputParameters, ',');
+                $log.info('inputParameters', f);
+                params = _.map(params, function (p) {
+                  return {
+                    name: p,
+                    value: '',
+                    key: _.camelCase(p)
+                  }
+                });
+                Lambda
+                  .saveParameters(f.iD, params);
+              }
+            });
+          }
 
 
-
+          //end of controller
         }]
-    })
+    });
 })();
