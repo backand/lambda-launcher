@@ -6,7 +6,7 @@
           <ul class="list inset">
             <li class="list-item" data-ng-repeat="function in $ctrl.functions track by $index">
               <div class="list-body">
-                <div class="pull-right app-actions">
+                <div class="pull-right app-actions" data-ng-if="function.inputParameters !== ''">
                   <a href="" class="btn btn-xs" data-ui-sref="dashboard.parmas({app_id : 323, param_id : 57345})"><i class="ion-gear-b"></i></a>
                   <a href="" class="btn btn-xs" data-ui-sref="dashboard.parmas({app_id : 323, param_id : 57345})"><i class="ion-play"></i></a>
                 </div>
