@@ -17,9 +17,6 @@
   angular
     .module('LambdaLauncher')
     .constant('APP_CONFIG', {})
-    .constant('_', window._)
-    .run([function () {
-      window._ = undefined;
-    }]);
+    .constant('_', window._);
 
 })();

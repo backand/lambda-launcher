@@ -19,7 +19,9 @@
         'Backand',
         '$log',
         '$state',
-        function (Backand, $log, $state) {
+        '$http',
+        '$localStorage',
+        function (Backand, $log, $state, $http,$localStorage) {
           var $ctrl = this;
 
           /**
@@ -44,10 +46,12 @@
             */
           function initialization() {
             getItems();
+
+            console.log($localStorage.counter, $localStorage.Authorization);
           }
 
-          function viewApp(item){
-            $state.go('dashboard.app', {app_id : item.id});
+          function viewApp(item) {
+            $state.go('dashboard.app', { app_id: item.id });
           }
 
           function getItems() {

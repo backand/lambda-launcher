@@ -1,0 +1,58 @@
+ .social-providers {
+     .btn {
+         &.btn-social {
+             padding: 12px 12px 12px 64px;
+             font-size: 18px;
+             font-weight: 600;
+             border-color: rgba(0, 0, 0, .2);
+             color: $white;
+             position: relative;
+             text-align: left;
+             white-space: nowrap;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             @extend .text-c-c;
+             i {
+                 padding: 5px;
+                 width: 50px;
+                 position: absolute;
+                 left: 0;
+                 top: 0;
+                 bottom: 0;
+                 font-size: 1.6em;
+                 text-align: center;
+                 border-right: 1px solid rgba(0, 0, 0, .2);
+             }
+             &.btn-github {
+                 color: #fff;
+                 background-color: #444;
+                 border-color: rgba(0, 0, 0, .2);
+             }
+             &.btn-google-plus,
+             &.btn-gplus,
+             &.btn-google {
+                 color: #fff;
+                 background-color: #dd4a38;
+                 border-color: #dd4a38;
+             }
+             &.btn-facebook {
+                 color: #fff;
+                 background-color: #3b5998;
+                 border-color: rgba(0, 0, 0, .2);
+             }
+             &.btn-twitter {
+                 color: #fff;
+                 background-color: #55acee;
+                 border-color: rgba(0, 0, 0, .2);
+             }
+         }
+     }
+     .provider-icon {
+         cursor: pointer;
+         display: none;
+         img {
+             width: 32px;
+             height: 32px;
+         }
+     }
+ }

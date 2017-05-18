@@ -20,30 +20,44 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('index', {
-        url: '/',
-        component: 'signin'
-      })
       .state('login', {
         url: '/login',
-        component: 'signin'
+        component: 'signin',
+        data: {
+          title: 'Login'
+        }
       })
       .state('dashboard', {
         absolute: true,
         url: '/dash',
+        data: {
+          requiresLogin: true
+        },
         template: '<ui-view></ui-view>'
       })
       .state('dashboard.apps', {
         url: '/apps',
+        data: {
+          requiresLogin: true,
+          title: 'My Applications'
+        },
         component: 'apps'
       })
-      .state('dashboard.app', {
-        url: '/app/:app_id',
-        component: 'app'
+      .state('dashboard.appFunctions', {
+        url: '/app-functions/:app_id',
+        component: 'appFunctions',
+        data: {
+          requiresLogin: true,
+          title: 'Functions'
+        },
       })
       .state('dashboard.parmas', {
         url: 'app/:app_id/params/:param_id',
-        component: 'appParams'
+        component: 'appParams',
+        data: {
+          requiresLogin: true,
+          title: 'Parameters'
+        }
       });
 
     $urlRouterProvider.otherwise('/login');

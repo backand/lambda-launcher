@@ -14,13 +14,14 @@
   angular
     .module('LambdaLauncher')
     .component('layout', {
-      template: '<toaster-container toaster-options="{\'time-out\': 3000}"></toaster-container><div class="app-content" id="app-content"><div class="container"><app-header data-is-authenticated="$ctrl.isAuthenticated"></app-header></div><div ui-view></div><div class="container"><app-footer></app-footer></div></div>',
+      template: '<toaster-container toaster-options="{\'time-out\': 3000}"></toaster-container><div class="app-content" id="app-content"><div class="container"><app-header data-is-authenticated="$ctrl.isAuthenticated()"></app-header></div><div ui-view></div><div class="container"><app-footer></app-footer></div></div>',
       controller: [
         '$log',
         'Backand',
         '$state',
         'toaster',
-        function ($log, Backand, $state,toaster) {
+        'Auth',
+        function ($log, Backand, $state,toaster,Auth) {
           var $ctrl = this;
 
           /**
@@ -43,7 +44,9 @@
             */
           function initialization() {
             $log.info('app component initialized');
-            $ctrl.isAuthenticated = true;
+            
+            $ctrl.isAuthenticated = Auth.isAuthenticated;
+            
           }
         }]
     });

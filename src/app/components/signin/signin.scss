@@ -11,41 +11,6 @@
             }
         }
     }
-    .social-providers {
-        .btn {
-            &.btn-social {
-                padding: 12px 12px 12px 64px;
-                font-size: 18px;
-                font-weight: 600;
-                border-color: rgba(0, 0, 0, .2);
-                color: $white;
-                position: relative;
-                text-align: left;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                i {
-                    padding: 5px;
-                    width: 50px;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    bottom: 0;
-                    font-size: 1.6em;
-                    text-align: center;
-                    border-right: 1px solid rgba(0, 0, 0, .2);
-                }
-            }
-        }
-        .provider-icon {
-            cursor: pointer;
-            display: none;
-            img {
-                width: 32px;
-                height: 32px;
-            }
-        }
-    }
     .signin-form {
         border-left: 1px solid $gray-light;
         padding-left: 30px;

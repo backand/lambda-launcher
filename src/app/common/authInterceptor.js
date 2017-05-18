@@ -15,9 +15,22 @@
     .module('LambdaLauncher')
     .factory('authInterceptor', authInterceptor);
   /** @ngInject */
-  function authInterceptor($q, $location, Backand, toaster) {
+  function authInterceptor($q, Backand, $localStorage, $injector) {
 
     return {
+      request: function (request) {
+        if (request.url.substr(request.url.length - 5) == '.html') {
+          return request;
+        }
+        if (request.skipAuthorization) {
+          return request;
+        }
+        if (request.headers['Authorization']) {
+          return request;
+        }
+        request.headers['Authorization'] = 'Bearer ' + $localStorage.Authorization;
+        return request;
+      },
       requestError: function (rejection) {
         return $q.reject(rejection);
       },
@@ -25,17 +38,14 @@
         return response;
       },
       responseError: function (rejection) {
-        if ((rejection.config.url + "").indexOf('token') === -1) {
-          // When using refresh token, on 401 responses
-          // Backand SDK manages refreshing the session and re-sending the requests
-          if (rejection.status === 401 && !Backand.isManagingRefreshToken()) {
-            var errorMessage =
-              Backand.getUsername() ?
-                'The session has expired, please sign in again.' :
-                null;
-            toaster.pop('error', "Session Expired", errorMessage);
-            $location.path('/login');
-          }
+        var envConstants = $injector.get('ENV_CONFIG');
+        if (rejection.status === 401 && !Backand.isManagingRefreshToken()) {
+          var errorMessage =
+            Backand.getUsername() ?
+              'The session has expired, please sign in again.' :
+              null;
+          $injector.get('$state').go(envConstants.ROUTE_LOGIN_STATE, { error: errorMessage }, { reload: true });
+          $injector.get('Auth').logout();
         }
         return $q.reject(rejection);
       }

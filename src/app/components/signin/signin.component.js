@@ -16,12 +16,12 @@
     .component('signin', {
       templateUrl: 'app/components/signin/signin.html',
       controller: [
-        'Backand',
         '$log',
         '$state',
-        '_',
         '$uibModal',
-        function (Backand, $log, $state, _, $uibModal) {
+        'Auth',
+        'ENV_CONFIG',
+        function ($log, $state, $uibModal, Auth, ENV_CONFIG) {
           var $ctrl = this;
 
           /**
@@ -51,13 +51,10 @@
           }
 
           function getSocialProviders() {
-            Backand
+            Auth
               .getSocialProviders()
               .then(function (response) {
-                $ctrl.socialProviders = _.map(response, function (o, k) {
-                  console.log(o);
-                  return o;
-                });
+                $ctrl.socialProviders = response;
                 $log.log('Social Provider collection', response);
               }, function (error) {
                 //handle error
@@ -67,10 +64,10 @@
 
           function socialSignin(provider) {
             $ctrl.isSigning = true;
-            Backand
+            Auth
               .socialSignin(provider)
               .then(function (response) {
-                $state.go('dashboard.apps')
+                $state.go(ENV_CONFIG.ROUTE_HOME_STATE);
               }, function (error) {
                 //handle error
                 $log.error(error);
@@ -79,7 +76,7 @@
           }
 
           function signin() {
-            Backand
+            Auth
               .signin($ctrl.user)
               .then(function (response) {
                 $log.info(response);

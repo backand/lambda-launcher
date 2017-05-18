@@ -20,8 +20,9 @@
       },
       controller: [
         '$log',
-        'Backand',
-        function ($log, Backand) {
+        'Auth',
+        'App',
+        function ($log, Auth, App) {
           var $ctrl = this;
 
           /**
@@ -45,12 +46,12 @@
             */
           function initialization() {
             $log.info('header component initialized');
+            $ctrl.App = App;
           }
 
           function logout() {
-            Backand.signout().then(function () {
-              $state.go('login');
-            });
+            console.log('logout');
+            Auth.logout();
           }
         }]
     })
