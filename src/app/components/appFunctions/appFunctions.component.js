@@ -31,6 +31,7 @@
           /**
            * public methods
            */
+          $ctrl.runFunction = runFunction;
           /**
            * public properties
            */
@@ -62,7 +63,7 @@
               .then(function (data) {
                 functionsHandler(data);
               }).catch(function (data) {
-                console.error(data);
+                $log.error(data);
               });
           }
 
@@ -91,6 +92,32 @@
                   .saveParameters(f.iD, params);
               }
             });
+          }
+
+          function runFunction(func) {
+            Lambda
+              .getParameters(func.iD)
+              .then(function (parameters) {
+                if (containsEmptyValue(parameters)) {
+                  $state.go('dashboard.parameters', { function_id: func.iD });
+                  return;
+                }
+                var params = {};
+                _.forEach(parameters, function (p) {
+                  params[p.name] = p.value;
+                });
+                Lambda
+                  .runFunction(func.name, params)
+                  .then(function (response) {
+                    $log.info('Function run successful', response);
+                  }, function (error) {
+                    $log.error('Function run error', error);
+                  });
+              });
+          }
+
+          function containsEmptyValue(params) {
+            return _.every(params, ['value', '']);
           }
 
 

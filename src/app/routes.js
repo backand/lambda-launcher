@@ -49,7 +49,7 @@
         data: {
           requiresLogin: true,
           title: 'Functions'
-        },
+        }
       })
       .state('dashboard.parameters', {
         url: '/functions/:function_id/parameters',

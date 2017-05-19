@@ -1,9 +1,9 @@
 <div class="header signin-header clearfix">
-  <section class="logo text-center" data-ng-if="!$ctrl.isAuthenticated">
+  <section class="logo text-center" data-ng-if="!$ctrl.App.isLoginRequired">
     <a ui-sref="index" title="Lambda Functions">
             <img src="../assets/images/logo-white.png"></a>
   </section>
-  <div data-ng-if="$ctrl.isAuthenticated">
+  <div data-ng-if="$ctrl.App.isLoginRequired && $ctrl.App.isAuthenticated">
     <nav class="navbar">
       <div class="container">
         <div class="navbar-header">

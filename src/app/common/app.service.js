@@ -14,9 +14,12 @@
   'use strict';
 
   angular
-   .module('LambdaLauncher')
-    .service('App', [function () {
-      var self = this;
-    }]);
+    .module('LambdaLauncher')
+    .service('App', AppService);
+  /** @ngInject */
+  function AppService() {
+    var self = this;
+    self.pageTitle = '';
+  }
 
 })();

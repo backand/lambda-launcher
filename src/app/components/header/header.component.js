@@ -15,14 +15,16 @@
     .module('LambdaLauncher')
     .component('appHeader', {
       templateUrl: 'app/components/header/header.html',
-      bindings : {
-        isAuthenticated : '<'
+      bindings: {
+        isAuthenticated: '<'
       },
       controller: [
         '$log',
         'Auth',
         'App',
-        function ($log, Auth, App) {
+        'ENV_CONFIG',
+        '$state',
+        function ($log, Auth, App, ENV_CONFIG,$state) {
           var $ctrl = this;
 
           /**
@@ -50,8 +52,10 @@
           }
 
           function logout() {
-            console.log('logout');
-            Auth.logout();
+            Auth.logout().then(function () {
+              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE);
+            });
+            $log.info('logout called');
           }
         }]
     })

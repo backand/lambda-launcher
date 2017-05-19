@@ -57,6 +57,7 @@
               .requestResetPassword($ctrl.user)
               .then(function (response) {
                 $log.info(response);
+                closeModal();
               }, function (error) {
                 $log.error(error);
                 toaster.pop('error', "Error", error.data);

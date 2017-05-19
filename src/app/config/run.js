@@ -22,11 +22,12 @@
 
     //authenticate route before state transition
     Auth.AutherizeRoutes();
-    $rootScope.$on('$stateChangeStart', function (event, to, toParams) {
+    var unregisterListner = $rootScope.$on('$stateChangeStart', function (event, to) {
       var data = (to.$$route) ? to.$$route : to.data;
-      if (data.title) {
-        App.pageTitle = data.title;
-      }
+      App.isLoginRequired = data.requiresLogin;
+      App.pageTitle = data.title;
     });
+
+    $rootScope.$on('$destroy', unregisterListner);
   }
 })();

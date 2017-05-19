@@ -15,16 +15,8 @@
 
   angular
     .module('LambdaLauncher')
-    .config(config)
-    .run(['Auth', '$rootScope', 'ENV_CONFIG','App', function (Auth, $rootScope, ENV_CONFIG, App) {
-      Auth.AutherizeRoutes();
-      $rootScope.$on('$stateChangeStart', function (event, to, toParams) {
-        var data  = (to.$$route) ? to.$$route : to.data;
-        if (data.title) {
-          App.pageTitle = data.title;
-        }
-      });
-    }]);
+    .config(config);
+    
   /** @ngInject */
   function config($logProvider, BackandProvider, ENV_CONFIG, $httpProvider) {
     // Enable log

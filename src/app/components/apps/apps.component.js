@@ -47,7 +47,7 @@
           function initialization() {
             getItems();
 
-            console.log($localStorage.counter, $localStorage.Authorization);
+            $log.log($localStorage.counter, $localStorage.Authorization);
           }
 
           function viewApp(item) {
@@ -64,7 +64,7 @@
             }).then(function (response) {
               $ctrl.items = response.data;
             }, function (error) {
-              console.log(error);
+              $log.log(error);
             });
           }
 

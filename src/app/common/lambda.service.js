@@ -14,13 +14,9 @@
 
   angular
     .module('LambdaLauncher')
-    .service('Lambda', [
-      'Backand',
-      '$q',
-      '$localStorage',
-      '_',
-      '$timeout',
-      function (Backand, $q, $localStorage, _, $timeout) {
+    .service('Lambda', LambdaService);
+     /** @ngInject */
+    function LambdaService(Backand, $q, $localStorage, _, $timeout) {
         var self = this;
 
         self.getFunctions = function (params) {
@@ -38,6 +34,27 @@
           return deffered.promise;
         };
 
+        self.runFunction = function (action, data, params) {
+          var deffered = $q.defer();
+          if (!_.isString(action) && _.isEmpty(action)) {
+            throw Error('Invalid action');
+          }
+          data = data || {};
+          params = params || {};
+
+          Backand.invoke({
+            method: 'GET',
+            url: '/1/function/general/' + action + '?parameters=' + angular.toJson(data),
+            params: params
+          }).then(function (response) {
+            deffered.resolve(response.data);
+          }).catch(function (error) {
+            deffered.reject(error);
+          });
+
+          return deffered.promise;
+        }
+
         self.getParameters = function (function_id) {
           var deffered = $q.defer(), parameters;
           if (function_id) {
@@ -52,15 +69,14 @@
         };
 
         self.saveParameters = function (fId, params) {
-          var deffered = $q.defer(), parameters;
+          var deffered = $q.defer();
           if (!fId || _.isEmpty(params)) {
             throw Error('fId and params are required to store function parameters');
           }
           self.getParameters()
             .then(function (parameters) {
               parameters = parameters || {};
-              var pIdx,
-                fParams = parameters[fId];
+              var  fParams = parameters[fId];
               if (!_.isArray(fParams)) {
                 fParams = [];
               }
@@ -69,7 +85,7 @@
                   storeParameter(fParams, p);
                 })
               } else {
-                storeParameter(fParams, param);;
+                storeParameter(fParams, params);
               }
               parameters[fId] = fParams;
               $localStorage.parameters = parameters;
@@ -102,5 +118,5 @@
         };
 
         //end of service  
-      }]);
+      }
 })();

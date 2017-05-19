@@ -66,7 +66,7 @@
             $ctrl.isSigning = true;
             Auth
               .socialSignin(provider)
-              .then(function (response) {
+              .then(function () {
                 $state.go(ENV_CONFIG.ROUTE_HOME_STATE);
               }, function (error) {
                 //handle error

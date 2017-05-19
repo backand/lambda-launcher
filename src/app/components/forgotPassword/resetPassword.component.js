@@ -18,9 +18,7 @@
       controller: [
         'Backand',
         '$log',
-        '$state',
-        '_',
-        function (Backand, $log, $state, _) {
+        function (Backand, $log) {
           var $ctrl = this;
 
           /**
