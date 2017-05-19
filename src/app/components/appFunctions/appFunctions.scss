@@ -14,4 +14,28 @@
         background: $gray;
         margin: 0 3px;
     }
+    .list {
+        &.functions {
+            .function-item {
+                a {
+                    cursor: pointer;
+                }
+                .function-title,
+                .function-meta {
+                    display: inline-block;
+                }
+                @media (max-width: 768px) {
+                    .function-meta {
+                        display: block;
+                        clear: both;
+                    }
+                    .sep {
+                        &:first-child {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

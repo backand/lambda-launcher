@@ -20,7 +20,8 @@
         '$log',
         '$state',
         '_',
-        function (Lambda, $log, $state, _) {
+        'toaster',
+        function (Lambda, $log, $state, _, toaster) {
           var $ctrl = this;
 
           /**
@@ -44,6 +45,7 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
+            getAllRuns();
             getFunctions();
           }
 
@@ -95,11 +97,12 @@
           }
 
           function runFunction(func) {
+            var funcId = func.iD;
             Lambda
-              .getParameters(func.iD)
+              .getParameters(funcId)
               .then(function (parameters) {
                 if (containsEmptyValue(parameters)) {
-                  $state.go('dashboard.parameters', { function_id: func.iD });
+                  $state.go('dashboard.parameters', { function_id: funcId });
                   return;
                 }
                 var params = {};
@@ -109,8 +112,11 @@
                 Lambda
                   .runFunction(func.name, params)
                   .then(function (response) {
+                    saveRun(funcId, response);
+                    toaster.success('Success', 'Function has been executed successfully.');
                     $log.info('Function run successful', response);
                   }, function (error) {
+                    toaster.error('Error', 'Error occured while executing function.');
                     $log.error('Function run error', error);
                   });
               });
@@ -118,6 +124,22 @@
 
           function containsEmptyValue(params) {
             return _.every(params, ['value', '']);
+          }
+
+          function getAllRuns() {
+            Lambda
+              .getRuns()
+              .then(function (runs) {
+                $ctrl.fuctionRuns = angular.copy(runs);
+              });
+          }
+
+          function saveRun(funcId, resultSet) {
+            $log.info(resultSet);
+            var runInstance = angular.copy(resultSet);
+            runInstance.executionTime = _.now();
+            Lambda.saveRun(funcId, runInstance);
+            getAllRuns();
           }
 
 

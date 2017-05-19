@@ -3,21 +3,33 @@
     <div class="row marketing">
       <div class="col-lg-12">
         <div class="panel panel-default">
-          <ul class="list inset">
-            <li class="list-item" data-ng-repeat="function in $ctrl.functions track by $index">
+          <ul class="list inset functions">
+            <li class="list-item function-item" data-ng-repeat="function in $ctrl.functions track by $index">
               <div class="list-body">
+                <!-- /function actions -->
                 <div class="pull-right app-actions" data-ng-if="function.inputParameters !== ''">
                   <a href="" class="btn btn-xs" data-ui-sref="dashboard.parameters({function_id : function.iD})"><i class="ion-gear-b"></i></a>
                   <a href="" class="btn btn-xs" data-ng-click="$ctrl.runFunction(function);"><i class="ion-play"></i></a>
                 </div>
-                <div>
-                  <div class="text-lg m-b-0">
-                    <span data-ng-bind="function.name"></span>
-                    <span class="sep"></span>
-                    <span class="_300">Last run: 14/3/2017</span>
-                    <span class="sep"></span>
-                    <span class="_300">9:25AM</span>
-                  </div>
+                <!-- ./function actions -->
+                <!-- /function title -->
+                <div class="text-lg m-b-0 function-title">
+                  <span data-ng-bind="function.name" class="_600"></span>
+                </div>
+                <!-- ./function title -->
+                <!-- /function meta -->
+                <div class="m-t-sm function-meta" data-ng-if="$ctrl.fuctionRuns[function.iD]">
+                  <span class="sep"></span>
+                  <span>
+                    <a class="text-success" data-ng-class="{'text-danger' : $ctrl.fuctionRuns[function.iD]['StatusCode'] != 200}" data-ng-click="function.isShowResult = !function.isShowResult" data-ng-href="" title="Show run result">Last run </a>: <span class="_300">{{ $ctrl.fuctionRuns[function.iD]['executionTime'] | date : 'MM/dd/yyyy'}}</span>
+                  </span>
+                  <span class="sep"></span>
+                  <span class="_300">{{ $ctrl.fuctionRuns[function.iD]['executionTime'] | date : 'h:mma'}}</span>
+                </div>
+                <!-- ./function meta -->
+                <div class="m-y-sm clearfix" data-ng-if="function.isShowResult">
+                  <span class="label label-success" data-ng-class="{'label-danger' : $ctrl.fuctionRuns[function.iD]['StatusCode'] != 200}">Status Code : {{$ctrl.fuctionRuns[function.iD]['StatusCode']}}</span>
+                  <p class="m-b-0" data-ng-bind="$ctrl.fuctionRuns[function.iD]['Payload']"></p>
                 </div>
               </div>
             </li>

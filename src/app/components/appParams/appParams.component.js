@@ -20,7 +20,8 @@
         '$stateParams',
         'Lambda',
         '$state',
-        function ($log, $stateParams, Lambda, $state) {
+        'toaster',
+        function ($log, $stateParams, Lambda, $state, toaster) {
           var $ctrl = this, function_id;
           function_id = $stateParams.function_id;
 
@@ -64,8 +65,9 @@
             Lambda
               .saveParameters(function_id, params)
               .then(function () {
-                $log.info('Parameters updated.');
+                toaster.success('Success', 'Parameters have been updated successfully.');
                 $state.go('dashboard.appFunctions');
+                $log.info('Parameters updated.');
               });
           }
 
