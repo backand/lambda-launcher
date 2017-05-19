@@ -82,3 +82,9 @@
 .p-l-xs { padding-left:   ($spacer-y * 0.25) !important; }
 .p-x-xs { padding-right:  ($spacer-x * 0.25) !important; padding-left:   ($spacer-x * 0.25) !important; }
 .p-y-xs { padding-top:    ($spacer-y * 0.25) !important; padding-bottom: ($spacer-y * 0.25) !important; }
+.p-x-0{ padding-left: 0; padding-right: 0;}
+.p-y-0{ padding-top: 0; padding-bottom: 0;}
+.p-t-0{ padding-top: 0;}
+.p-b-0{ padding-bottom: 0;}
+.p-l-0{ padding-left: 0; }
+.p-r-0{ padding-right: 0;}

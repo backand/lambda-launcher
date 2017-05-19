@@ -24,7 +24,7 @@
         'App',
         'ENV_CONFIG',
         '$state',
-        function ($log, Auth, App, ENV_CONFIG,$state) {
+        function ($log, Auth, App, ENV_CONFIG, $state) {
           var $ctrl = this;
 
           /**
@@ -36,6 +36,7 @@
            * public methods
            */
           $ctrl.logout = logout;
+          $ctrl.back = back;
           /**
            * public properties
            */
@@ -57,6 +58,22 @@
             });
             $log.info('logout called');
           }
+
+          function back() {
+            $log.info(App.lastState);
+            var to, toParams = {};
+            to = App.lastState.from;
+            toParams = App.lastState.fromParams;
+            if (to.name === '') {
+              to = 'dashboard.appFunctions';
+              toParams = {};
+            } else if (to.name === ENV_CONFIG.ROUTE_LOGIN_STATE && App.isAuthenticated) {
+              return;
+            }
+            $state.go(to, toParams);
+          }
+
+          //end of controller
         }]
     })
 })();

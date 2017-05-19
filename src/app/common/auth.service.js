@@ -64,10 +64,10 @@
 
     self.logout = function () {
       var deffered = $q.defer();
+      delete $http.defaults.headers.common['Authorization'];
+      delete $localStorage.Authorization;
+      self.setAuthenticate(false);
       Backand.signout().then(function (response) {
-        delete $http.defaults.headers.common['Authorization'];
-        delete $localStorage.Authorization;
-        self.setAuthenticate(false);
         deffered.resolve(response.data);
       }, function (error) {
         deffered.reject(error);
@@ -110,6 +110,9 @@
         if (from.url === '^' && to.name === ROUTE_LOGIN_STATE && token) {
           event.preventDefault();
           $state.go(ROUTE_HOME_STATE);
+        } else if (to.name === ROUTE_LOGIN_STATE && token) {
+          event.preventDefault();
+          $state.transitionTo(ROUTE_HOME_STATE, { reload: true });
         }
       }
     }

@@ -4,9 +4,9 @@
       <div class="col-lg-12">
         <div class="panel panel-default">
           <form class="form-horizontal parametersForm" data-ng-submit="$ctrl.updateParameters()">
-            <div class="form-group" data-ng-repeat="param in $ctrl.parameters track by $index">
-              <label for="id_{{::param.name}}" class="col-sm-2 control-label" data-ng-bind="param.name"></label>
-              <div class="col-sm-10">
+            <div class="form-group row" data-ng-repeat="param in $ctrl.parameters track by $index">
+              <label for="id_{{::param.name}}" class="col-sm-2 control-label col-xs-4" data-ng-bind="param.name"></label>
+              <div class="col-sm-10 col-xs-8">
                 <input type="text" class="form-control" id="id_{{::param.name}}" data-ng-model="param.value" placeholder="Type here">
               </div>
             </div>

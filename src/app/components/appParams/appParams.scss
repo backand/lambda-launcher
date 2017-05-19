@@ -5,6 +5,11 @@
         box-shadow: none;
         @extend .p-y-md;
         @extend .p-x-lg;
+
+        @media (max-width: 768px) {
+          padding-left:15px !important;
+          padding-right:15px !important;
+        }
         .parametersForm {
             .form-group {
                 color: $white;

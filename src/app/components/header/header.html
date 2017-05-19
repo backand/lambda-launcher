@@ -1,9 +1,9 @@
 <div class="header signin-header clearfix">
-  <section class="logo text-center" data-ng-if="!$ctrl.App.isLoginRequired">
+  <section class="logo text-center" data-ng-if="!$ctrl.App.isAuthenticated">
     <a ui-sref="index" title="Lambda Functions">
             <img src="../assets/images/logo-white.png"></a>
   </section>
-  <div data-ng-if="$ctrl.App.isLoginRequired && $ctrl.App.isAuthenticated">
+  <div data-ng-if="$ctrl.App.isAuthenticated">
     <nav class="navbar">
       <div class="container">
         <div class="navbar-header">
@@ -12,7 +12,7 @@
             <span class="sr-only">Toggle navigation</span>
             <i class="ion-person text-2x"></i>
           </button>
-          <a class="navbar-brand _300" ui-sref="index"><i class="ion-ios-arrow-left m-r-md"></i> <span data-ng-bind="$ctrl.App.pageTitle"></span></a>
+          <span class="navbar-brand _300 text-left"><a data-ng-click="$ctrl.back()" data-ng-href="" class="text-white"><i class="ion-ios-arrow-left m-r-md"></i></a> <span data-ng-bind="$ctrl.App.pageTitle"></span></span>
         </div>
         <div id="navbar" class="navbar-collapse navbar-right collapse" aria-expanded="false" style="height: 1px;">
           <ul class="nav navbar-nav">

@@ -21,7 +21,8 @@
         '$uibModal',
         'Auth',
         'ENV_CONFIG',
-        function ($log, $state, $uibModal, Auth, ENV_CONFIG) {
+        'blockUI',
+        function ($log, $state, $uibModal, Auth, ENV_CONFIG, blockUI) {
           var $ctrl = this;
 
           /**
@@ -47,40 +48,50 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
+            blockUI = blockUI.instances.get('signin');
             getSocialProviders();
           }
 
           function getSocialProviders() {
+            blockUI.start();
             Auth
               .getSocialProviders()
               .then(function (response) {
                 $ctrl.socialProviders = response;
+                blockUI.stop();
                 $log.log('Social Provider collection', response);
               }, function (error) {
                 //handle error
+                blockUI.stop();
                 $log.error(error);
               });
           }
 
           function socialSignin(provider) {
             $ctrl.isSigning = true;
+            blockUI.start();
             Auth
               .socialSignin(provider)
               .then(function () {
+                blockUI.stop();
                 $state.go(ENV_CONFIG.ROUTE_HOME_STATE);
               }, function (error) {
                 //handle error
+                blockUI.stop();
                 $log.error(error);
                 $ctrl.isSigning = false;
               });
           }
 
           function signin() {
+            blockUI.start;
             Auth
               .signin($ctrl.user)
               .then(function (response) {
+                blockUI.stop();
                 $log.info(response);
               }, function (error) {
+                blockUI.stop();
                 $log.error(error);
               });
           }

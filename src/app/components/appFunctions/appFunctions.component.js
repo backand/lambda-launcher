@@ -21,7 +21,8 @@
         '$state',
         '_',
         'toaster',
-        function (Lambda, $log, $state, _, toaster) {
+        'blockUI',
+        function (Lambda, $log, $state, _, toaster, blockUI) {
           var $ctrl = this;
 
           /**
@@ -60,11 +61,14 @@
                 }
               ]
             };
+            blockUI.start();
             Lambda
               .getFunctions(params)
               .then(function (data) {
+                blockUI.stop();
                 functionsHandler(data);
               }).catch(function (data) {
+                blockUI.stop();
                 $log.error(data);
               });
           }
@@ -97,6 +101,7 @@
           }
 
           function runFunction(func) {
+            blockUI.start();
             var funcId = func.iD;
             Lambda
               .getParameters(funcId)
@@ -115,9 +120,11 @@
                     saveRun(funcId, response);
                     toaster.success('Success', 'Function has been executed successfully.');
                     $log.info('Function run successful', response);
+                    blockUI.stop();
                   }, function (error) {
                     toaster.error('Error', 'Error occured while executing function.');
                     $log.error('Function run error', error);
+                    blockUI.stop();
                   });
               });
           }
