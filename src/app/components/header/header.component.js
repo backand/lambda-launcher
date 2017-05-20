@@ -55,7 +55,8 @@
             $ctrl.currentUser = Auth.currentUser;
           }
 
-          function logout() {
+          function logout($event) {
+            $event.preventDefault();
             blockUI.start();
             Auth.logout().then(function () {
               blockUI.stop();

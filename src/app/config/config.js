@@ -27,9 +27,12 @@
 
     appName = queryParams.appName;
     anonymousToken = queryParams.anonymousToken;
-      console.log($base64);
     if (anonymousToken) {
-     
+      try {
+        anonymousToken = $base64.decode(anonymousToken);
+      } catch (error) {
+        console.error('Unable to decode token');
+      }
     }
 
 

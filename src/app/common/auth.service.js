@@ -27,11 +27,9 @@
       return Backand.user.getUserDetails(true)
         .then(function (response) {
           var data = response.data;
-          $log.info('user', data);
           self.currentUser.details = data;
           if (data !== null) {
             self.currentUser.name = data.username;
-            console.warn(self.currentUser);
             $state.transitionTo(ROUTE_HOME_STATE, { reload: true }, App.state.toParams);
           }
         });
