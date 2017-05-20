@@ -21,7 +21,8 @@
         'Lambda',
         '$state',
         'toaster',
-        function ($log, $stateParams, Lambda, $state, toaster) {
+        '$localStorage',
+        function ($log, $stateParams, Lambda, $state, toaster, $localStorage) {
           var $ctrl = this, function_id;
           function_id = $stateParams.function_id;
 
@@ -49,15 +50,7 @@
             if (!function_id) {
               throw Error('function_id not found');
             }
-            getFunctionParameters(function_id);
-          }
-
-          function getFunctionParameters(function_id) {
-            Lambda
-              .getParameters(function_id)
-              .then(function (parameters) {
-                $ctrl.parameters = parameters;
-              });
+            $ctrl.parameters = Lambda.getParameters(function_id);
           }
 
           function updateParameters() {

@@ -14,7 +14,7 @@
   angular
     .module('LambdaLauncher')
     .component('layout', {
-      template: '<toaster-container toaster-options="{\'time-out\': 3000}"></toaster-container><div class="app-content" id="app-content"><div class="container"><app-header data-is-authenticated="$ctrl.isAuthenticated()"></app-header></div><div ui-view></div><div class="container"><app-footer></app-footer></div></div>',
+      template: '<toaster-container toaster-options="{\'time-out\': 3000}"></toaster-container><block-ui></block-ui><div class="app-content" id="app-content"><div class="container"><app-header data-is-authenticated="$ctrl.isAuthenticated()"></app-header></div><div ui-view></div><div class="container"><app-footer></app-footer></div></div>',
       controller: [
         '$log',
         'Backand',

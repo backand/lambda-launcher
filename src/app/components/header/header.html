@@ -1,23 +1,27 @@
 <div class="header signin-header clearfix">
-  <section class="logo text-center" data-ng-if="!$ctrl.App.isAuthenticated">
+  <section class="logo text-center" data-ng-if="!$ctrl.isLoggedIn()">
     <a ui-sref="index" title="Lambda Functions">
             <img src="../assets/images/logo-white.png"></a>
   </section>
-  <div data-ng-if="$ctrl.App.isAuthenticated">
+  <div data-ng-if="$ctrl.isLoggedIn()">
     <nav class="navbar">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
             aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
-            <i class="ion-person text-2x"></i>
+            <i class="fa fa-user-circle-o fa-2x"></i>
           </button>
-          <span class="navbar-brand _300 text-left"><a data-ng-click="$ctrl.back()" data-ng-href="" class="text-white"><i class="ion-ios-arrow-left m-r-md"></i></a> <span data-ng-bind="$ctrl.App.pageTitle"></span></span>
+          <div class="navbar-brand _300 text-left">
+            <a data-ng-click="$ctrl.back($event)" data-ng-href="" class="text-white">
+              <i class="fa fa-angle-left text-large m-r-md"></i></a>
+            <span data-ng-bind="$ctrl.App.pageTitle" class="text-large"></span>
+          </div>
         </div>
-        <div id="navbar" class="navbar-collapse navbar-right collapse" aria-expanded="false" style="height: 1px;">
+        <div id="navbar" class="navbar-collapse navbar-right collapse m-t-sm" aria-expanded="false" >
           <ul class="nav navbar-nav">
-            <li><a href="#"><i class="ion-person"></i></a> </li>
-            <li><a data-ng-href="#" data-ng-click="$ctrl.logout()">Log Out</a></li>
+            <li><a href="#"><i class="fa fa-user-circle-o"></i></a> </li>
+            <li><a data-ng-href="" data-ng-click="$ctrl.logout($event)">Log Out</a></li>
           </ul>
         </div>
         <!--/.nav-collapse -->

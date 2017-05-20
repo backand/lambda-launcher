@@ -24,7 +24,8 @@
         'App',
         'ENV_CONFIG',
         '$state',
-        function ($log, Auth, App, ENV_CONFIG, $state) {
+        'blockUI',
+        function ($log, Auth, App, ENV_CONFIG, $state,blockUI) {
           var $ctrl = this;
 
           /**
@@ -50,20 +51,27 @@
           function initialization() {
             $log.info('header component initialized');
             $ctrl.App = App;
+            $ctrl.isLoggedIn = Auth.isLoggedIn;
+            $ctrl.currentUser = Auth.currentUser;
           }
 
           function logout() {
+            blockUI.start();
             Auth.logout().then(function () {
-              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE);
+              blockUI.stop();
+              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {}, { reload: true });
+            }, function (error) {
+               blockUI.stop();
+              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {}, { reload: true });
             });
             $log.info('logout called');
           }
 
           function back() {
-            $log.info(App.lastState);
+            $log.info(App.state);
             var to, toParams = {};
-            to = App.lastState.from;
-            toParams = App.lastState.fromParams;
+            to = App.state.from;
+            toParams = App.state.fromParams;
             if (to.name === '') {
               to = 'dashboard.appFunctions';
               toParams = {};

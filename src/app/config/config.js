@@ -16,20 +16,48 @@
   angular
     .module('LambdaLauncher')
     .config(config);
-    
+
   /** @ngInject */
   function config($logProvider, BackandProvider, ENV_CONFIG, $httpProvider) {
+    var appName, anonymousToken, queryParams = getUrlParams(window.location.href) || {};
     // Enable log
     if (ENV_CONFIG.ENV !== 'prod') {
       $logProvider.debugEnabled(true);
     }
+
+    appName = queryParams.appName;
+    anonymousToken = queryParams.anonymousToken;
+      console.log($base64);
+    if (anonymousToken) {
+     
+    }
+
+
     //register authInterceptor to hanlde authentication
     $httpProvider.interceptors.push('authInterceptor');
     //configure backand
     BackandProvider.manageRefreshToken = true;
-    BackandProvider.setAppName(ENV_CONFIG.appName); //your app name
-    BackandProvider.setAnonymousToken(ENV_CONFIG.anonymousToken); //Anonymous Token
-    BackandProvider.setSignUpToken(ENV_CONFIG.signUpToken); //SignUp Token, its optional for demo app
+    if (appName && anonymousToken) {
+      //go to functions page   
+      BackandProvider.setAppName(appName);
+      BackandProvider.setAnonymousToken(anonymousToken);
+    } else if (!appName && !anonymousToken) {
+      BackandProvider.setAppName(ENV_CONFIG.appName);
+    } else if (appName && !anonymousToken) {
+      BackandProvider.setAppName(appName);
+      BackandProvider.setAnonymousToken(ENV_CONFIG.anonymousToken);
+    }
+
+  }
+  function getUrlParams(url) {
+    var queryString = url.split("?")[1] || '';
+    var keyValuePairs = queryString.split("&");
+    var keyValue, params = {};
+    keyValuePairs.forEach(function (pair) {
+      keyValue = pair.split("=");
+      params[keyValue[0]] = decodeURIComponent(keyValue[1]).replace("+", " ");
+    });
+    return params;
   }
 
 })();

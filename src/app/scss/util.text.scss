@@ -150,3 +150,12 @@
 .text-shadow {
     text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
 }
+
+.text-link{
+  cursor: pointer;
+  font-size: inherit;
+  &:hover{
+    text-decoration: underline;
+    color: $brand-primary;
+  }
+}

@@ -16,10 +16,26 @@
     .module('LambdaLauncher')
     .service('Auth', AuthService);
   /** @ngInject */
-  function AuthService($http, $localStorage, $rootScope, $state, Backand, $q, ENV_CONFIG, App) {
+  function AuthService($http, $localStorage, $rootScope, $state, Backand, $q, ENV_CONFIG, $log, App) {
     var self = this,
       ROUTE_HOME_STATE = ENV_CONFIG.ROUTE_HOME_STATE || 'dashboard.app',
       ROUTE_LOGIN_STATE = ENV_CONFIG.ROUTE_LOGIN_STATE || 'login';
+
+    self.currentUser = {};
+    self.getCurrentUser = getCurrentUser;
+    function getCurrentUser() {
+      return Backand.user.getUserDetails(true)
+        .then(function (response) {
+          var data = response.data;
+          $log.info('user', data);
+          self.currentUser.details = data;
+          if (data !== null) {
+            self.currentUser.name = data.username;
+            console.warn(self.currentUser);
+            $state.transitionTo(ROUTE_HOME_STATE, { reload: true }, App.state.toParams);
+          }
+        });
+    }
 
     self.getSocialProviders = function () {
       var deffered = $q.defer();
@@ -64,26 +80,22 @@
 
     self.logout = function () {
       var deffered = $q.defer();
-      delete $http.defaults.headers.common['Authorization'];
-      delete $localStorage.Authorization;
-      self.setAuthenticate(false);
       Backand.signout().then(function (response) {
+        clearSession();
         deffered.resolve(response.data);
       }, function (error) {
+        clearSession();
         deffered.reject(error);
       });
       return deffered.promise;
     };
 
-    self.setAuthenticate = function (flag) {
-      App.isAuthenticated = flag;
-    };
-
-    self.isAuthenticated = function () {
-      var isAuthenticated, token = $localStorage.Authorization;
-      isAuthenticated = token ? true : false;
-      self.setAuthenticate(isAuthenticated);
-      return isAuthenticated;
+    function clearSession() {
+      delete $localStorage.BACKAND_user;
+      angular.copy({}, self.currentUser);
+    }
+    self.isLoggedIn = function () {
+      return self.currentUser.name ? true : false;
     };
 
     self.AutherizeRoutes = function () {
@@ -92,39 +104,30 @@
     };
 
     function verifyRoute(event, to, toParams, from) {
-      var token, routeData, isAuthenticated;
-      token = $localStorage.Authorization;
-      isAuthenticated = token ? true : false;
-      self.setAuthenticate(isAuthenticated);
+      /*var routeData;
       if (!to) {
         return false;
       }
       routeData = (to.$$route) ? to.$$route : to.data;
       if (routeData && routeData.requiresLogin === true) {
-        if (!token) {
+        if (!self.isLoggedIn()) {
           //@todo Implement- token tokenHasExpired self.isTokenExpired(token)
           event.preventDefault();
           $state.go(ROUTE_LOGIN_STATE);
         }
       } else {
-        if (from.url === '^' && to.name === ROUTE_LOGIN_STATE && token) {
+        if (from.url === '^' && to.name === ROUTE_LOGIN_STATE && self.isLoggedIn()) {
           event.preventDefault();
           $state.go(ROUTE_HOME_STATE);
-        } else if (to.name === ROUTE_LOGIN_STATE && token) {
+        } else if (to.name === ROUTE_LOGIN_STATE && self.isLoggedIn()) {
           event.preventDefault();
           $state.transitionTo(ROUTE_HOME_STATE, { reload: true });
         }
-      }
+      }*/
     }
 
     function onSignin(data) {
-      var token;
-      token = data.access_token;
-      setToken(token);
-    }
-
-    function setToken(token) {
-      $localStorage.Authorization = token;
+      getCurrentUser();
     }
 
     //end of service  

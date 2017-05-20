@@ -4,26 +4,28 @@
     <div class="row">
       <div class="col-sm-5">
         <h4 class="text-left">
-          Sign in With
+          Sign in with
         </h4>
         <div class="social-providers">
           <div data-ng-repeat="provider in $ctrl.socialProviders track by $index" class="m-b-md provider">
-            <button class="btn btn-lg btn-block btn-social" data-ng-disabled="$ctrl.isSigning" type="button" ng-click="$ctrl.socialSignin(provider.name)" data-ng-class="'btn-'+ provider.name"><i ng-class="'ion-social-' + provider.name"></i>{{provider.name}}</button>
+            <button class="btn btn-lg btn-block btn-social" data-ng-disabled="$ctrl.isSigning" type="button" ng-click="$ctrl.socialSignin(provider.name)" data-ng-class="'btn-'+ provider.name"><i ng-class="'fa-' + provider.name" class="fa"></i>{{provider.name}}</button>
             <a data-ng-href="" title="{{provider.label}}" ng-click="$ctrl.socialSignin(provider.name)" class="provider-icon"><img ng-src="{{'../assets/images/icons/'+provider.name+'.png'}}" /></a>
           </div>
         </div>
       </div>
       <div class="col-sm-7">
-        <h4 class="text-left">
+        <div class="signin-form">
+          <h4 class="text-left">
           <span class="hidden-xs">Log In</span><span class="visible-xs">Or</span>
         </h4>
-        <div class="signin-form">
           <form class="form-horizontal" name="signinForm" ng-submit="$ctrl.signin()" novalidate>
             <fieldset>
+              <div class="alert alert-danger" data-ng-show="$ctrl.error" data-ng-bind="$ctrl.error">
+              </div>
               <div class="form-group">
                 <div class="input-group input-group-first">
                   <span class="input-group-addon">
-                  <i class="ion-ios-person-outline" aria-hidden="true"></i>
+                  <i class="fa fa-user" aria-hidden="true"></i>
                   </span>
                   <input type="email" class="form-control input-lg" name="uEmail" placeholder="Username" ng-model="$ctrl.user.username" ng-model-options="{updateOn: 'blur'}"
                     required="">
@@ -35,7 +37,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon">
-                  <i class="ion-ios-locked-outline" aria-hidden="true"></i>
+                  <i class="fa fa-lock" aria-hidden="true"></i>
                   </span>
                   <input type="password" class="form-control input-lg" placeholder="Password" name="uPassword" ng-model="$ctrl.user.password"
                     ng-model-options="{debounce: 500}" required="">
@@ -58,7 +60,7 @@
               <div class="form-group p-b-lg signin-btn">
                 <button type="submit" class="btn btn-lg btn-round btn-primary btn-block text-u-c">login</button>
               </div>
-
+              <a ng-href="http://localhost:3000/#/dash/app?appName=lambdalauncher&anonymousToken=03b73277-bb28-40bd-a82b-11c4ea21cfa8" target="_blank">Ho to Dashboard</a>
             </fieldset>
           </form>
         </div>

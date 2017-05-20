@@ -22,7 +22,8 @@
         'Auth',
         'ENV_CONFIG',
         'blockUI',
-        function ($log, $state, $uibModal, Auth, ENV_CONFIG, blockUI) {
+        '$injector',
+        function ($log, $state, $uibModal, Auth, ENV_CONFIG, blockUI, $injector) {
           var $ctrl = this;
 
           /**
@@ -48,7 +49,7 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            blockUI = blockUI.instances.get('signin');
+            $ctrl.error = $injector.get('$stateParams').error ? $base64.decode($injector.get('$stateParams').error) : '' ;
             getSocialProviders();
           }
 

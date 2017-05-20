@@ -56,16 +56,7 @@
     }
 
     self.getParameters = function (function_id) {
-      var deffered = $q.defer(), parameters;
-      if (function_id) {
-        parameters = $localStorage.parameters[function_id] || [];
-      } else {
-        parameters = $localStorage.parameters || {};
-      }
-      $timeout(function () {
-        deffered.resolve(parameters);
-      }, 1)
-      return deffered.promise;
+      return function_id ? $localStorage.parameters[function_id] : $localStorage.parameters;
     };
 
     self.saveParameters = function (fId, params) {
@@ -73,26 +64,24 @@
       if (!fId || _.isEmpty(params)) {
         throw Error('fId and params are required to store function parameters');
       }
-      self.getParameters()
-        .then(function (parameters) {
-          parameters = parameters || {};
-          var fParams = parameters[fId];
-          if (!_.isArray(fParams)) {
-            fParams = [];
-          }
-          if (_.isArray(params)) {
-            _.forEach(params, function (p) {
-              storeParameter(fParams, p);
-            })
-          } else {
-            storeParameter(fParams, params);
-          }
-          parameters[fId] = fParams;
-          $localStorage.parameters = parameters;
-          $timeout(function () {
-            deffered.resolve(parameters);
-          }, 1);
-        });
+      var parameters = self.getParameters();
+      parameters = parameters || {};
+      var fParams = parameters[fId];
+      if (!_.isArray(fParams)) {
+        fParams = [];
+      }
+      if (_.isArray(params)) {
+        _.forEach(params, function (p) {
+          storeParameter(fParams, p);
+        })
+      } else {
+        storeParameter(fParams, params);
+      }
+      parameters[fId] = fParams;
+      $localStorage.parameters = parameters;
+      $timeout(function () {
+        deffered.resolve(parameters);
+      }, 1);
       return deffered.promise;
     };
 
@@ -108,19 +97,13 @@
     }
 
     self.getRuns = function () {
-      var deffered = $q.defer();
-      $timeout(function () {
-        deffered.resolve($localStorage.runs || {});
-      }, 1);
-      return deffered.promise;
+      return $localStorage.runs || {};
     };
 
     self.saveRun = function (fId, run) {
-      self.getRuns()
-        .then(function (runs) {
-          runs[fId] = run;
-          $localStorage.runs = angular.copy(runs);
-        });
+      var runs = self.getRuns();
+      runs[fId] = run;
+      $localStorage.runs = angular.copy(runs);
     };
 
     //end of service  

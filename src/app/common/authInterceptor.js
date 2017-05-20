@@ -18,19 +18,6 @@
   function authInterceptor($q, Backand, $localStorage, $injector) {
 
     return {
-      request: function (request) {
-        if (request.url.substr(request.url.length - 5) == '.html') {
-          return request;
-        }
-        if (request.skipAuthorization) {
-          return request;
-        }
-        if (request.headers['Authorization']) {
-          return request;
-        }
-        request.headers['Authorization'] = 'Bearer ' + $localStorage.Authorization;
-        return request;
-      },
       requestError: function (rejection) {
         return $q.reject(rejection);
       },
@@ -38,6 +25,7 @@
         return response;
       },
       responseError: function (rejection) {
+        console.warn('authInterceptor is called in responseError');
         var envConstants = $injector.get('ENV_CONFIG');
         if (rejection.status === 401 && !Backand.isManagingRefreshToken()) {
           var errorMessage =

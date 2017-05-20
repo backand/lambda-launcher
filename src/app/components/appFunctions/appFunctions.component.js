@@ -22,7 +22,9 @@
         '_',
         'toaster',
         'blockUI',
-        function (Lambda, $log, $state, _, toaster, blockUI) {
+        'ENV_CONFIG',
+        '$injector',
+        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector) {
           var $ctrl = this;
 
           /**
@@ -67,9 +69,17 @@
               .then(function (data) {
                 blockUI.stop();
                 functionsHandler(data);
-              }).catch(function (data) {
+              }).catch(function (error) {
                 blockUI.stop();
-                $log.error(data);
+                $log.error(error);
+                /**
+                 * @todo 
+                 * This has to be moved to authInterceptor
+                 * authInterceptor does not catch response error of a XHR request which is invoked by Bankand.invoke()
+                 * discussed with @relly
+                 */
+                $injector.get('$state').go(ENV_CONFIG.ROUTE_LOGIN_STATE, { error: $base64.encode(error.data) }, { reload: true });
+                $injector.get('Auth').logout();
               });
           }
 
@@ -100,32 +110,36 @@
             });
           }
 
-          function runFunction(func) {
-            blockUI.start();
+          function runFunction(func, $event) {
+            $event.preventDefault();
             var funcId = func.iD;
+            var parameters = Lambda
+              .getParameters(funcId);
+
+            if (containsEmptyValue(parameters)) {
+              $state.go('dashboard.parameters', { function_id: funcId });
+              return;
+            }
+            var params = {};
+            _.forEach(parameters, function (p) {
+              params[p.name] = p.value;
+            });
+            blockUI.start();
             Lambda
-              .getParameters(funcId)
-              .then(function (parameters) {
-                if (containsEmptyValue(parameters)) {
-                  $state.go('dashboard.parameters', { function_id: funcId });
-                  return;
-                }
-                var params = {};
-                _.forEach(parameters, function (p) {
-                  params[p.name] = p.value;
+              .runFunction(func.name, params)
+              .then(function (response) {
+                saveRun(funcId, response);
+                toaster.success('Success', 'Function has been executed successfully.');
+                $log.info('Function run successful', response);
+                blockUI.stop();
+              }, function (error) {
+                toaster.error('Error', 'Error occured while executing function.');
+                $log.error('Function run error', error);
+                saveRun(funcId, {
+                  Payload: error.statusText,
+                  StatusCode: error.status
                 });
-                Lambda
-                  .runFunction(func.name, params)
-                  .then(function (response) {
-                    saveRun(funcId, response);
-                    toaster.success('Success', 'Function has been executed successfully.');
-                    $log.info('Function run successful', response);
-                    blockUI.stop();
-                  }, function (error) {
-                    toaster.error('Error', 'Error occured while executing function.');
-                    $log.error('Function run error', error);
-                    blockUI.stop();
-                  });
+                blockUI.stop();
               });
           }
 
@@ -134,11 +148,7 @@
           }
 
           function getAllRuns() {
-            Lambda
-              .getRuns()
-              .then(function (runs) {
-                $ctrl.fuctionRuns = angular.copy(runs);
-              });
+            $ctrl.fuctionRuns = Lambda.getRuns();
           }
 
           function saveRun(funcId, resultSet) {
@@ -148,7 +158,6 @@
             Lambda.saveRun(funcId, runInstance);
             getAllRuns();
           }
-
 
           //end of controller
         }]

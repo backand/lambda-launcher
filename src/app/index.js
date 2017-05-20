@@ -48,8 +48,6 @@
       'LambdaLauncher.envConfig',
       'toaster',
       'ui.bootstrap',
-      'ngStorage',
-      'blockUI'
+      'ngStorage'
     ]);
-
 })();
