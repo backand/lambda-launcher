@@ -6,7 +6,7 @@
  *
  * @description
  * A service to manage user workflow [Authentication, Signup]
- * 
+ *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
 (function () {
@@ -65,7 +65,7 @@
     self.signin = function (credentials) {
       var deffered = $q.defer();
       Backand
-        .signin(credentials)
+        .signin(credentials.username, credentials.password)
         .then(function (response) {
           var data = response.data || {};
           onSignin(data);
@@ -128,6 +128,6 @@
       getCurrentUser();
     }
 
-    //end of service  
+    //end of service
   }
 })();
