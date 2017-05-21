@@ -6,7 +6,7 @@
  *
  * @description
  * A service to manage user workflow [Authentication, Signup]
- *
+ * 
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
 (function () {
@@ -18,16 +18,34 @@
   /** @ngInject */
   function AuthService($http, $localStorage, $rootScope, $state, Backand, $q, ENV_CONFIG, $log, App) {
     var self = this,
-      ROUTE_HOME_STATE = ENV_CONFIG.ROUTE_HOME_STATE || 'dashboard.app',
-      ROUTE_LOGIN_STATE = ENV_CONFIG.ROUTE_LOGIN_STATE || 'login';
-
+      ROUTE_HOME_STATE = ENV_CONFIG.ROUTE_HOME_STATE || 'dashboard.app';
+    /**
+     * @property currentUser
+     * stores logged in user
+     */
     self.currentUser = {};
     self.getCurrentUser = getCurrentUser;
+    self.getSocialProviders = getSocialProviders;
+    self.socialSignin = socialSignin;
+    self.signin = signin;
+    self.logout = logout;
+    self.AutherizeRoutes = AutherizeRoutes;
+    self.isLoggedIn = isLoggedIn;
+
+
+    /**
+     * @name getCurrentUser
+     * @description get loggedIn user
+     * redirects to ROUTE_HOME_STATE if valid user
+     * 
+     * @returns promise
+     */
     function getCurrentUser() {
-      return Backand.user.getUserDetails(true)
+      return Backand.user.getUserDetails()
         .then(function (response) {
           var data = response.data;
           self.currentUser.details = data;
+          $log.info('User -', data);
           if (data !== null) {
             self.currentUser.name = data.username;
             $state.transitionTo(ROUTE_HOME_STATE, { reload: true }, App.state.toParams);
@@ -35,7 +53,13 @@
         });
     }
 
-    self.getSocialProviders = function () {
+    /**
+     * @name getSocialProviders
+     * @description Fetch social providers from Backand
+     * 
+     * @returns promise
+     */
+    function getSocialProviders() {
       var deffered = $q.defer();
       Backand
         .getSocialProviders()
@@ -46,9 +70,18 @@
           deffered.reject(error);
         });
       return deffered.promise;
-    };
+    }
 
-    self.socialSignin = function (provider) {
+
+    /**
+     * @name socialSignin
+     * @description Signin to Backand with Social Providers[facebook, github ....]
+     * 
+     * @param {string} provider [facebook, github ....]
+     * 
+     * @returns promise
+     */
+    function socialSignin(provider) {
       var deffered = $q.defer();
       Backand
         .socialSignin(provider)
@@ -60,9 +93,17 @@
           deffered.reject(error);
         });
       return deffered.promise;
-    };
+    }
 
-    self.signin = function (credentials) {
+
+    /**
+     * @name signin
+     * @description Signin to Backand with credentials
+     * 
+     * @param {object} User credentials[username,password] 
+     * @returns promise
+     */
+    function signin(credentials) {
       var deffered = $q.defer();
       Backand
         .signin(credentials.username, credentials.password)
@@ -76,7 +117,13 @@
       return deffered.promise;
     }
 
-    self.logout = function () {
+    /**
+     * @name logout
+     * @description logout from backand
+     * 
+     * @returns promise
+     */
+    function logout() {
       var deffered = $q.defer();
       Backand.signout().then(function (response) {
         clearSession();
@@ -86,48 +133,45 @@
         deffered.reject(error);
       });
       return deffered.promise;
-    };
-
+    }
+    /**
+     * @description helper function to clear currentUser's clearSession
+     */
     function clearSession() {
       delete $localStorage.BACKAND_user;
       angular.copy({}, self.currentUser);
     }
-    self.isLoggedIn = function () {
-      return self.currentUser.name ? true : false;
-    };
 
-    self.AutherizeRoutes = function () {
+
+    /**
+     * @description check if user is loggedIn
+     * @returns boolean
+     */
+    function isLoggedIn() {
+      return self.currentUser.name ? true : false;
+    }
+
+    /**
+     * @name AutherizeRoutes
+     * @description $stateChangeStart listner to apply logics before state complete
+     * unregister listner $stateChangeStart
+     * 
+     */
+    function AutherizeRoutes() {
       var unregisterListner = $rootScope.$on('$stateChangeStart', verifyRoute);
       $rootScope.$on('$destroy', unregisterListner);
-    };
+    }
 
     function verifyRoute(event, to, toParams, from) {
-      /*var routeData;
-      if (!to) {
-        return false;
-      }
-      routeData = (to.$$route) ? to.$$route : to.data;
-      if (routeData && routeData.requiresLogin === true) {
-        if (!self.isLoggedIn()) {
-          //@todo Implement- token tokenHasExpired self.isTokenExpired(token)
-          event.preventDefault();
-          $state.go(ROUTE_LOGIN_STATE);
-        }
-      } else {
-        if (from.url === '^' && to.name === ROUTE_LOGIN_STATE && self.isLoggedIn()) {
-          event.preventDefault();
-          $state.go(ROUTE_HOME_STATE);
-        } else if (to.name === ROUTE_LOGIN_STATE && self.isLoggedIn()) {
-          event.preventDefault();
-          $state.transitionTo(ROUTE_HOME_STATE, { reload: true });
-        }
-      }*/
+      /**
+       * @todo route authetication goes here
+       */
     }
 
     function onSignin(data) {
       getCurrentUser();
     }
 
-    //end of service
+    //end of service  
   }
 })();

@@ -1,12 +1,12 @@
 /**
  * @ngdoc Component
  * @name LambdaLauncher.component.signin
- *
  * @module LambdaLauncher
  *
  * @description
  * signin component - A application landing page
- *
+ * @requires $log, $state, $uibModal, Auth, ENV_CONFIG, blockUI, $injector
+ * 
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
 (function () {
@@ -42,17 +42,21 @@
            */
           $ctrl.isSigning = false;
           /**
-            * @function
             * @name initialization
             * @description
             * A component's lifeCycle hook which is called after all the controllers on an element have
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            $ctrl.error = $injector.get('$stateParams').error ? $base64.decode($injector.get('$stateParams').error) : '' ;
+            $ctrl.error = $injector.get('$stateParams').error ? $base64.decode($injector.get('$stateParams').error) : '';
             getSocialProviders();
           }
 
+          /**
+           * @name getSocialProviders
+           * @description fetch enabled social providers from backand
+           * @returns void
+           */
           function getSocialProviders() {
             blockUI.start();
             Auth
@@ -68,6 +72,12 @@
               });
           }
 
+          /**
+           * @name socialSignin
+           * @description signin with social providers[facebook,github ...]
+           * @param {string} provider A name of social provider[facebook,github ...]
+           * @returns void
+           */
           function socialSignin(provider) {
             $ctrl.isSigning = true;
             blockUI.start();
@@ -84,6 +94,12 @@
               });
           }
 
+          /**
+           * @name signin
+           * @description signin with credentails[username,password]
+           * @requires $ctrl.user which contains [username,password]
+           * @returns void
+           */
           function signin() {
             blockUI.start;
             Auth
@@ -97,6 +113,11 @@
               });
           }
 
+          /**
+           * @name forgotPassword
+           * @description opens Twitter Bootstrap modal
+           * @returns void
+           */
           function forgotPassword() {
             $uibModal.open({
               component: 'requestResetPassword',

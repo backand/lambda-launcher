@@ -35,14 +35,6 @@
         },
         template: '<ui-view></ui-view>'
       })
-      .state('dashboard.apps', {
-        url: '/apps',
-        data: {
-          requiresLogin: true,
-          title: 'My Applications'
-        },
-        component: 'apps'
-      })
       .state('dashboard.appFunctions', {
         url: '/app?appName&anonymousToken',
         component: 'appFunctions',

@@ -25,13 +25,13 @@
         return response;
       },
       responseError: function (rejection) {
-        console.warn('authInterceptor is called in responseError');
         var envConstants = $injector.get('ENV_CONFIG');
         if (rejection.status === 401 && !Backand.isManagingRefreshToken()) {
           var errorMessage =
             Backand.getUsername() ?
               'The session has expired, please sign in again.' :
               null;
+          $injector.get('$log').error(errorMessage); 
           $injector.get('$state').go(envConstants.ROUTE_LOGIN_STATE, { error: errorMessage }, { reload: true });
           $injector.get('Auth').logout();
         }

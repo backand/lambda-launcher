@@ -21,8 +21,7 @@
         'Lambda',
         '$state',
         'toaster',
-        '$localStorage',
-        function ($log, $stateParams, Lambda, $state, toaster, $localStorage) {
+        function ($log, $stateParams, Lambda, $state, toaster) {
           var $ctrl = this, function_id;
           function_id = $stateParams.function_id;
 
@@ -52,7 +51,12 @@
             }
             $ctrl.parameters = Lambda.getParameters(function_id);
           }
-
+          /**
+           * @function updateParameters
+           * @description update parameters value
+           * 
+           * @returns void
+           */
           function updateParameters() {
             var params = angular.copy($ctrl.parameters);
             Lambda

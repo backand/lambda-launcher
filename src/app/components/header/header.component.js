@@ -6,7 +6,7 @@
  *
  * @description
  * header component - A application header
- *
+ * @requires $log, Auth, App, ENV_CONFIG, $state,blockUI
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
 (function () {
@@ -25,14 +25,13 @@
         'ENV_CONFIG',
         '$state',
         'blockUI',
-        function ($log, Auth, App, ENV_CONFIG, $state,blockUI) {
+        function ($log, Auth, App, ENV_CONFIG, $state, blockUI) {
           var $ctrl = this;
 
           /**
            * component's lifeCycle hooks
            */
           $ctrl.$onInit = initialization;
-
           /**
            * public methods
            */
@@ -41,8 +40,8 @@
           /**
            * public properties
            */
+
           /**
-            * @function
             * @name initialization
             * @description
             * A component's lifeCycle hook which is called after all the controllers on an element have
@@ -55,6 +54,12 @@
             $ctrl.currentUser = Auth.currentUser;
           }
 
+          /**
+           * @name logout
+           * @description logout current user
+           * @param {object} $event An click event object
+           * @returns void
+           */
           function logout($event) {
             $event.preventDefault();
             blockUI.start();
@@ -62,12 +67,18 @@
               blockUI.stop();
               $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {}, { reload: true });
             }, function (error) {
-               blockUI.stop();
+              blockUI.stop();
+              $log.error('Error on logout - ', error);
               $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {}, { reload: true });
             });
             $log.info('logout called');
           }
 
+          /**
+           * @name back
+           * @description navigate to last state 
+           * @returns void
+           */
           function back() {
             $log.info(App.state);
             var to, toParams = {};
@@ -76,7 +87,7 @@
             if (to.name === '') {
               to = 'dashboard.appFunctions';
               toParams = {};
-            } else if (to.name === ENV_CONFIG.ROUTE_LOGIN_STATE && App.isAuthenticated) {
+            } else if (to.name === ENV_CONFIG.ROUTE_LOGIN_STATE && $ctrl.isLoggedIn()) {
               return;
             }
             $state.go(to, toParams);
