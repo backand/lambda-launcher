@@ -60,16 +60,10 @@
      * @returns promise
      */
     function getSocialProviders() {
-      var deffered = $q.defer();
-      Backand
-        .getSocialProviders()
+      return Backand.getSocialProviders()
         .then(function (response) {
-          var data = response.data || [];
-          deffered.resolve(data);
-        }, function (error) {
-          deffered.reject(error);
+          return response;
         });
-      return deffered.promise;
     }
 
 
@@ -82,17 +76,11 @@
      * @returns promise
      */
     function socialSignin(provider) {
-      var deffered = $q.defer();
-      Backand
-        .socialSignin(provider)
+      return Backand.socialSignin(provider)
         .then(function (response) {
-          var data = response.data || {};
-          onSignin(data);
-          deffered.resolve(data);
-        }, function (error) {
-          deffered.reject(error);
+          onSignin(response.data);
+          return response.data;
         });
-      return deffered.promise;
     }
 
 
@@ -104,17 +92,11 @@
      * @returns promise
      */
     function signin(credentials) {
-      var deffered = $q.defer();
-      Backand
-        .signin(credentials.username, credentials.password)
+      return Backand.signin(credentials.username, credentials.password)
         .then(function (response) {
-          var data = response.data || {};
-          onSignin(data);
-          deffered.resolve(data);
-        }, function (error) {
-          deffered.reject(error);
+          onSignin(response.data);
+          return response.data;
         });
-      return deffered.promise;
     }
 
     /**
@@ -124,15 +106,13 @@
      * @returns promise
      */
     function logout() {
-      var deffered = $q.defer();
-      Backand.signout().then(function (response) {
+      return Backand.signout().then(function (response) {
         clearSession();
-        deffered.resolve(response.data);
+        return response;
       }, function (error) {
         clearSession();
-        deffered.reject(error);
+        return error;
       });
-      return deffered.promise;
     }
     /**
      * @description helper function to clear currentUser's clearSession

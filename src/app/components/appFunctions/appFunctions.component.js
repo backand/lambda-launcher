@@ -84,7 +84,7 @@
           }
 
           function functionsHandler(data) {
-            var functions = data ? data.data : [];
+            var functions = data ? data.data.data : [];
             $ctrl.functions = functions;
             if (functions.length > 0) {
               updateFunctionParameters(functions);
@@ -128,7 +128,7 @@
             Lambda
               .runFunction(func.name, params)
               .then(function (response) {
-                saveRun(funcId, response);
+                saveRun(funcId, response.data);
                 toaster.success('Success', 'Function has been executed successfully.');
                 $log.info('Function run successful', response);
                 blockUI.stop();

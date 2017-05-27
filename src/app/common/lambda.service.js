@@ -19,6 +19,9 @@
   function LambdaService(Backand, $q, $localStorage, _, $timeout) {
     var self = this;
 
+    /**
+     * Exposed bindable methods
+     */
     self.getFunctions = getFunctions;
     self.runFunction = runFunction;
     self.getParameters = getParameters;
@@ -35,18 +38,12 @@
      * @returns promise
      */
     function getFunctions(params) {
-      var deffered = $q.defer();
       params = params || {};
-      Backand.invoke({
+      return Backand.invoke({
         method: 'GET',
         url: '/1/action/config',
         params: params
-      }).then(function (response) {
-        deffered.resolve(response.data);
-      }, function (error) {
-        deffered.reject(error);
-      });
-      return deffered.promise;
+      })
     }
 
     /**
@@ -59,23 +56,13 @@
      * @returns promise
      */
     function runFunction(action, data, params) {
-      var deffered = $q.defer();
       if (!_.isString(action) && _.isEmpty(action)) {
         throw Error('Invalid action');
       }
       data = data || {};
       params = params || {};
 
-      Backand.invoke({
-        method: 'GET',
-        url: '/1/function/general/' + action + '?parameters=' + angular.toJson(data),
-        params: params
-      }).then(function (response) {
-        deffered.resolve(response.data);
-      }).catch(function (error) {
-        deffered.reject(error);
-      });
-      return deffered.promise;
+      return Backand.fn.post(action, params, data);
     }
 
 

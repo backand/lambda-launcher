@@ -62,9 +62,9 @@
             Auth
               .getSocialProviders()
               .then(function (response) {
-                $ctrl.socialProviders = response;
+                $ctrl.socialProviders = response.data;
                 blockUI.stop();
-                $log.log('Social Provider collection', response);
+                $log.log('Social Provider collection', response.data);
               }, function (error) {
                 //handle error
                 blockUI.stop();
