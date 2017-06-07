@@ -128,7 +128,10 @@
             Lambda
               .runFunction(func.name, params)
               .then(function (response) {
-                saveRun(funcId, response.data);
+                saveRun(funcId, {
+                  Payload: response.data,
+                  StatusCode: response.status
+                });
                 toaster.success('Success', 'Function has been executed successfully.');
                 $log.info('Function run successful', response);
                 blockUI.stop();
