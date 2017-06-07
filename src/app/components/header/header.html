@@ -1,7 +1,7 @@
 <div class="header signin-header clearfix">
   <section class="logo text-center" data-ng-if="!$ctrl.isLoggedIn()">
-    <a ui-sref="index" title="Lambda Functions">
-            <img src="./assets/images/logo-white.png"></a>
+     <a ui-sref="login({app: $ctrl.appName})" title="Lambda Functions">
+       <img src="./assets/images/lambda-launcher-icon.png"></a>
   </section>
   <div data-ng-if="$ctrl.isLoggedIn()">
     <nav class="navbar">

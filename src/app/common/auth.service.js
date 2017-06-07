@@ -16,7 +16,7 @@
     .module('LambdaLauncher')
     .service('Auth', AuthService);
   /** @ngInject */
-  function AuthService($http, $localStorage, $rootScope, $state, Backand, $q, ENV_CONFIG, $log, App) {
+  function AuthService($localStorage, $rootScope, $state, Backand, ENV_CONFIG, $log, App) {
     var self = this,
       ROUTE_HOME_STATE = ENV_CONFIG.ROUTE_HOME_STATE || 'dashboard.app';
     /**
@@ -48,7 +48,7 @@
           $log.info('User -', data);
           if (data !== null) {
             self.currentUser.name = data.username;
-            $state.transitionTo(ROUTE_HOME_STATE, { reload: true }, App.state.toParams);
+            $state.transitionTo(ROUTE_HOME_STATE, { reload: true, app: $state.params.app }, App.state.toParams);
           }
         });
     }

@@ -50,6 +50,7 @@
           function initialization() {
             $log.info('header component initialized');
             $ctrl.App = App;
+            $ctrl.appName = $state.params.app;
             $ctrl.isLoggedIn = Auth.isLoggedIn;
             $ctrl.currentUser = Auth.currentUser;
           }
@@ -65,11 +66,11 @@
             blockUI.start();
             Auth.logout().then(function () {
               blockUI.stop();
-              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {}, { reload: true });
+              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {app: $ctrl.appName}, { reload: true });
             }, function (error) {
               blockUI.stop();
               $log.error('Error on logout - ', error);
-              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {}, { reload: true });
+              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {app: $ctrl.appName}, { reload: true });
             });
             $log.info('logout called');
           }
@@ -86,7 +87,7 @@
             toParams = App.state.fromParams;
             if (to.name === '') {
               to = 'dashboard.appFunctions';
-              toParams = {};
+              toParams = {app: $ctrl.appName};
             } else if (to.name === ENV_CONFIG.ROUTE_LOGIN_STATE && $ctrl.isLoggedIn()) {
               return;
             }

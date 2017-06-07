@@ -21,7 +21,7 @@
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('login', {
-        url: '/login?error',
+        url: '/:app/login?error&t',
         component: 'signin',
         data: {
           title: 'Login'
@@ -29,18 +29,18 @@
       })
       .state('dashboard', {
         absolute: true,
-        url: '/dash',
+        url: '/:app',
         data: {
           requiresLogin: true
         },
         template: '<ui-view></ui-view>'
       })
       .state('dashboard.appFunctions', {
-        url: '/app?appName&anonymousToken',
+        url: '/functions?t',
         component: 'appFunctions',
         data: {
           requiresLogin: true,
-          title: 'Functions'
+          title: 'Launch Functions'
         }
       })
       .state('dashboard.parameters', {
@@ -52,7 +52,7 @@
         }
       });
 
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/');
   }
 
 })();

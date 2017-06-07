@@ -24,8 +24,8 @@
     var isDebug = ENV_CONFIG.ENV !== 'prod' ? true : false;
       $logProvider.debugEnabled(isDebug);
 
-    appName = queryParams.appName;
-    anonymousToken = queryParams.anonymousToken;
+    appName = getAppName(window.location.href);
+    anonymousToken = queryParams.t;
     if (anonymousToken) {
       try {
         anonymousToken = $base64.decode(anonymousToken);
@@ -34,24 +34,35 @@
       }
     }
 
-
-    //register authInterceptor to hanlde authentication
+    //register authInterceptor to handle authentication
     $httpProvider.interceptors.push('authInterceptor');
+
     //configure backand
-    BackandProvider.manageRefreshToken = true;
-    if (appName && anonymousToken) {
-      //go to functions page   
-      BackandProvider.setAppName(appName);
-      BackandProvider.setAnonymousToken(anonymousToken);
-    } else if (!appName && !anonymousToken) {
-      BackandProvider.setAppName(ENV_CONFIG.appName);
-    } else if (appName && !anonymousToken) {
-      BackandProvider.setAppName(appName);
-      BackandProvider.setAnonymousToken(ENV_CONFIG.anonymousToken);
-    }else if (!appName && anonymousToken) {
-      BackandProvider.setAppName(ENV_CONFIG.appName);
-      BackandProvider.setAnonymousToken(anonymousToken);
+    var config = {appName: appName};
+
+    if(anonymousToken){
+      config.anonymousToken = anonymousToken;
+    } else {
+      config.useAnonymousTokenByDefault = false;
     }
+
+    BackandProvider.init(config);
+
+
+    // if (appName && anonymousToken) {
+    //   //go to functions page
+    //   BackandProvider.setAppName(appName);
+    //   BackandProvider.setAnonymousToken(anonymousToken);
+    // }
+    // else if (!appName && !anonymousToken) {
+    //   BackandProvider.setAppName(ENV_CONFIG.appName);
+    // } else if (appName && !anonymousToken) {
+    //   BackandProvider.setAppName(appName);
+    //   BackandProvider.setAnonymousToken(ENV_CONFIG.anonymousToken);
+    // }else if (!appName && anonymousToken) {
+    //   BackandProvider.setAppName(ENV_CONFIG.appName);
+    //   BackandProvider.setAnonymousToken(anonymousToken);
+    // }
 
   }
   function getUrlParams(url) {
@@ -63,6 +74,16 @@
       params[keyValue[0]] = decodeURIComponent(keyValue[1]).replace("+", " ");
     });
     return params;
+  }
+
+  function getAppName(url){
+    //assume the app name is just after the #/
+    var path = url.match(/\#\/(.*)\//i);
+    if(path && path.length === 2){
+      return path[1];
+    } else {
+      return '';
+    }
   }
 
 })();

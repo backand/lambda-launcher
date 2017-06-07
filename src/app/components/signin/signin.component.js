@@ -47,7 +47,8 @@
             * A component's lifeCycle hook which is called after all the controllers on an element have
             * been constructed and had their bindings initialized
             */
-          function initialization() {
+          function  initialization() {
+            $ctrl.appName = $state.params.app;
             $ctrl.error = $injector.get('$stateParams').error ? $base64.decode($injector.get('$stateParams').error) : '';
             getSocialProviders();
           }
@@ -85,7 +86,7 @@
               .socialSignin(provider)
               .then(function () {
                 blockUI.stop();
-                $state.go(ENV_CONFIG.ROUTE_HOME_STATE);
+                $state.go(ENV_CONFIG.ROUTE_HOME_STATE, {app: $state.params.app});
               }, function (error) {
                 //handle error
                 blockUI.stop();
