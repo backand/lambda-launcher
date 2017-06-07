@@ -25,3 +25,4 @@
 - run command before sync backand - One time Installationd
 `sudo npm install -g backand`
 - backand sync --app ng1app --master master_token --user user_tocken --folder ./dist
+backand sync --app lambdalauncher --master e923eafd-1853-46b8-b0e9-99b336979035 --user 2657e6e8-358f-11e7-8124-06bcf2b21c8c --folder ./dist

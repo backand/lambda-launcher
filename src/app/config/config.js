@@ -21,9 +21,8 @@
   function config($logProvider, BackandProvider, ENV_CONFIG, $httpProvider) {
     var appName, anonymousToken, queryParams = getUrlParams(window.location.href) || {};
     // Enable log
-    if (ENV_CONFIG.ENV !== 'prod') {
-      $logProvider.debugEnabled(true);
-    }
+    var isDebug = ENV_CONFIG.ENV !== 'prod' ? true : false;
+      $logProvider.debugEnabled(isDebug);
 
     appName = queryParams.appName;
     anonymousToken = queryParams.anonymousToken;
@@ -49,6 +48,9 @@
     } else if (appName && !anonymousToken) {
       BackandProvider.setAppName(appName);
       BackandProvider.setAnonymousToken(ENV_CONFIG.anonymousToken);
+    }else if (!appName && anonymousToken) {
+      BackandProvider.setAppName(ENV_CONFIG.appName);
+      BackandProvider.setAnonymousToken(anonymousToken);
     }
 
   }

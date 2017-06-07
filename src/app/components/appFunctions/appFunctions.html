@@ -29,7 +29,7 @@
                 <!-- ./function meta -->
                 <div class="m-y-sm clearfix" data-ng-if="function.isShowResult">
                   <span class="label label-success" data-ng-class="{'label-danger' : $ctrl.fuctionRuns[function.iD]['StatusCode'] != 200}">Status Code : {{$ctrl.fuctionRuns[function.iD]['StatusCode']}}</span>
-                  <p class="m-b-0" data-ng-bind="$ctrl.fuctionRuns[function.iD]['Payload']"></p>
+                  <p class="m-b-0" data-ng-bind="$ctrl.fuctionRuns[function.iD]['Payload'] | json"></p>
                 </div>
               </div>
             </li>
