@@ -140,7 +140,7 @@
     function storeParameter(list, param) {
       var pIdx = _.findIndex(list, { key: param.key });
       if (pIdx >= 0) {
-        list[pIdx] = angular.extend(param, list[pIdx]);
+        list[pIdx] = angular.extend(list[pIdx], param);
       } else {
         list.push(param);
       }
