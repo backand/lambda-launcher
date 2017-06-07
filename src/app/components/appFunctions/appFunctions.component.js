@@ -116,7 +116,7 @@
             var parameters = Lambda
               .getParameters(funcId);
 
-            if (containsEmptyValue(parameters)) {
+            if (containsEmptyValue(parameters) && !_.isEmpty(func.inputParameters)) {
               $state.go('dashboard.parameters', { function_id: funcId });
               return;
             }

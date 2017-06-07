@@ -59,8 +59,14 @@
       if (!_.isString(action) && _.isEmpty(action)) {
         throw Error('Invalid action');
       }
-      data = data || {};
-      params = params || {};
+      data = data ;
+      if(_.keys(params).length === 0){
+        params = '';
+      }
+
+      if(_.keys(data).length === 0){
+        data = '';
+      }
 
       return Backand.fn.post(action, params, data);
     }

@@ -7,7 +7,7 @@
             <li class="list-item function-item" data-ng-repeat="function in $ctrl.functions track by $index">
               <div class="list-body">
                 <!-- /function actions -->
-                <div class="pull-right app-actions" data-ng-if="function.inputParameters !== ''">
+                <div class="pull-right app-actions">
                   <a class="btn btn-xs text-body" data-ui-sref="dashboard.parameters({function_id : function.iD})"><i class="fa fa-cog"></i></a>
                   <a class="btn btn-xs text-primary" data-ng-click="$ctrl.runFunction(function, $event);"><i class="fa fa-play-circle-o"></i></a>
                 </div>
