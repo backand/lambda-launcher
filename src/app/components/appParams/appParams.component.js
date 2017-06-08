@@ -21,7 +21,8 @@
         'Lambda',
         '$state',
         'toaster',
-        function ($log, $stateParams, Lambda, $state, toaster) {
+        '_',
+        function ($log, $stateParams, Lambda, $state, toaster, _) {
           var $ctrl = this, function_id;
           function_id = $stateParams.function_id;
 
@@ -59,6 +60,12 @@
            */
           function updateParameters() {
             var params = angular.copy($ctrl.parameters);
+            params = _.map(params, function(p){
+              if(p.value == ''){
+                p.value = 'null';
+              }
+              return p;
+            });
             Lambda
               .saveParameters(function_id, params)
               .then(function () {

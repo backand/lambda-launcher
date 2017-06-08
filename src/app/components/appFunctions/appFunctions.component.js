@@ -94,7 +94,8 @@
           function updateFunctionParameters(functions) {
             _.forEach(functions, function (f) {
               $log.info('function', f);
-              if (!_.isEmpty(f.inputParameters)) {
+              var funcParams = Lambda.getParameters(f.iD);
+              if (!_.isEmpty(f.inputParameters) && !funcParams) {
                 var params = _.split(f.inputParameters, ',');
                 $log.info('inputParameters', f);
                 params = _.map(params, function (p) {
