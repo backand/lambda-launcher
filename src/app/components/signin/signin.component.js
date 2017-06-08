@@ -23,7 +23,8 @@
         'ENV_CONFIG',
         'blockUI',
         '$injector',
-        function ($log, $state, $uibModal, Auth, ENV_CONFIG, blockUI, $injector) {
+        'toaster',
+        function ($log, $state, $uibModal, Auth, ENV_CONFIG, blockUI, $injector, toaster) {
           var $ctrl = this;
 
           /**
@@ -91,6 +92,7 @@
                 //handle error
                 blockUI.stop();
                 $log.error(error);
+                 toaster.error(error.data.error_description);
                 $ctrl.isSigning = false;
               });
           }
@@ -111,6 +113,7 @@
               }, function (error) {
                 blockUI.stop();
                 $log.error(error);
+                toaster.error(error.data.error_description);
               });
           }
 

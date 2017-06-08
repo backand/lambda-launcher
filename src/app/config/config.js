@@ -18,7 +18,7 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, BackandProvider, ENV_CONFIG, $httpProvider) {
+  function config($logProvider, BackandProvider, ENV_CONFIG, $httpProvider, $localStorageProvider) {
     var appName, anonymousToken, queryParams = getUrlParams(window.location.href) || {};
     // Enable log
     var isDebug = ENV_CONFIG.ENV !== 'prod' ? true : false;
@@ -36,10 +36,10 @@
 
     //register authInterceptor to handle authentication
     $httpProvider.interceptors.push('authInterceptor');
-
+    $localStorageProvider.setKeyPrefix(appName+'_');
     //configure backand
     var config = {appName: appName};
-
+   
     if(anonymousToken){
       config.anonymousToken = anonymousToken;
     } else {

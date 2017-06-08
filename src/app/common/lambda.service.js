@@ -82,7 +82,13 @@
      * @returns {array|object}
      */
     function getParameters(function_id) {
-      return function_id ? $localStorage.parameters[function_id] : $localStorage.parameters;
+       var params ;
+      if(function_id){
+        params = $localStorage.parameters ? $localStorage.parameters[function_id] : undefined;
+      }else {
+        params = $localStorage.parameters || undefined;
+      }
+      return params;
     }
 
 
