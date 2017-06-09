@@ -66,11 +66,11 @@
             blockUI.start();
             Auth.logout().then(function () {
               blockUI.stop();
-              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {app: $ctrl.appName}, { reload: true });
+              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {app: $state.params.app}, { reload: true });
             }, function (error) {
               blockUI.stop();
               $log.error('Error on logout - ', error);
-              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {app: $ctrl.appName}, { reload: true });
+              $state.go(ENV_CONFIG.ROUTE_LOGIN_STATE, {app: $state.params.app}, { reload: true });
             });
             $log.info('logout called');
           }
@@ -87,7 +87,7 @@
             toParams = App.state.fromParams;
             if (to.name === '') {
               to = 'dashboard.appFunctions';
-              toParams = {app: $ctrl.appName};
+              toParams = {app: $state.params.app};
             } else if (to.name === ENV_CONFIG.ROUTE_LOGIN_STATE && $ctrl.isLoggedIn()) {
               return;
             }
