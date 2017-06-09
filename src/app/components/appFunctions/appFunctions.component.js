@@ -78,7 +78,7 @@
                  * authInterceptor does not catch response error of a XHR request which is invoked by Bankand.invoke()
                  * discussed with @relly
                  */
-                $injector.get('$state').go(ENV_CONFIG.ROUTE_LOGIN_STATE, { error: $base64.encode(error.data), app: $state.params.app}, { reload: true });
+                $injector.get('$state').go(ENV_CONFIG.ROUTE_LOGIN_STATE, { error: $base64.encode(error.data), app: $state.params.app }, { reload: true });
                 $injector.get('Auth').logout();
               });
           }
@@ -117,7 +117,7 @@
             var parameters = Lambda
               .getParameters(funcId);
 
-            if (containsEmptyValue(parameters) && !_.isEmpty(func.inputParameters)) {
+            if (!Lambda.isParamsUpdated(funcId)) {
               $state.go('dashboard.parameters', { function_id: funcId });
               return;
             }

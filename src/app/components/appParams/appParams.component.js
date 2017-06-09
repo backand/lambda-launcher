@@ -50,6 +50,9 @@
             if (!function_id) {
               throw Error('function_id not found');
             }
+            if (!Lambda.isParamsUpdated(function_id)) {
+              Lambda.setParamsUpdated(function_id);
+            }
             $ctrl.parameters = Lambda.getParameters(function_id);
           }
           /**
@@ -60,12 +63,6 @@
            */
           function updateParameters() {
             var params = angular.copy($ctrl.parameters);
-            params = _.map(params, function(p){
-              if(p.value == ''){
-                p.value = 'null';
-              }
-              return p;
-            });
             Lambda
               .saveParameters(function_id, params)
               .then(function () {

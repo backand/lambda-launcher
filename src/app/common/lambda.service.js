@@ -28,6 +28,9 @@
     self.saveParameters = saveParameters;
     self.getRuns = getRuns;
     self.saveRun = saveRun;
+    self.setParamsUpdated = setParamsUpdated;
+    self.isParamsUpdated = isParamsUpdated;
+
 
 
     /**
@@ -187,6 +190,30 @@
       var runs = getRuns();
       runs[fId] = run;
       $localStorage.runs = angular.copy(runs);
+    }
+
+    /**
+     * @name setParamsUpdated
+     * @description Update boolean flag= true against a function
+     * if user has visited function params config page, Lets not restrcit him to take to param config page when he try to run function
+     * 
+     * @param {integer} funcId function ID
+     * @returns void
+     */
+    function setParamsUpdated(funcId){
+      var functions = $localStorage.functions || {};
+      functions[funcId] = true;
+      $localStorage.functions = functions;
+    }
+    /**
+     * @name isParamsUpdated
+     * @description checks if boolean flag = true against a function
+     * 
+     * @param {integer} funcId 
+     * @returns 
+     */
+    function isParamsUpdated(funcId){
+      return $localStorage.functions && $localStorage.functions[funcId];
     }
 
     //end of service  
