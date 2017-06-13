@@ -27,3 +27,5 @@ fs.readdirSync('./gulp').filter(function(file) {
 gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });
+
+//backand sync --app lambdalauncher --master e923eafd-1853-46b8-b0e9-99b336979035 --user e6b8e25f-6eb3-4919-a44f-91c95f480cf8 --folder /Users/itay/dev/lambda-launcher/dist
