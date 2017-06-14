@@ -8,7 +8,7 @@
         </h4>
         <div class="social-providers">
           <div data-ng-repeat="provider in $ctrl.socialProviders track by $index" class="m-b-md provider">
-            <button class="btn btn-lg btn-block btn-social" data-ng-disabled="$ctrl.isSigning" type="button" ng-click="$ctrl.socialSignin(provider.name)"
+            <button class="btn btn-lg btn-block btn-social"  type="button" ng-click="$ctrl.socialSignin(provider.name)"
               data-ng-class="'btn-'+ provider.name"><i ng-class="'fa-' + provider.name" class="fa"></i>{{provider.name}}</button>
             <a data-ng-href="" title="{{provider.label}}" ng-click="$ctrl.socialSignin(provider.name)" class="provider-icon"></a>
           </div>
