@@ -48,6 +48,7 @@
       config.useAnonymousTokenByDefault = false;
     }
 
+    console.log('App Initialized with - ', config);
     BackandProvider.init(config);
 
 

@@ -20,6 +20,35 @@
   function AppService() {
     var self = this;
     self.pageTitle = '';
+    /**
+     * social Providers
+     */
+    self.socialProviders = {
+      google: {
+        label: 'Google',
+        className: 'google'
+      },
+      github: {
+        label: 'Github AUth',
+        className: 'github'
+      },
+      facebook: {
+        label: 'Facebook',
+        className: 'facebook'
+      },
+      twitter: {
+        label: 'Twitter',
+        className: 'twitter'
+      },
+      adfs: {
+        label: 'Adfs',
+        className: 'windows'
+      },
+      azuread: {
+        label: 'Azuread',
+        className: 'windows'
+      }
+    }
   }
 
 })();

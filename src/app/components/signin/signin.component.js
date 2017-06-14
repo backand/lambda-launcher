@@ -24,7 +24,8 @@
         'blockUI',
         '$injector',
         'toaster',
-        function ($log, $state, $uibModal, Auth, ENV_CONFIG, blockUI, $injector, toaster) {
+        'App',
+        function ($log, $state, $uibModal, Auth, ENV_CONFIG, blockUI, $injector, toaster, App) {
           var $ctrl = this;
 
           /**
@@ -50,6 +51,8 @@
             */
           function initialization() {
             $ctrl.appName = $state.params.app;
+            $ctrl.providers = angular.copy(App.socialProviders);
+            console.log($ctrl.providers);
             $ctrl.error = $injector.get('$stateParams').error ? $base64.decode($injector.get('$stateParams').error) : '';
             getSocialProviders();
           }
