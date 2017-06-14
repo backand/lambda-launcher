@@ -117,10 +117,13 @@
             var parameters = Lambda
               .getParameters(funcId);
 
-            if (!Lambda.isParamsUpdated(funcId)) {
+            /**
+             * Lets not stop user to run function if he has not updated params
+             */
+            /*if (!Lambda.isParamsUpdated(funcId)) {
               $state.go('dashboard.parameters', { function_id: funcId });
               return;
-            }
+            }*/
             var params = {};
             _.forEach(parameters, function (p) {
               params[p.name] = p.value;

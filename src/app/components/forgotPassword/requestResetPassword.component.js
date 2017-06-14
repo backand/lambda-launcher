@@ -54,7 +54,7 @@
 
           function requestResetPassword() {
             Backand
-              .requestResetPassword($ctrl.user)
+              .requestResetPassword($ctrl.user.username)
               .then(function (response) {
                 $log.info(response);
                 closeModal();
