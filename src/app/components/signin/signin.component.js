@@ -60,16 +60,13 @@
            * @returns void
            */
           function getSocialProviders() {
-            blockUI.start();
             Auth
               .getSocialProviders()
               .then(function (response) {
                 $ctrl.socialProviders = response.data;
-                blockUI.stop();
                 $log.log('Social Provider collection', response.data);
               }, function (error) {
                 //handle error
-                blockUI.stop();
                 $log.error(error);
               });
           }
@@ -84,7 +81,6 @@
             Auth
               .socialSignin(provider)
               .then(function () {
-                blockUI.stop();
                 $state.go(ENV_CONFIG.ROUTE_HOME_STATE, { app: $state.params.app });
               }, function (error) {
                 //handle error

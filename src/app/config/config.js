@@ -19,12 +19,14 @@
 
   /** @ngInject */
   function config($logProvider, BackandProvider, ENV_CONFIG, $httpProvider, $localStorageProvider) {
-    var appName, anonymousToken, queryParams = getUrlParams(window.location.href) || {};
+    var appName, anonymousToken, queryParams = getUrlParams(window.location.href) || {}, urlSegments = getUrlSeg(window.location.href);
     // Enable log
     var isDebug = ENV_CONFIG.ENV !== 'prod' ? true : false;
-      $logProvider.debugEnabled(isDebug);
+    $logProvider.debugEnabled(isDebug);
 
-    appName = getAppName(window.location.href);
+    //#/appName  
+    appName = urlSegments[0];
+
     anonymousToken = queryParams.t;
     if (anonymousToken) {
       try {
@@ -36,11 +38,11 @@
 
     //register authInterceptor to handle authentication
     $httpProvider.interceptors.push('authInterceptor');
-    $localStorageProvider.setKeyPrefix(appName+'_');
+    $localStorageProvider.setKeyPrefix(appName + '_');
     //configure backand
-    var config = {appName: appName};
-   
-    if(anonymousToken){
+    var config = { appName: appName };
+
+    if (anonymousToken) {
       config.anonymousToken = anonymousToken;
     } else {
       config.useAnonymousTokenByDefault = false;
@@ -76,14 +78,16 @@
     return params;
   }
 
-  function getAppName(url){
+  function getUrlSeg(url) {
     //assume the app name is just after the #/
-    var path = url.match(/\#\/(.*)\//i);
-    if(path && path.length === 2){
-      return path[1];
-    } else {
-      return '';
+    if (url.indexOf('#') === -1) {
+      console.error('URL does not carry appName');
+      return [];
     }
+    var segs = url.split('#')[1];
+    segs = _.trim(segs, '/');
+    segs = segs.split('/');
+    return segs;
   }
 
 })();
