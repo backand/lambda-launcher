@@ -55,19 +55,5 @@
             border-left: 0 none;
             padding-left: 0;
         }
-        .social-providers {
-            .provider {
-                display: inline-block;
-                margin-right: 20px;
-                .btn {
-                    &.btn-social {
-                        display: none;
-                    }
-                }
-                .provider-icon {
-                    display: inline-block !important;
-                }
-            }
-        }
     }
 }
