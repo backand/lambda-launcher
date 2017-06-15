@@ -18,7 +18,7 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, BackandProvider, ENV_CONFIG, $httpProvider, $localStorageProvider) {
+  function config($logProvider, ENV_CONFIG, $httpProvider, $localStorageProvider) {
     var appName, anonymousToken, queryParams = getUrlParams(window.location.href) || {}, urlSegments = getUrlSeg(window.location.href);
     // Enable log
     var isDebug = ENV_CONFIG.ENV !== 'prod' ? true : false;
@@ -44,29 +44,23 @@
 
     if (anonymousToken) {
       config.anonymousToken = anonymousToken;
-    } else {
-      config.useAnonymousTokenByDefault = false;
+      $localStorageProvider.set("anonymousToken" , anonymousToken);
+    }
+    else {
+      config.anonymousToken = $localStorageProvider.get("anonymousToken");
+      if(!config.anonymousToken){
+        config.useAnonymousTokenByDefault = false;
+      }
+
     }
 
     console.log('App Initialized with - ', config);
-    BackandProvider.init(config);
 
-
-    // if (appName && anonymousToken) {
-    //   //go to functions page
-    //   BackandProvider.setAppName(appName);
-    //   BackandProvider.setAnonymousToken(anonymousToken);
-    // }
-    // else if (!appName && !anonymousToken) {
-    //   BackandProvider.setAppName(ENV_CONFIG.appName);
-    // } else if (appName && !anonymousToken) {
-    //   BackandProvider.setAppName(appName);
-    //   BackandProvider.setAnonymousToken(ENV_CONFIG.anonymousToken);
-    // }else if (!appName && anonymousToken) {
-    //   BackandProvider.setAppName(ENV_CONFIG.appName);
-    //   BackandProvider.setAnonymousToken(anonymousToken);
-    // }
-
+    if(config.appName){
+      backand.init(config);
+    } else {
+      backand.init = null;
+    }
   }
   function getUrlParams(url) {
     var queryString = url.split("?")[1] || '';

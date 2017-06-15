@@ -18,12 +18,6 @@
   function authInterceptor($q, Backand, $localStorage, $injector,_) {
 
     return {
-      /*request : function(config){
-        if(_.endsWith(config.url,'config')){
-          config.headers.Authorization = 'Bearer ' + '03b73277-bb28-40bd-a82b-11c4ea21cfa8';
-        }
-        return config;
-      },*/
       requestError: function (rejection) {
         return $q.reject(rejection);
       },

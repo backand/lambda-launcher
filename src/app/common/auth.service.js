@@ -41,6 +41,9 @@
      * @returns promise
      */
     function getCurrentUser() {
+      if(!Backand.user) //in case Backand was created
+        return;
+
       return Backand.user.getUserDetails()
         .then(function (response) {
           var data = response.data;
@@ -60,6 +63,9 @@
      * @returns promise
      */
     function getSocialProviders() {
+      if(!Backand.getSocialProviders)
+        return;
+
       return Backand.getSocialProviders()
         .then(function (response) {
           return response;

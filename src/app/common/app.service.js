@@ -45,7 +45,7 @@
         className: 'windows'
       },
       azuread: {
-        label: 'Azuread',
+        label: 'Azure AD',
         className: 'windows'
       }
     }
