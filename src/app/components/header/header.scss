@@ -1,48 +1,72 @@
 /* Custom page header */
 
+.nav-item {
+    background: none;
+    position: relative;
+    font-size: 18px;
+    line-height: 1.09;
+    text-align: left;
+    color: #f1f1f1;
+    &:after {
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 20px;
+        right: 0;
+        background: $white;
+    }
+    &:hover,
+    &:focus {
+        background: none;
+        color: $brand-primary;
+    }
+    i {
+        font-size: 2rem;
+    }
+}
+
 .header {
-    margin-bottom: 25px;
-    margin-top: 50px;
+    .title-bar {
+        position: absolute;
+        text-align: center;
+        right: 0;
+        left: 0;
+        top: 18px;
+        h2 {
+            font-size: 30px;
+            font-weight: 300;
+            line-height: 0.57;
+            text-align: center;
+            color: #ffffff;
+        }
+    }
     .navbar-brand {
-        @extend .text-2x;
-        color: $white;
-        padding-top:5px;
-        padding-bottom: 5px;
+        padding: 0px;
+        height: 80px;
+        >img {
+            height: 100%;
+            padding: 10px 10px 0px;
+            width: auto;
+        }
     }
     .navbar {
         margin-bottom: 0;
         .navbar-header {
             .navbar-toggle {
-                >i {
-                    color: $white;
+                padding: 10px;
+                margin: 25px 15px 25px 0;
+                @extend .nav-item;
+                &:after {
+                    content: none;
                 }
             }
         }
         .nav {
             >li {
                 >a {
-                    color: $white;
-                    background: none;
-                    position: relative;
-                    @extend .text-lg;
-                    padding: 2px 18px;
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        width: 1px;
-                        height: 20px;
-                        right: 0;
-                        background: $white;
-                    }
-                    &:hover,
-                    &:focus {
-                        background: none;
-                        color: $brand-primary;
-                    }
-
-                    i{
-                      font-size: 2rem;
-                    }
+                    padding-top: 30px;
+                    padding-bottom: 30px;
+                    @extend .nav-item;
                 }
                 &:last-child {
                     >a {
@@ -63,14 +87,24 @@
     }
     &.signin-header {
         @media (min-height: 768px) {
-            margin-top: 150px;
+            //margin-top: 150px;
         }
     }
-    @media (max-height: 768px) {
-        margin-top: 20px;
-        margin-bottom: 10px;
+    @media (max-width: 768px) {
         .container {
             padding: 0;
+        }
+        .header .navbar-brand>img {
+            padding: 15px 15px;
+        }
+        .title-bar {
+          h2{
+            font-size: 23px;
+          }
+        }
+
+        .app-content{
+          top: 60px;
         }
     }
 }

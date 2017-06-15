@@ -1,11 +1,10 @@
 body {
+    font-family: $font-family-serif;
     background: url(../assets/images/bg/bg-pattern.png);
     text-rendering: optimizeLegibility!important;
     -webkit-font-smoothing: antialiased!important;
     -moz-osx-font-smoothing: grayscale!important;
     /* Space out content a bit */
-    padding-top: 20px;
-    padding-bottom: 20px;
     color: $gray;
 }
 
@@ -26,8 +25,8 @@ body {
     }
 }
 
-a{
-  cursor: pointer;
+a {
+    cursor: pointer;
 }
 
 
@@ -60,36 +59,58 @@ a{
     }
 }
 
-.modal{
-  .modal-header{
-    position: relative;
-    .close{
-      position: absolute;
-      right: 15px;
-      top: 25px;
-      >i{
-      color: $gray;
-      }
-      opacity: .8;
-      &:hover{
-        opacity: 1;
-      }
+.modal {
+    .modal-header {
+        position: relative;
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 25px;
+            >i {
+                color: $gray;
+            }
+            opacity: .8;
+            &:hover {
+                opacity: 1;
+            }
+        }
     }
-  }
 }
+
 
 /* Responsive: Portrait tablets and up */
 
 @media screen and (min-width: 768px) {
-    /* Remove the padding we set earlier */
+    /* Remove the padding we set earlier
     .header,
     .marketing,
     .footer {
         padding-right: 0;
         padding-left: 0;
     }
-    /* Remove the bottom border on the jumbotron for visual effect */
+   
     .jumbotron {
         border-bottom: 0;
-    }
+    } */
+}
+ @media (max-width: 768px) {
+.header,
+.marketing,
+.footer {
+    padding-right: 0;
+    padding-left: 0;
+}
+ }
+
+.w-40 {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    text-align: center;
+}
+
+.rounded,
+.circle {
+    border-radius: 500px;
 }

@@ -36,6 +36,7 @@
            * public methods
            */
           $ctrl.runFunction = runFunction;
+          $ctrl.getRandomColor = getRandomColor;
           /**
            * public properties
            */
@@ -164,6 +165,15 @@
             runInstance.executionTime = _.now();
             Lambda.saveRun(funcId, runInstance);
             getAllRuns();
+          }
+
+          function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+              color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
           }
 
           //end of controller

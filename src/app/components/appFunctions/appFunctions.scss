@@ -1,6 +1,6 @@
 .page-appFunctions {
-    .panel{
-      min-height: 150px;
+    .panel {
+        min-height: 150px;
     }
     .app-actions {
         >a {
@@ -40,5 +40,17 @@
                 }
             }
         }
+    }
+    .left-panel {
+        -webkit-box-shadow: 3px 1px 15px 0px rgba(235, 235, 235, 1);
+        -moz-box-shadow: 3px 1px 15px 0px rgba(235, 235, 235, 1);
+        box-shadow: 3px 1px 15px 0px rgba(235, 235, 235, 1);
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        overflow-y: scroll;
+        height: 100%;
     }
 }

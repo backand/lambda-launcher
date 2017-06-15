@@ -48,6 +48,7 @@
       'LambdaLauncher.envConfig',
       'toaster',
       'ui.bootstrap',
-      'ngStorage'
+      'ngStorage',
+      'ngColorThis'
     ]);
 })();
