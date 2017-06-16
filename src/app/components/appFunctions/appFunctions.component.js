@@ -127,9 +127,10 @@
             }*/
             var params = {};
             _.forEach(parameters, function (p) {
-              params[p.name] = p.value;
+              params[p.name.trim()] = p.value;
             });
             blockUI.start();
+            Analytics.track('LL_RunFunction', {name: func.name});
             Lambda
               .runFunction(func.name, params)
               .then(function (response) {
@@ -137,7 +138,6 @@
                   Payload: response.data,
                   StatusCode: response.status
                 });
-                Analytics.track('LL_RunFunction', {name: func.name});
                 toaster.success('Success', 'Function has been executed successfully.');
                 $log.info('Function run successful', response);
                 blockUI.stop();
@@ -145,7 +145,7 @@
                 toaster.error('Error', 'Error occured while executing function.');
                 $log.error('Function run error', error);
                 saveRun(funcId, {
-                  Payload: error.statusText,
+                  Payload: error.data.errorMessage || error.statusText,
                   StatusCode: error.status
                 });
                 blockUI.stop();
