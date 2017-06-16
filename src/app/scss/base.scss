@@ -32,7 +32,9 @@ a {
 
 /* Everything but the jumbotron gets side spacing for mobile first views 
 */
-
+.container {
+        padding: 0;
+}
 .header,
 .marketing,
 .footer {

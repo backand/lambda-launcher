@@ -26,6 +26,7 @@
 }
 
 .header {
+  padding: 0;
     .title-bar {
         position: absolute;
         text-align: center;
@@ -40,21 +41,21 @@
             color: #ffffff;
         }
     }
+    #navbar {
+        padding-top: 10px;
+    }
     .navbar-brand {
-        padding: 0px;
-        height: 80px;
+        height: 60px;
+        padding: 0;
+        margin-top: 15px;
         >img {
             height: 100%;
-            padding: 10px 10px 0px;
             width: auto;
         }
     }
     .navbar {
-        margin-bottom: 0;
         .navbar-header {
             .navbar-toggle {
-                padding: 10px;
-                margin: 25px 15px 25px 0;
                 @extend .nav-item;
                 &:after {
                     content: none;
@@ -91,20 +92,25 @@
         }
     }
     @media (max-width: 768px) {
-        .container {
-            padding: 0;
+        .navbar {
+            margin-bottom: 0;
         }
-        .header .navbar-brand>img {
-            padding: 15px 15px;
+        .navbar-brand {
+            margin-left: 15px;
+            margin-top: 15px;
+            height: 36px;
+            >img {
+                padding: 0px;
+            }
         }
         .title-bar {
-          h2{
-            font-size: 23px;
-          }
+            top: 0;
+            h2 {
+                font-size: 23px;
+            }
         }
-
-        .app-content{
-          top: 60px;
+        .app-content {
+            top: 60px;
         }
     }
 }
