@@ -16,7 +16,7 @@
     .module('LambdaLauncher')
     .service('Auth', AuthService);
   /** @ngInject */
-  function AuthService($localStorage, $rootScope, $state, Backand, ENV_CONFIG, $log, App) {
+  function AuthService($localStorage, $rootScope, $state, Backand, ENV_CONFIG, $log, App, Analytics) {
     var self = this,
       ROUTE_HOME_STATE = ENV_CONFIG.ROUTE_HOME_STATE || 'dashboard.app';
     /**
@@ -155,6 +155,7 @@
     }
 
     function onSignin(data) {
+      Analytics.identify(data.fullName, data.username);
       getCurrentUser();
     }
 

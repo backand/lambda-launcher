@@ -24,7 +24,8 @@
         'blockUI',
         'ENV_CONFIG',
         '$injector',
-        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector) {
+        'Analytics',
+        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector, Analytics) {
           var $ctrl = this;
 
           /**
@@ -136,6 +137,7 @@
                   Payload: response.data,
                   StatusCode: response.status
                 });
+                Analytics.track('LL_RunFunction', {name: func.name});
                 toaster.success('Success', 'Function has been executed successfully.');
                 $log.info('Function run successful', response);
                 blockUI.stop();
