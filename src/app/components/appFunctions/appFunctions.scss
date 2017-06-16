@@ -53,4 +53,22 @@
         overflow-y: scroll;
         height: 100%;
     }
+    .search {
+        padding: 5px 0;
+        background: #f2f2f2;
+        .form-control {
+            border: 0;
+            background: none;
+            box-shadow: none;
+            height: 40px;
+            font-size: 17px;
+        }
+        .btn {
+            border: 0 none;
+            background: none;
+            &:focus, &:active, &.active{
+              box-shadow: none !important;
+            }
+        }
+    }
 }
