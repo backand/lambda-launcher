@@ -1,0 +1,14 @@
+<app-header data-is-authenticated="$ctrl.isAuthenticated()"></app-header>
+<div class="app-content clearfix" id="app-content">
+  <div class="page-appFunctions">
+    <div class="row marketing">
+      <div class="col-md-4 left-panel">
+        <functions-list on-select="$ctrl.onSelect(function)"></functions-list>
+      </div>
+      <div class="col-md-8 col-md-offset-4 hidden-xs">
+        <div ui-view="function-detail"></div>
+       <!--function-detail data-ng-if="$ctrl.function" data-function="$ctrl.function"></div>-->
+      </div>
+    </div>
+  </div>
+</div>

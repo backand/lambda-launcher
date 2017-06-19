@@ -30,7 +30,7 @@
     self.saveRun = saveRun;
     self.setParamsUpdated = setParamsUpdated;
     self.isParamsUpdated = isParamsUpdated;
-
+    self.getFunction = getFunction;
 
 
     /**
@@ -44,7 +44,26 @@
       params = params || {};
       return Backand.invoke({
         method: 'GET',
-        url: '/1/action/config',
+        url: '1/action/config',
+        params: params
+      });
+    }
+
+    /**
+     * @name getFunction
+     * @description get function By iD
+     * 
+     * @param {object} params Addtional Query parameters
+     * @returns promise
+     */
+    function getFunction(params) {
+      params = params || {};
+      if(!_.get(params, 'id')){
+        throw Error('Function ID is required to get Function');
+      }
+      return Backand.invoke({
+        method: 'GET',
+        url: '1/action/config/'+params.id,
         params: params
       })
     }

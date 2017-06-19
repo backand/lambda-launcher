@@ -41,7 +41,7 @@
      * @returns promise
      */
     function getCurrentUser() {
-      if(!Backand.user) //in case Backand was created
+      if (!Backand.user) //in case Backand was created
         return;
 
       return Backand.user.getUserDetails()
@@ -51,7 +51,9 @@
           $log.info('User -', data);
           if (data !== null) {
             self.currentUser.name = data.username;
-            $state.transitionTo(ROUTE_HOME_STATE, { reload: true, app: $state.params.app }, App.state.toParams);
+            if (ROUTE_HOME_STATE !== $state.current.name) {
+              $state.transitionTo(ROUTE_HOME_STATE, { reload: true, app: $state.params.app }, App.state.toParams);
+            }
           }
         });
     }
@@ -63,7 +65,7 @@
      * @returns promise
      */
     function getSocialProviders() {
-      if(!Backand.getSocialProviders)
+      if (!Backand.getSocialProviders)
         return;
 
       return Backand.getSocialProviders()

@@ -32,9 +32,11 @@ a {
 
 /* Everything but the jumbotron gets side spacing for mobile first views 
 */
+
 .container {
-        padding: 0;
+    padding: 0;
 }
+
 .header,
 .marketing,
 .footer {
@@ -95,14 +97,15 @@ a {
         border-bottom: 0;
     } */
 }
- @media (max-width: 768px) {
-.header,
-.marketing,
-.footer {
-    padding-right: 0;
-    padding-left: 0;
+
+@media (max-width: 768px) {
+    .header,
+    .marketing,
+    .footer {
+        padding-right: 0;
+        padding-left: 0;
+    }
 }
- }
 
 .w-40 {
     width: 40px;
@@ -112,7 +115,45 @@ a {
     text-align: center;
 }
 
+.w-64 {
+    width: 64px;
+    height: 64px;
+    line-height: 64px;
+    display: inline-block;
+    text-align: center;
+}
+
 .rounded,
 .circle {
     border-radius: 500px;
+}
+
+.with-base {
+    .active-tab {
+        color: $brand-primary;
+        border-color: transparent;
+        border-bottom: 2px solid $brand-primary;
+    }
+    .nav-tabs {
+        border-bottom: 2px solid #ddd;
+        >li {
+            margin-bottom: -2px;
+            a {
+                border-bottom: 2px solid #ddd;
+                color: #616161;
+                background: none;
+            }
+            &.active {
+                >a,
+                a:hover,
+                a:focus {
+                  @extend .active-tab;
+                }
+            }
+            a:hover,
+            a:focus {
+               @extend .active-tab;
+            }
+        }
+    }
 }

@@ -1,11 +1,11 @@
 /**
  * @ngdoc Component
- * @name LambdaLauncher.component.appParams
+ * @name LambdaLauncher.component.parameters
  *
  * @module LambdaLauncher
  *
  * @description
- * appParams component - A component to configure settings of an application
+ * parameters component - A component to configure settings of an application
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -13,8 +13,11 @@
   'use strict';
   angular
     .module('LambdaLauncher')
-    .component('appParams', {
-      templateUrl: 'app/components/appParams/appParams.html',
+    .component('parameters', {
+      templateUrl: 'app/components/functions/parameters/parameters.html',
+      bindings: {
+        function: '<'
+      },
       controller: [
         '$log',
         '$stateParams',
@@ -24,12 +27,12 @@
         '_',
         function ($log, $stateParams, Lambda, $state, toaster, _) {
           var $ctrl = this, function_id;
-          function_id = $stateParams.function_id;
 
           /**
            * component's lifeCycle hooks
            */
           $ctrl.$onInit = initialization;
+          $ctrl.$onChanges = onChanges;
 
           /**
            * public methods
@@ -47,6 +50,7 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
+            function_id = $ctrl.function.iD
             if (!function_id) {
               throw Error('function_id not found');
             }
@@ -54,6 +58,12 @@
               Lambda.setParamsUpdated(function_id);
             }
             $ctrl.parameters = Lambda.getParameters(function_id);
+          }
+
+          function onChanges(bindings) {
+            if (!bindings.function.isFirstChange()) {
+            }
+
           }
           /**
            * @function updateParameters
