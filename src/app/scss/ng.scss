@@ -1,0 +1,13 @@
+.animated {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+}
+
+[ui-view].ng-leave {
+  display: none;
+}
+
+
+[ui-view].ng-leave.smooth {
+  display: block;
+}

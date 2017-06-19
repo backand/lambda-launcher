@@ -26,7 +26,7 @@
     self.runFunction = runFunction;
     self.getParameters = getParameters;
     self.saveParameters = saveParameters;
-    self.getRuns = getRuns;
+    self.getRun = getRun;
     self.saveRun = saveRun;
     self.setParamsUpdated = setParamsUpdated;
     self.isParamsUpdated = isParamsUpdated;
@@ -177,26 +177,32 @@
     }
 
     /**
-     * @name getRuns
+     * @name getRun
      * @description get all runs from $localStorage
      * 
+     * @param {integer} fnId Function ID
      * @returns array |object
      */
-    function getRuns() {
-      return $localStorage.runs || {};
+    function getRun(fnId) {
+      var r, runs = _.get($localStorage, 'runs');
+      runs = runs || {};
+
+      r = _.get(runs, fnId);
+
+      return _.isArray(r) ? r : [];
     }
 
     /**
      * @name saveRun
      * @description stores result of lambda function execution in $localStorage.runs
      * $localStorage.runs = {
-     *   f_1 : {
+     *   f_1 : [{
      *    StatusCode : 200,
      *    executionTime : 4783683289,
      *    Payload : responseBody
-     *   },
-     *   f_2 : {}
-     *   f_3 : {}
+     *   }],
+     *   f_2 : [{....}]
+     *   f_3 : [{....}]
      * }
      * where f_1,f_2,f_3 are function Ids
      * 
@@ -206,8 +212,15 @@
      * @returns void
      */
     function saveRun(fId, run) {
-      var runs = getRuns();
-      runs[fId] = run;
+      var r, runs  = _.get($localStorage, 'runs');
+      r = _.isArray(runs[fId]) ? runs[fId] : [];
+      if(r.length >= 5){
+        r.unshift(run);
+        r.length =5;
+      }else{
+        r.push(run);
+      }
+      runs[fId] = r;
       $localStorage.runs = angular.copy(runs);
     }
 

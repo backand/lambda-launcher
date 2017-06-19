@@ -1,4 +1,4 @@
-<form class="form-horizontal parametersForm" data-ng-submit="$ctrl.updateParameters()">
+<form class="form-horizontal parametersForm" data-ng-submit="$ctrl.updateParameters()" name="$ctrl.form">
   <div class="alert alert-info" data-ng-if="!$ctrl.parameters">
     <p>No Input Parameters</p>
   </div>
@@ -10,8 +10,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-lg btn-round btn-primary text-u-c pull-right p-x-lg" data-ng-if="$ctrl.parameters">Update</button>
-      <a data-ui-sref="dashboard.appFunctions" class="btn btn-lg btn-round btn-default text-u-c pull-right p-x-lg m-r-md">Cancel</a>
+      <button type="submit" data-ng-disabled="!$ctrl.form.$dirty" class="btn btn-lg btn-round btn-primary text-u-c pull-right p-x-lg" data-ng-if="$ctrl.parameters">Save</button>
     </div>
   </div>
 </form>

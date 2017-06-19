@@ -14,7 +14,7 @@
   angular
     .module('LambdaLauncher')
     .component('functionDetail', {
-      bindings : {
+      bindings: {
       },
       templateUrl: 'app/components/functions/detail/functions.detail.html',
       controller: [
@@ -22,14 +22,18 @@
         '_',
         '$stateParams',
         'Lambda',
-        function ($log, _, $stateParams, Lambda) {
+        'blockUI',
+        'toaster',
+        '$rootScope',
+        function ($log, _, $stateParams, Lambda, blockUI, toaster, $rootScope) {
           var $ctrl = this,
-          functionId = $stateParams.function_id;
+            functionId = $stateParams.function_id;
 
           /**
            * component's lifeCycle hooks
            */
           $ctrl.$onInit = initialization;
+          $ctrl.runFunction = runFunction;
           /**
            * public methods
            */
@@ -47,18 +51,71 @@
           function initialization() {
             console.log($stateParams);
             getFunction();
+            getRuns();
           }
-          function getFunction(){
+          function getRuns(){
+            $ctrl.runs = Lambda.getRun(functionId);
+          }
+          function getFunction() {
             Lambda
-            .getFunction({
-              id : functionId
-            })
-            .then(function(response){
-              $ctrl.function = _.get(response, 'data') || {};
-            },function(error){
-              $log.error('Error while getting function -', error);
-            });
+              .getFunction({
+                id: functionId
+              })
+              .then(function (response) {
+                $ctrl.function = _.get(response, 'data') || {};
+              }, function (error) {
+                $log.error('Error while getting function -', error);
+              });
           }
+
+          function runFunction(func) {
+            var funcId = func.iD;
+            var parameters = Lambda
+              .getParameters(funcId);
+
+            /**
+             * Lets not stop user to run function if he has not updated params
+             */
+            /*if (!Lambda.isParamsUpdated(funcId)) {
+              $state.go('dashboard.parameters', { function_id: funcId });
+              return;
+            }*/
+            var params = {};
+            _.forEach(parameters, function (p) {
+              params[p.name] = p.value;
+            });
+            blockUI.start();
+            Lambda
+              .runFunction(func.name, params)
+              .then(function (response) {
+                saveRun(funcId, {
+                  Payload: response.data,
+                  StatusCode: response.status
+                });
+                toaster.success('Success', 'Function has been executed successfully.');
+                $log.info('Function run successful', response);
+                blockUI.stop();
+              }, function (error) {
+                toaster.error('Error', 'Error occured while executing function.');
+                $log.error('Function run error', error);
+                saveRun(funcId, {
+                  Payload: error.statusText,
+                  StatusCode: error.status
+                });
+                blockUI.stop();
+              });
+          }
+
+          function saveRun(funcId, resultSet) {
+            $log.info(resultSet);
+            var runInstance = angular.copy(resultSet);
+            runInstance.executionTime = _.now();
+            Lambda.saveRun(funcId, runInstance);
+            getRuns();
+          }
+
+
+
           //end of controller
         }]
     });

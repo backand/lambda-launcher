@@ -1,0 +1,19 @@
+<ul class="list m-a-0">
+  <li class="list-item p-x-0" data-ng-repeat="run in $ctrl.runs">
+    <div class="list-left">
+      <span class="w-32 circle avatar avatar-text" data-ng-class="{'btn-success' : run.StatusCode == 200, 'btn-danger' : run.StatusCode != 200}">
+      <i class="fa" data-ng-class="{'fa-check' : run.StatusCode == 200, 'fa-times' : run.StatusCode != 200}"></i>
+      </span>
+    </div>
+    <div class="list-body">
+      <div class="row">
+        <div class="col-md-8">
+          <pre>{{run.Payload}}</pre>
+        </div>
+        <div class="col-md-3 text-right">
+          <span class="_300">{{ run.executionTime | date : 'h:m:s a'}}</span>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>

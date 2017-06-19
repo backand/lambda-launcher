@@ -8,9 +8,10 @@
 </div>
 <!-- /input-group -->
 <ul class="list m-a-0">
-  <li class="list-item hover" data-ng-repeat="function in $ctrl.functions track by $index" data-ng-click="$ctrl.selectFn(function)" data-ng-class="{'active': $ctrl.$state.params.function_id == function.iD}">
+  <li class="list-item hover" data-ng-repeat="function in $ctrl.functions track by $index" data-ng-click="$ctrl.selectFn(function)"
+    data-ng-class="{'active': $ctrl.$state.params.function_id == function.iD}">
     <div class="list-left">
-      <span class="w-40 circle avatar avatar-text" color-this="background-color" data-color="function.name">
+      <span class="w-48 circle avatar avatar-text" color-this="background-color" data-color="function.name">
               <span style="text-transform: uppercase">{{function.name | limitTo:2}}</span>
       <i class="off b-danger"></i>
       </span>

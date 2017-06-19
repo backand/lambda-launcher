@@ -76,8 +76,8 @@
             Lambda
               .saveParameters(function_id, params)
               .then(function () {
+                $ctrl.form.$setPristine();
                 toaster.success('Success', 'Parameters have been updated successfully.');
-                $state.go('dashboard.appFunctions');
                 $log.info('Parameters updated.');
               });
           }
