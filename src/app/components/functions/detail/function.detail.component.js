@@ -53,7 +53,7 @@
             getFunction();
             getRuns();
           }
-          function getRuns(){
+          function getRuns() {
             $ctrl.runs = Lambda.getRun(functionId);
           }
           function getFunction() {
@@ -68,11 +68,15 @@
               });
           }
 
-          function runFunction(func) {
-            var funcId = func.iD;
-            var parameters = Lambda
-              .getParameters(funcId);
+          function runFunction(func, params) {
+            var funcId = func.iD, parameters;
 
+            if (params) {
+              parameters = params;
+            } else {
+              parameters = Lambda
+                .getParameters(funcId);
+            }
             /**
              * Lets not stop user to run function if he has not updated params
              */

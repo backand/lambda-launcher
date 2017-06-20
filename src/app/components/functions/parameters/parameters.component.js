@@ -16,7 +16,8 @@
     .component('parameters', {
       templateUrl: 'app/components/functions/parameters/parameters.html',
       bindings: {
-        function: '<'
+        function: '<',
+        runFunction: '&'
       },
       controller: [
         '$log',
@@ -57,7 +58,7 @@
             if (!Lambda.isParamsUpdated(function_id)) {
               Lambda.setParamsUpdated(function_id);
             }
-            $ctrl.parameters = Lambda.getParameters(function_id);
+            $ctrl.parameters = angular.copy(Lambda.getParameters(function_id));
           }
 
           function onChanges(bindings) {
@@ -72,6 +73,20 @@
            * @returns void
            */
           function updateParameters() {
+            if (typeof $ctrl.runFunction === 'function') {
+              $ctrl.runFunction({
+                function: angular.copy($ctrl.function),
+                params : angular.copy($ctrl.parameters)
+              });
+              $ctrl.parameters = angular.copy(Lambda.getParameters(function_id));
+            }
+            if ($ctrl.saveParams) {
+              saveParams();
+            }
+
+          }
+
+          function saveParams() {
             var params = angular.copy($ctrl.parameters);
             Lambda
               .saveParameters(function_id, params)

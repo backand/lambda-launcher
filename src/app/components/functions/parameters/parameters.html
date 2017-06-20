@@ -2,15 +2,26 @@
   <div class="alert alert-info" data-ng-if="!$ctrl.parameters">
     <p>No Input Parameters</p>
   </div>
+  <div data-ng-if="$ctrl.parameters">
   <div class="form-group row" data-ng-repeat="param in $ctrl.parameters track by $index">
     <label for="id_{{::param.name}}" class="col-sm-2 control-label col-xs-4" data-ng-bind="param.name"></label>
     <div class="col-sm-10 col-xs-8">
       <input type="text" class="form-control" id="id_{{::param.name}}" data-ng-model="param.value" placeholder="Type here">
     </div>
   </div>
+  <div class="form-group row">
+    <div class="col-sm-10 col-xs-8 col-sm-offset-2">
+      <div class="checkbox">
+        <label>
+      <input type="checkbox" data-ng-model="$ctrl.saveParams"> Save parameter
+    </label>
+      </div>
+    </div>
+  </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" data-ng-disabled="!$ctrl.form.$dirty" class="btn btn-lg btn-round btn-primary text-u-c pull-right p-x-lg" data-ng-if="$ctrl.parameters">Save</button>
+      <button type="submit" class="btn btn-primary p-x-lg pull-right">LAUNCH</button>
     </div>
+  </div>
   </div>
 </form>

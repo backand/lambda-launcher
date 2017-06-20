@@ -212,7 +212,7 @@
      * @returns void
      */
     function saveRun(fId, run) {
-      var r, runs  = _.get($localStorage, 'runs');
+      var r, runs  = _.get($localStorage, 'runs') || {};
       r = _.isArray(runs[fId]) ? runs[fId] : [];
       if(r.length >= 5){
         r.unshift(run);
