@@ -17,7 +17,7 @@
       templateUrl: 'app/components/functions/parameters/parameters.html',
       bindings: {
         function: '<',
-        onRunLaunch : '&'
+        onRunLaunch: '&'
       },
       controller: [
         '$log',
@@ -45,7 +45,7 @@
           /**
            * public properties
            */
-
+           
           /**
             * @function
             * @name initialization
@@ -58,10 +58,9 @@
             if (!function_id) {
               throw Error('function_id not found');
             }
-            if (!Lambda.isParamsUpdated(function_id)) {
-              Lambda.setParamsUpdated(function_id);
-            }
+            
             $ctrl.parameters = angular.copy(Lambda.getParameters(function_id));
+            $ctrl.isSaveParamEnable = Lambda.isSaveParamEnable(function_id);
           }
 
           function onChanges(bindings) {
@@ -76,11 +75,17 @@
            * @returns void
            */
           function updateParameters() {
-            if ($ctrl.saveParams) {
-              saveParams();
-            }
             launchFunction($ctrl.function, $ctrl.parameters);
-            $ctrl.parameters = angular.copy(Lambda.getParameters(function_id));
+            if (!$ctrl.isSaveParamEnable) {
+              clearParamValues();
+            }
+            Lambda.enableSaveParams($ctrl.function.iD, $ctrl.isSaveParamEnable);
+            saveParams();
+          }
+          function clearParamValues() {
+            _.forEach($ctrl.parameters, function (p) {
+              p.value = '';
+            })
           }
 
           function saveParams() {
@@ -89,7 +94,6 @@
               .saveParameters(function_id, params)
               .then(function () {
                 $ctrl.form.$setPristine();
-                toaster.success('Success', 'Parameters have been updated successfully.');
                 $log.info('Parameters updated.');
               });
           }
@@ -136,7 +140,7 @@
             runInstance.executionTime = _.now();
             Lambda.saveRun(funcId, runInstance);
 
-            if(typeof $ctrl.onRunLaunch === 'function'){
+            if (typeof $ctrl.onRunLaunch === 'function') {
               $ctrl.onRunLaunch();
             }
           }

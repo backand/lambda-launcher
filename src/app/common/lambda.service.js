@@ -29,8 +29,8 @@
     self.saveParameters = saveParameters;
     self.getRun = getRun;
     self.saveRun = saveRun;
-    self.setParamsUpdated = setParamsUpdated;
-    self.isParamsUpdated = isParamsUpdated;
+    self.enableSaveParams = enableSaveParams;
+    self.isSaveParamEnable = isSaveParamEnable;
     self.getFunction = getFunction;
 
 
@@ -231,26 +231,26 @@
     }
 
     /**
-     * @name setParamsUpdated
+     * @name enableSaveParams
      * @description Update boolean flag= true against a function
-     * if user has visited function params config page, Lets not restrcit him to take to param config page when he try to run function
      * 
      * @param {integer} funcId function ID
+     * @param {boolean} flag
      * @returns void
      */
-    function setParamsUpdated(funcId) {
+    function enableSaveParams(funcId, flag) {
       var functions = $localStorage.functions || {};
-      functions[funcId] = true;
+      functions[funcId] = flag;
       $localStorage.functions = functions;
     }
     /**
-     * @name isParamsUpdated
+     * @name isSaveParamEnable
      * @description checks if boolean flag = true against a function
      * 
      * @param {integer} funcId 
      * @returns 
      */
-    function isParamsUpdated(funcId) {
+    function isSaveParamEnable(funcId) {
       return $localStorage.functions && $localStorage.functions[funcId];
     }
 
