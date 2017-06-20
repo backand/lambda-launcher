@@ -34,6 +34,7 @@
            */
           $ctrl.$onInit = initialization;
           $ctrl.launchFunction = launchFunction;
+          $ctrl.onRunLaunch = onRunLaunch;
           /**
            * public methods
            */
@@ -49,7 +50,6 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            console.log($stateParams);
             getFunction();
             getRuns();
           }
@@ -59,6 +59,10 @@
           function getFunction() {
              $ctrl.function = Lambda
               .getFunction(functionId) || {};
+          }
+
+          function onRunLaunch(){
+            getRuns();
           }
 
           function launchFunction(fn){

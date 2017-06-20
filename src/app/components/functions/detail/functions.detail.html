@@ -26,7 +26,7 @@
     <uib-tabset active="activePill" class="with-base">
       <uib-tab index="0" heading="Parameters">
         <div class="p-a-md" data-ng-if="$ctrl.function">
-          <parameters data-function="$ctrl.function"></parameters>
+          <parameters data-function="$ctrl.function" on-run-launch = "$ctrl.onRunLaunch()"></parameters>
         </div>
       </uib-tab>
       <uib-tab index="1" heading="LOG">

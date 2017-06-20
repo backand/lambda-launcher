@@ -16,7 +16,8 @@
     .component('parameters', {
       templateUrl: 'app/components/functions/parameters/parameters.html',
       bindings: {
-        function: '<'
+        function: '<',
+        onRunLaunch : '&'
       },
       controller: [
         '$log',
@@ -134,6 +135,10 @@
             var runInstance = angular.copy(resultSet);
             runInstance.executionTime = _.now();
             Lambda.saveRun(funcId, runInstance);
+
+            if(typeof $ctrl.onRunLaunch === 'function'){
+              $ctrl.onRunLaunch();
+            }
           }
 
           var LambdaLauncherEvent = $rootScope.$on('EVENT:LAUNCH_FUNCTION', function (e, d) {
