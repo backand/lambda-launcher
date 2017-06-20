@@ -7,7 +7,7 @@
       </span>
     </div>
     <div class="clear">
-      <h3 class="m-a-0 text-lg _600" style="margin: 0;padding: 0;margin-top: 10px;">{{$ctrl.function['name']}}</h3>
+      <h3 class="m-a-0 text-lg _600" style="margin: 0;padding: 0;margin-top: 10px;">{{$ctrl.function['friendlyName'] || $ctrl.function['name']}}</h3>
       <div class="m-t-sm function-meta" data-ng-if="$ctrl.runs[0]">
         <span class="_300"> Last run </span>: <span class="_300">{{ $ctrl.runs[0].executionTime | date : 'dd/MM/yyyy'}}</span>
         </span>

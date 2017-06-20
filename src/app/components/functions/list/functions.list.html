@@ -1,14 +1,14 @@
 <div class="search">
   <div class="input-group">
-    <input type="text" class="form-control" placeholder="Search for...">
+    <input type="text" class="form-control" data-ng-model = "$ctrl.searchText" placeholder="Search for..." ng-minlength="2">
     <span class="input-group-btn">
-            <button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+            <button class="btn btn-default" type="button"><span class="fa fa-search" data-ng-show="!$ctrl.searchText"></span><span data-ng-show="$ctrl.searchText" data-ng-click="$ctrl.searchText = ''">Clear</span></button>
     </span>
   </div>
 </div>
 <!-- /input-group -->
 <ul class="list m-a-0">
-  <li class="list-item hover" data-ng-repeat="function in $ctrl.functions track by $index" data-ng-click="$ctrl.selectFn(function)"
+  <li class="list-item hover" data-ng-repeat="function in $ctrl.functions | propsFilter : { friendlyName : $ctrl.searchText, name : $ctrl.searchText } track by $index" data-ng-click="$ctrl.selectFn(function)"
     data-ng-class="{'active': $ctrl.$state.params.function_id == function.iD}">
     <div class="list-left">
       <span class="w-48 circle avatar avatar-text" color-this="background-color" data-color="function.name">
@@ -17,7 +17,7 @@
       </span>
     </div>
     <div class="list-body">
-      <div data-ng-bind="function.name" class="_600"></div>
+      <div data-ng-bind="function.friendlyName || function.name" class="_600"></div>
       <small class="text-muted text-ellipsis"><span class="_300">{{ $ctrl.fuctionRuns[function.iD]['executionTime'] | date : 'dd/MM/yyyy'}}</span></small>
     </div>
   </li>
