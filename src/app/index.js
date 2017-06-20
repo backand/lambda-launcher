@@ -34,7 +34,7 @@
        * @module ui.router.components
        *
        * @description
-       * polyfil to support routes in angular new componenets
+       * polyfil to support routes in angular new components
        */
       'ui.router.components',
 
