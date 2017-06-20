@@ -49,6 +49,7 @@
       'toaster',
       'ui.bootstrap',
       'ngStorage',
-      'ngColorThis'
+      'ngColorThis',
+      'hm.readmore'
     ]);
 })();

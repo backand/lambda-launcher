@@ -19,7 +19,7 @@
       <button class="btn btn-primary p-x-lg" type="button" data-ng-click="$ctrl.launchFunction($ctrl.function)">LAUNCH</button>
     </div>
     <div class="clear" style="margin-top: 15px;margin-left: 75px;" data-ng-if="$ctrl.function.description">
-      <p data-ng-bind="$ctrl.function.description"></p>
+      <p hm-read-more hm-text="{{ $ctrl.function.description }}" hm-limit="150"	hm-more-text="read more"	hm-less-text=" - read less"></p>
     </div>
   </div>
   <div class="section-body" style="padding-left: 27px;padding-right:27px;">
