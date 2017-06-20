@@ -17,11 +17,11 @@
     "ngstorage": "^0.3.11",
     "angular-color-this": "https://github.com/eknowles/angular-color-this.git#v1.0.1",
     "animate.css": "^3.5.2",
-    "angular-read-more": "^1.0.6"
+    "angular-read-more": "^1.0.6",
+    "angular-sanitize": "~1.5.x"
   },
   "devDependencies": {
-    "angular-mocks": "~1.5.x",
-    "angular-read-more": "^1.0.6"
+    "angular-mocks": "~1.5.x"
   },
   "overrides": {
     "bootstrap-sass": {
@@ -40,6 +40,6 @@
     "angular": "~1.5.x",
     "animate.css": "^3.5.2",
     "angular-animate": "~1.5.x",
-    "angular-sanitize": "1.5.x"
+    "angular-sanitize": "~1.5.x"
   }
 }
