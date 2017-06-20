@@ -89,7 +89,7 @@
           }
 
           function functionsHandler(data) {
-            var functions = data ? data.data.data : [];
+            var functions = data || [];
             $ctrl.functions = functions;
             if (functions.length > 0) {
               updateFunctionParameters(functions);

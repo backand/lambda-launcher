@@ -16,8 +16,7 @@
     .component('parameters', {
       templateUrl: 'app/components/functions/parameters/parameters.html',
       bindings: {
-        function: '<',
-        runFunction: '&'
+        function: '<'
       },
       controller: [
         '$log',
@@ -26,7 +25,10 @@
         '$state',
         'toaster',
         '_',
-        function ($log, $stateParams, Lambda, $state, toaster, _) {
+        'blockUI',
+        '$rootScope',
+        '$scope',
+        function ($log, $stateParams, Lambda, $state, toaster, _, blockUI, $rootScope, $scope) {
           var $ctrl = this, function_id;
 
           /**
@@ -73,17 +75,11 @@
            * @returns void
            */
           function updateParameters() {
-            if (typeof $ctrl.runFunction === 'function') {
-              $ctrl.runFunction({
-                function: angular.copy($ctrl.function),
-                params : angular.copy($ctrl.parameters)
-              });
-              $ctrl.parameters = angular.copy(Lambda.getParameters(function_id));
-            }
             if ($ctrl.saveParams) {
               saveParams();
             }
-
+            launchFunction($ctrl.function, $ctrl.parameters);
+            $ctrl.parameters = angular.copy(Lambda.getParameters(function_id));
           }
 
           function saveParams() {
@@ -97,6 +93,59 @@
               });
           }
 
+          function launchFunction(func, params) {
+            var funcId = func.iD, parameters;
+
+            if (params) {
+              parameters = params;
+            } else {
+              parameters = Lambda
+                .getParameters(funcId);
+            }
+
+            var params = {};
+            _.forEach(parameters, function (p) {
+              params[p.name.trim()] = encodeURIComponent(p.value);
+            });
+            blockUI.start();
+            Lambda
+              .runFunction(func.name, params)
+              .then(function (response) {
+                saveRun(funcId, {
+                  Payload: response.data,
+                  StatusCode: response.status
+                });
+                toaster.success('Success', 'Function has been executed successfully.');
+                $log.info('Function run successful', response);
+                blockUI.stop();
+              }, function (error) {
+                toaster.error('Error', 'Error occurred while executing function.');
+                $log.error('Function run error', error);
+                saveRun(funcId, {
+                  Payload: error.data.errorMessage || error.data,
+                  StatusCode: error.status
+                });
+                blockUI.stop();
+              });
+          }
+
+          function saveRun(funcId, resultSet) {
+            $log.info(resultSet);
+            var runInstance = angular.copy(resultSet);
+            runInstance.executionTime = _.now();
+            Lambda.saveRun(funcId, runInstance);
+          }
+
+          var LambdaLauncherEvent = $rootScope.$on('EVENT:LAUNCH_FUNCTION', function (e, d) {
+            if (d.function.iD == $ctrl.function.iD) {
+              updateParameters();
+            }
+          });
+          $scope.$on('$destroy', function () {
+            LambdaLauncherEvent();
+          });
+
+          //end of controller
         }]
     })
 })();

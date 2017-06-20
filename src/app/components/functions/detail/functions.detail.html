@@ -16,7 +16,7 @@
       </div>
     </div>
     <div style="position: absolute;right: 27px;top:27px">
-      <button class="btn btn-primary p-x-lg" type="button" data-ng-click="$ctrl.runFunction($ctrl.function)">LAUNCH</button>
+      <button class="btn btn-primary p-x-lg" type="button" data-ng-click="$ctrl.launchFunction($ctrl.function)">LAUNCH</button>
     </div>
     <div class="clear" style="margin-top: 15px;margin-left: 75px;" data-ng-if="$ctrl.function.description">
       <p data-ng-bind="$ctrl.function.description"></p>
@@ -26,7 +26,7 @@
     <uib-tabset active="activePill" class="with-base">
       <uib-tab index="0" heading="Parameters">
         <div class="p-a-md" data-ng-if="$ctrl.function">
-          <parameters data-function="$ctrl.function" data-run-function="$ctrl.runFunction(function, params)"></parameters>
+          <parameters data-function="$ctrl.function"></parameters>
         </div>
       </uib-tab>
       <uib-tab index="1" heading="LOG">

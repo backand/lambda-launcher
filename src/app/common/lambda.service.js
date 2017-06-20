@@ -17,7 +17,8 @@
     .service('Lambda', LambdaService);
   /** @ngInject */
   function LambdaService(Backand, $q, $localStorage, _, $timeout) {
-    var self = this;
+    var self = this,
+      functions = [];
 
     /**
      * Exposed bindable methods
@@ -41,31 +42,36 @@
      * @returns promise
      */
     function getFunctions(params) {
+      var deffered = $q.defer();
       params = params || {};
-      return Backand.invoke({
+      Backand.invoke({
         method: 'GET',
         url: '1/action/config',
         params: params
+      }).then(function (response) {
+        var functions = _.get(response, 'data.data');
+        self.functions = functions || [];
+        deffered.resolve(functions);
+      }).catch(function (err) {
+        deffered.reject(err);
       });
+      return deffered.promise;
     }
 
     /**
      * @name getFunction
      * @description get function By iD
      * 
-     * @param {object} params Addtional Query parameters
-     * @returns promise
+     * @param {object} fnId function Id
+     * @returns function
      */
-    function getFunction(params) {
-      params = params || {};
-      if(!_.get(params, 'id')){
-        throw Error('Function ID is required to get Function');
+    function getFunction(fnId) {
+      if (!_.isArray(self.functions)) {
+        return;
       }
-      return Backand.invoke({
-        method: 'GET',
-        url: '1/action/config/'+params.id,
-        params: params
-      })
+      return _.find(self.functions, function(f){
+        return f.iD ==  fnId ;
+      });
     }
 
     /**
@@ -81,12 +87,12 @@
       if (!_.isString(action) && _.isEmpty(action)) {
         throw Error('Invalid action');
       }
-      data = data ;
-      if(_.keys(params).length === 0){
+      data = data;
+      if (_.keys(params).length === 0) {
         params = '';
       }
 
-      if(_.keys(data).length === 0){
+      if (_.keys(data).length === 0) {
         data = '';
       }
 
@@ -104,10 +110,10 @@
      * @returns {array|object}
      */
     function getParameters(function_id) {
-       var params ;
-      if(function_id){
+      var params;
+      if (function_id) {
         params = $localStorage.parameters ? $localStorage.parameters[function_id] : undefined;
-      }else {
+      } else {
         params = $localStorage.parameters || undefined;
       }
       return params;
@@ -212,12 +218,12 @@
      * @returns void
      */
     function saveRun(fId, run) {
-      var r, runs  = _.get($localStorage, 'runs') || {};
+      var r, runs = _.get($localStorage, 'runs') || {};
       r = _.isArray(runs[fId]) ? runs[fId] : [];
-      if(r.length >= 5){
+      if (r.length >= 5) {
         r.unshift(run);
-        r.length =5;
-      }else{
+        r.length = 5;
+      } else {
         r.push(run);
       }
       runs[fId] = r;
@@ -232,7 +238,7 @@
      * @param {integer} funcId function ID
      * @returns void
      */
-    function setParamsUpdated(funcId){
+    function setParamsUpdated(funcId) {
       var functions = $localStorage.functions || {};
       functions[funcId] = true;
       $localStorage.functions = functions;
@@ -244,7 +250,7 @@
      * @param {integer} funcId 
      * @returns 
      */
-    function isParamsUpdated(funcId){
+    function isParamsUpdated(funcId) {
       return $localStorage.functions && $localStorage.functions[funcId];
     }
 
