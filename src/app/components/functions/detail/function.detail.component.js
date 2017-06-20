@@ -86,7 +86,7 @@
             }*/
             var params = {};
             _.forEach(parameters, function (p) {
-              params[p.name] = p.value;
+              params[p.name.trim()] = encodeURIComponent(p.value);
             });
             blockUI.start();
             Lambda
@@ -100,10 +100,10 @@
                 $log.info('Function run successful', response);
                 blockUI.stop();
               }, function (error) {
-                toaster.error('Error', 'Error occured while executing function.');
+                toaster.error('Error', 'Error occurred while executing function.');
                 $log.error('Function run error', error);
                 saveRun(funcId, {
-                  Payload: error.statusText,
+                  Payload: error.data.errorMessage || error.data,
                   StatusCode: error.status
                 });
                 blockUI.stop();
