@@ -27,7 +27,8 @@
         'blockUI',
         'ENV_CONFIG',
         '$injector',
-        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector) {
+        'App',
+        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector, App) {
           var $ctrl = this;
 
           /**
@@ -43,6 +44,7 @@
           /**
            * public properties
            */
+          $ctrl.App = App;
 
           /**
             * @function
@@ -95,7 +97,10 @@
               updateFunctionParameters(functions);
             }
             if (!$ctrl.$state.params.function_id) {
-              selectFn($ctrl.functions[0]);
+              if (!App.isSmallDevice()) {
+                App.setDetailView(false);
+                selectFn($ctrl.functions[0]);
+              }
             }
           }
 
@@ -129,6 +134,9 @@
           }
 
           function selectFn(fn) {
+            if (App.isSmallDevice()) {
+              App.setDetailView(true);
+            }
             $state.go('dashboard.appFunctions.detail', { function_id: fn.iD });
           }
           //end of controller

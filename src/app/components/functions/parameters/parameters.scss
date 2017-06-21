@@ -1,21 +1,16 @@
-.page-appParams {
-    .panel {
-        background: none;
-        border: 0 none;
-        box-shadow: none;
-        @extend .p-y-md;
-        @extend .p-x-lg;
-        @media (max-width: 768px) {
-            padding-left:15px !important;
-            padding-right: 15px !important;
+.parametersForm {
+    @media (max-width: 768px) {
+        color: #e2e2e2;
+        .launch-btn {
+            display: none;
         }
-        .parametersForm {
-            .form-group {
-                color: $white;
-                .control-label {
-                    text-align: left;
-                }
-            }
+        .form-control {
+            border-radius: 3px;
+            background-color: #070707;
+            color: #909090;
+            border: 0 none;
+            height: 45px;
+            font-size: 16px;
         }
     }
 }

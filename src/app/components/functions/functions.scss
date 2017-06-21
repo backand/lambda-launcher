@@ -52,6 +52,9 @@
         top: 0;
         overflow-y: scroll;
         height: 100%;
+        @media (max-width: 768px) {
+            background: #fff;
+        }
     }
     .search {
         padding: 5px 0;
@@ -66,9 +69,14 @@
         .btn {
             border: 0 none;
             background: none;
-            &:focus, &:active, &.active{
-              box-shadow: none !important;
+            &:focus,
+            &:active,
+            &.active {
+                box-shadow: none !important;
             }
+        }
+        @media (max-width: 768px) {
+            padding: 5px 5px 5px 15px;
         }
     }
 }

@@ -1,39 +1,43 @@
-<div class="section">
-  <div class="section-header" style="padding: 27px">
-    <div class="pull-left m-r">
-      <span class="w-64 circle avatar avatar-text" color-this="background-color" data-color="$ctrl.function['name']">
-              <span style="font-size: 20px;text-transform: uppercase;color: #fff">{{$ctrl.function.name | limitTo:2}}</span>
-      <i class="off b-danger"></i>
-      </span>
-    </div>
-    <div class="clear">
-      <h3 class="m-a-0 text-lg _600" style="margin: 0;padding: 0;margin-top: 10px;">{{$ctrl.function['friendlyName'] || $ctrl.function['name']}}</h3>
-      <div class="m-t-sm function-meta" data-ng-if="$ctrl.runs[0]">
-        <span class="_300"> Last run </span>: <span class="_300">{{ $ctrl.runs[0].executionTime | date : 'dd/MM/yyyy'}}</span>
+<div class="function-detail">
+  <div class="section">
+    <div class="section-header">
+      <div class="pull-left m-r section-header-left">
+        <span class="back-btn" data-ng-click="$ctrl.back()"> <i class="fa fa-angle-left fa-2x"></i> </span>
+        <span class="w-64 circle avatar avatar-text" color-this="background-color" data-color="$ctrl.function['name']">
+              <span class="text">{{$ctrl.function.name | limitTo:2}}</span>
+        <i class="off b-danger"></i>
         </span>
-        <span class="sep"></span>
-        <span class="_300">{{ $ctrl.runs[0].executionTime | date : 'h:m:s a'}}</span>
+      </div>
+      <div class="clear section-header-right">
+        <h3 class="m-a-0 text-lg _600 header-title">{{$ctrl.function['friendlyName'] || $ctrl.function['name']}}</h3>
+        <div class="m-t-sm function-meta" data-ng-if="$ctrl.runs[0]">
+          <span class="_300"> Last run </span>: <span class="_300">{{ $ctrl.runs[0].executionTime | date : 'dd/MM/yyyy'}}</span>
+          </span>
+          <span class="sep"></span>
+          <span class="_300">{{ $ctrl.runs[0].executionTime | date : 'h:m:s a'}}</span>
+        </div>
+      </div>
+      <div class="header-right-absolute">
+        <button class="btn btn-primary p-x-lg" type="button" data-ng-click="$ctrl.launchFunction($ctrl.function)">LAUNCH</button>
+      </div>
+      <div class="clear fn-description" data-ng-if="$ctrl.function.description">
+        <p hm-read-more hm-text="{{ $ctrl.function.description }}" hm-limit="150" hm-more-text="read more" hm-less-text=" - read less"></p>
       </div>
     </div>
-    <div style="position: absolute;right: 27px;top:27px">
-      <button class="btn btn-primary p-x-lg" type="button" data-ng-click="$ctrl.launchFunction($ctrl.function)">LAUNCH</button>
-    </div>
-    <div class="clear" style="margin-top: 15px;margin-left: 75px;" data-ng-if="$ctrl.function.description">
-      <p hm-read-more hm-text="{{ $ctrl.function.description }}" hm-limit="150"	hm-more-text="read more"	hm-less-text=" - read less"></p>
+    <div class="section-body">
+      <uib-tabset active="activePill" class="with-base">
+        <uib-tab index="0" heading="Parameters">
+          <div class="p-a-md" data-ng-if="$ctrl.function">
+            <parameters data-function="$ctrl.function" on-run-launch="$ctrl.onRunLaunch()"></parameters>
+          </div>
+        </uib-tab>
+        <uib-tab index="1" heading="LOG">
+          <div class="p-a-md" data-ng-if="$ctrl.function.iD">
+            <function-log data-function="$ctrl.function" data-runs="$ctrl.runs"></function-log>
+          </div>
+        </uib-tab>
+      </uib-tabset>
     </div>
   </div>
-  <div class="section-body" style="padding-left: 27px;padding-right:27px;">
-    <uib-tabset active="activePill" class="with-base">
-      <uib-tab index="0" heading="Parameters">
-        <div class="p-a-md" data-ng-if="$ctrl.function">
-          <parameters data-function="$ctrl.function" on-run-launch = "$ctrl.onRunLaunch()"></parameters>
-        </div>
-      </uib-tab>
-      <uib-tab index="1" heading="LOG">
-        <div class="p-a-md" data-ng-if="$ctrl.function.iD">
-          <function-log data-function="$ctrl.function" data-runs="$ctrl.runs"></function-log>
-        </div>
-      </uib-tab>
-    </uib-tabset>
-  </div>
+
 </div>

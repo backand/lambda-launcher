@@ -25,7 +25,8 @@
         'blockUI',
         'toaster',
         '$rootScope',
-        function ($log, _, $stateParams, Lambda, blockUI, toaster, $rootScope) {
+        'App',
+        function ($log, _, $stateParams, Lambda, blockUI, toaster, $rootScope, App) {
           var $ctrl = this,
             functionId = $stateParams.function_id;
 
@@ -35,6 +36,7 @@
           $ctrl.$onInit = initialization;
           $ctrl.launchFunction = launchFunction;
           $ctrl.onRunLaunch = onRunLaunch;
+          $ctrl.back = back;
           /**
            * public methods
            */
@@ -69,6 +71,10 @@
             $rootScope.$emit('EVENT:LAUNCH_FUNCTION', {
               function : angular.copy(fn)
             })
+          }
+
+          function back(){
+            App.setDetailView(false);
           }
           //end of controller
         }]

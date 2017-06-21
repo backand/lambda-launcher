@@ -43,6 +43,7 @@
            * public properties
            */
           $ctrl.isSigning = false;
+          $ctrl.isAuthenticated = false;
           /**
             * @name initialization
             * @description

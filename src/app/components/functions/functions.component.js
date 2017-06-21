@@ -25,7 +25,8 @@
         'ENV_CONFIG',
         '$injector',
         '$timeout',
-        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector, $timeout) {
+        'App',
+        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector, $timeout, App) {
           var $ctrl = this;
 
           /**
@@ -40,6 +41,7 @@
           /**
            * public properties
            */
+          $ctrl.App = App;
 
           /**
             * @function

@@ -146,7 +146,9 @@ a {
     display: inline-block;
     text-align: center;
 }
-
+.top-0{
+  top:0 !important;
+}
 .rounded,
 .circle {
     border-radius: 500px;

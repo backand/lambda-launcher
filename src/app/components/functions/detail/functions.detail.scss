@@ -1,0 +1,101 @@
+.function-detail {
+    .section {
+        .section-header {
+            padding: 27px;
+            .avatar {
+                &.avatar-text {
+                    >.text {
+                        font-size: 20px;
+                        text-transform: uppercase;
+                        color: #fff
+                    }
+                }
+            }
+            .header-title {
+                margin: 0;
+                padding: 0;
+                margin-top: 10px;
+            }
+            .header-right-absolute {
+                position: absolute;
+                right: 27px;
+                top: 27px;
+            }
+            .fn-description {
+                margin-top: 15px;
+                margin-left: 75px;
+            }
+            .section-header-left {
+                position: relative;
+                .back-btn {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: none;
+                }
+            }
+            @media (max-width: 768px) {
+                background: #fff;
+                .section-header-left,
+                .section-header-right {
+                    text-align: center;
+                }
+                .section-header-left {
+                    float: none !important;
+                    display: block;
+                    width: 100%;
+                    .back-btn {
+                        display: inline-block;
+                    }
+                }
+                .header-right-absolute {
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    float: none;
+                    margin: 0;
+                    padding: 0;
+                    top: auto;
+                    z-index: 2;
+                    .btn {
+                        display: block;
+                        width: 100%;
+                        border-radius: 0;
+                        font-size: 16px;
+                        padding: 10px 0;
+                    }
+                }
+            }
+        }
+        .section-body {
+            padding-left: 27px;
+            padding-right: 27px;
+            @media (max-width: 768px) {
+                padding-left: 0;
+                padding-right: 0;
+                .with-base {
+                    .nav-tabs {
+                        background: #fff;
+                        >li {
+                            a {
+                                // border-bottom-color: #fff;
+                            }
+                        }
+                    }
+                    .nav-item {
+                        &::after {
+                            content: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .app-content {
+        background: none;
+    }
+}
