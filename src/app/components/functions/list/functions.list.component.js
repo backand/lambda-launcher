@@ -28,7 +28,8 @@
         'ENV_CONFIG',
         '$injector',
         'App',
-        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector, App) {
+        '$scope',
+        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector, App, $scope) {
           var $ctrl = this;
 
           /**
@@ -139,6 +140,12 @@
             }
             $state.go('dashboard.appFunctions.detail', { function_id: fn.iD });
           }
+
+          $scope.$watch(function(){
+            return Lambda.getRuns();
+          },function(newV, oldV){
+            $ctrl.runs = angular.copy(newV);
+          },true)
           //end of controller
         }]
     });

@@ -28,6 +28,7 @@
     self.getParameters = getParameters;
     self.saveParameters = saveParameters;
     self.getRun = getRun;
+    self.getRuns = getRuns;
     self.saveRun = saveRun;
     self.enableSaveParams = enableSaveParams;
     self.isSaveParamEnable = isSaveParamEnable;
@@ -69,8 +70,8 @@
       if (!_.isArray(self.functions)) {
         return;
       }
-      return _.find(self.functions, function(f){
-        return f.iD ==  fnId ;
+      return _.find(self.functions, function (f) {
+        return f.iD == fnId;
       });
     }
 
@@ -140,7 +141,10 @@
     function saveParameters(fId, params) {
       var deffered = $q.defer();
       if (!fId || _.isEmpty(params)) {
-        throw Error('fId and params are required to store function parameters');
+        $timeout(function () {
+          deffered.resolve(parameters);
+        }, 1);
+        return deffered.promise;
       }
       var parameters = getParameters();
       parameters = parameters || {};
@@ -184,7 +188,7 @@
 
     /**
      * @name getRun
-     * @description get all runs from $localStorage
+     * @description get run from $localStorage by functionID
      * 
      * @param {integer} fnId Function ID
      * @returns array |object
@@ -196,6 +200,18 @@
       r = _.get(runs, fnId);
 
       return _.isArray(r) ? r : [];
+    }
+
+    /**
+     * @name getRuns
+     * @description get all runs from $localStorage
+     * 
+     * @returns array |object
+     */
+    function getRuns() {
+      var r, runs = _.get($localStorage, 'runs');
+      runs = runs || {};
+      return runs;
     }
 
     /**
@@ -224,7 +240,7 @@
         r.unshift(run);
         r.length = 5;
       } else {
-        r.push(run);
+        r.unshift(run);
       }
       runs[fId] = r;
       $localStorage.runs = angular.copy(runs);

@@ -18,7 +18,7 @@
     </div>
     <div class="list-body">
       <div data-ng-bind="function.friendlyName || function.name" class="_600"></div>
-      <small class="text-muted text-ellipsis"><span class="_300">{{ $ctrl.fuctionRuns[function.iD]['executionTime'] | date : 'dd/MM/yyyy'}}</span></small>
+      <small class="text-ellipsis"><span class="_300">{{ $ctrl.runs[function.iD][0]['executionTime'] | date : 'dd/MM/yyyy | h:m:s a'}}</span></small>
     </div>
   </li>
 </ul>
