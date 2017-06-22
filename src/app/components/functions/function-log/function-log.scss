@@ -1,0 +1,13 @@
+.logs{
+  .pretify{
+    background: none;
+    border: 0 none;
+    padding: 0;
+  }
+  .list-item{
+    border-bottom: 1px solid #ddd;
+    &:last-child{
+      border-bottom: 0 none;
+    }
+  }
+}

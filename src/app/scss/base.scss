@@ -154,6 +154,10 @@ a {
     border-radius: 500px;
 }
 
+.bg-white{
+  background-color: $white;
+}
+
 .with-base {
     .active-tab {
         color: $brand-primary;
