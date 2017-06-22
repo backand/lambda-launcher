@@ -1,4 +1,10 @@
 .parametersForm {
+    display: block;
+    height: calc(100vh - 250px);
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
     @media (max-width: 768px) {
         color: #e2e2e2;
         .launch-btn {

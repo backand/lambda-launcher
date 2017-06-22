@@ -1,13 +1,19 @@
-.logs{
-  .pretify{
-    background: none;
-    border: 0 none;
+.logs {
+    display: block;
+    height: calc(100vh - 250px);
     padding: 0;
-  }
-  .list-item{
-    border-bottom: 1px solid #ddd;
-    &:last-child{
-      border-bottom: 0 none;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    .pretify {
+        background: none;
+        border: 0 none;
+        padding: 0;
     }
-  }
+    .list-item {
+        border-bottom: 1px solid #ddd;
+        &:last-child {
+            border-bottom: 0 none;
+        }
+    }
 }
