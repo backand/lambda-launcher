@@ -6,6 +6,13 @@
     position: relative;
     width: 100%;
     @media (max-width: 768px) {
+      .row{
+        margin: 0;
+        padding: 0;
+        .col-*{
+          padding: 0;
+        }
+      }
         color: #e2e2e2;
         .launch-btn {
             display: none;

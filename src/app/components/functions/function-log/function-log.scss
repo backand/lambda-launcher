@@ -15,5 +15,9 @@
         &:last-child {
             border-bottom: 0 none;
         }
+        >.row{
+          padding: 0;
+          margin: 0;
+        }
     }
 }
