@@ -36,6 +36,10 @@
             }
             @media (max-width: 768px) {
                 background: #fff;
+                .fn-description{
+                  margin-left: 0;
+                  text-align: left;
+                }
                 .section-header-left,
                 .section-header-right {
                     text-align: center;

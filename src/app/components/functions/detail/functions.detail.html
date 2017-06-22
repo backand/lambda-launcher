@@ -4,7 +4,7 @@
       <div class="pull-left m-r section-header-left">
         <span class="back-btn" data-ng-click="$ctrl.back()"> <i class="fa fa-angle-left fa-2x"></i> </span>
         <span class="w-64 circle avatar avatar-text" color-this="background-color" data-color="$ctrl.function['name']">
-              <span class="text">{{$ctrl.function.name | limitTo:2}}</span>
+              <span class="text">{{($ctrl.function.friendlyName  || $ctrl.function.name) | limitTo:2}}</span>
         <i class="off b-danger"></i>
         </span>
       </div>
