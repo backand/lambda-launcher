@@ -10,7 +10,8 @@
       </span>
             </div>
             <div class="col-sm-8 col-xs-7">
-              <pre class="pretify">{{run.Payload | json}}</pre>
+              <pre class="pretify" hm-read-more hm-text="{{ run.Payload }}" hm-limit="{{$ctrl.$detectViewPort.viewPortWidth <= 786 ? $ctrl.$detectViewPort.viewPortWidth / 4.5 : 155}}"
+          hm-more-text="read more" hm-less-text=" - read less"></pre>
             </div>
             <div class="col-sm-3 col-xs-3 pull-right small" style="padding-right: 0">
               <div><span class="_300">{{ run.executionTime | date : 'dd/MM/yyyy'}}</span></div>
