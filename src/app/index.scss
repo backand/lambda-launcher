@@ -4,17 +4,19 @@
  */
 
 $icon-font-path: "../../bootstrap-sass/assets/fonts/bootstrap/";
-@import 'scss/variables.scss';
-@import 'scss/base.scss';
-@import 'scss/loader.scss';
+
 /**
  *  Do not remove the comments below. It's the markers used by wiredep to inject
  *  sass dependencies when defined in the bower.json of your dependencies
  */
-
+@import 'scss/variables.scss';
 // bower:scss
 // endbower
+@import 'scss/base.scss';
+@import 'scss/loader.scss';
 @import 'scss/util.scss';
+@import 'scss/ng.scss';
+@import 'scss/social.providers.scss';
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject
  *  all your sass files automatically
