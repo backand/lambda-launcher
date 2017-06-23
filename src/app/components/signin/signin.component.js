@@ -53,8 +53,7 @@
           function initialization() {
             $ctrl.appName = $state.params.app;
             $ctrl.providers = angular.copy(App.socialProviders);
-            console.log($ctrl.providers);
-            $ctrl.error = $injector.get('$stateParams').error ? $base64.decode($injector.get('$stateParams').error) : '';
+            $ctrl.error = $injector.get('$stateParams').err ? $base64.decode($injector.get('$stateParams').err) : '';
             getSocialProviders();
           }
 

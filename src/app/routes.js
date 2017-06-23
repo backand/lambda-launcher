@@ -23,7 +23,7 @@
     $urlRouterProvider.when('/:app', '/:app/functions');
     $stateProvider
       .state('login', {
-        url: '/:app/login?error&t',
+        url: '/:app/login?err&t',
         component: 'signin',
         data: {
           title: 'Login'
