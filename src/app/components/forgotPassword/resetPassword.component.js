@@ -18,7 +18,11 @@
       controller: [
         'Backand',
         '$log',
-        function (Backand, $log) {
+        'blockUI',
+        'toaster',
+        '$stateParams',
+        '$state',
+        function (Backand, $log, blockUI, toaster, $stateParams, $state) {
           var $ctrl = this;
 
           /**
@@ -33,6 +37,7 @@
           /**
            * public properties
            */
+          $ctrl.error = '';
           /**
             * @function
             * @name initialization
@@ -44,15 +49,18 @@
           }
 
           function resetPassword() {
+            blockUI.start();
             Backand
-              .resetPassword({
-                newPassword: 'newPassword',
-                resetToken: 'resetToken'
-              })
+              .resetPassword($ctrl.user.password,$stateParams.token)
               .then(function (response) {
                 $log.info(response);
+                blockUI.stop();
+                 toaster.success('Password changed');
+                 $state.go('login');
               }, function (error) {
+                $ctrl.error = error.data;
                 $log.error(error);
+                blockUI.stop();
               });
           }
 

@@ -29,6 +29,13 @@
           title: 'Login'
         }
       })
+       .state('reset-password', {
+        url: '/:app/reset-password?token',
+        component: 'resetPassword',
+        data: {
+          title: 'Reset Password'
+        }
+      })
       .state('dashboard', {
         absolute: true,
         url: '/:app',
