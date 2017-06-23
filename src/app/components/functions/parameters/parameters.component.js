@@ -45,7 +45,7 @@
           /**
            * public properties
            */
-           
+
           /**
             * @function
             * @name initialization
@@ -58,7 +58,7 @@
             if (!function_id) {
               throw Error('function_id not found');
             }
-            
+
             $ctrl.parameters = angular.copy(Lambda.getParameters(function_id));
             $ctrl.isSaveParamEnable = Lambda.isSaveParamEnable(function_id);
           }
@@ -76,13 +76,13 @@
            */
           function updateParameters() {
             launchFunction($ctrl.function, $ctrl.parameters);
-            if (!$ctrl.isSaveParamEnable) {
-              clearParamValues();
-            }
             Lambda.enableSaveParams($ctrl.function.iD, $ctrl.isSaveParamEnable);
             saveParams();
           }
           function clearParamValues() {
+            if($ctrl.isSaveParamEnable){
+              return;
+            }
             _.forEach($ctrl.parameters, function (p) {
               p.value = '';
             })
@@ -123,6 +123,7 @@
                 toaster.success('Success', 'Function has been executed successfully.');
                 $log.info('Function run successful', response);
                 blockUI.stop();
+                clearParamValues();
               }, function (error) {
                 toaster.error('Error', 'Error occurred while executing function.');
                 $log.error('Function run error', error);
