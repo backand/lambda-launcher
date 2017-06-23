@@ -21,7 +21,8 @@
         <button class="btn btn-primary p-x-lg" type="button" data-ng-click="$ctrl.launchFunction($ctrl.function)">LAUNCH</button>
       </div>
       <div class="clear fn-description" data-ng-if="$ctrl.function.description">
-        <p hm-read-more hm-text="{{ $ctrl.function.description }}" hm-limit="150" hm-more-text="read more" hm-less-text=" - read less"></p>
+        <p hm-read-more hm-text="{{ $ctrl.function.description }}" hm-limit="{{$ctrl.$detectViewPort.viewPortWidth <= 786 ? $ctrl.$detectViewPort.viewPortWidth / 4.5 : 155}}"
+          hm-more-text="read more" hm-less-text=" - read less"></p>
       </div>
     </div>
     <div class="section-body">

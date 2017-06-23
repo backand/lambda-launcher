@@ -26,7 +26,8 @@
         'toaster',
         '$rootScope',
         'App',
-        function ($log, _, $stateParams, Lambda, blockUI, toaster, $rootScope, App) {
+        '$detectViewPort',
+        function ($log, _, $stateParams, Lambda, blockUI, toaster, $rootScope, App, $detectViewPort) {
           var $ctrl = this,
             functionId = $stateParams.function_id;
 
@@ -43,7 +44,7 @@
           /**
            * public properties
            */
-
+           $ctrl.$detectViewPort = $detectViewPort;
           /**
             * @function
             * @name initialization
