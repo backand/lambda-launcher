@@ -54,9 +54,11 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            function_id = $ctrl.function.iD
+            function_id = $ctrl.function.iD;
             if (!function_id) {
-              throw Error('function_id not found');
+              function_id = $stateParams.function_id;
+              if (!function_id)
+                throw Error('function_id not found');
             }
 
             $ctrl.parameters = angular.copy(Lambda.getParameters(function_id));

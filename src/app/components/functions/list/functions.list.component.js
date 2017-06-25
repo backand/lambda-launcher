@@ -96,6 +96,13 @@
             $ctrl.functions = functions;
             if (functions.length > 0) {
               updateFunctionParameters(functions);
+              if ($ctrl.$state.params.function_id) {
+                var fn = _.find($ctrl.functions, {iD : Number($ctrl.$state.params.function_id)});
+                if (fn && !App.isSmallDevice()) {
+                  App.setDetailView(false);
+                  selectFn(fn);
+                }
+              }
             }
             if (!$ctrl.$state.params.function_id) {
               if (!App.isSmallDevice()) {

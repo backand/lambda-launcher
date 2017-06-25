@@ -55,7 +55,7 @@
         url: '/:function_id',
         views: {
           'function-detail': {
-            component: 'functionDetail',
+            component: 'functionDetail'
           }
         },
         data: {
@@ -64,7 +64,7 @@
         }
       });
 
-    $urlRouterProvider.otherwise('/');
+    //$urlRouterProvider.otherwise('/');
   }
 
 })();
