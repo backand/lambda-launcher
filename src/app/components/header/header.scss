@@ -1,48 +1,73 @@
 /* Custom page header */
 
+.nav-item {
+    background: none;
+    position: relative;
+    font-size: 18px;
+    line-height: 1.09;
+    text-align: left;
+    color: #f1f1f1;
+    &:after {
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 20px;
+        right: 0;
+        background: $white;
+    }
+    &:hover,
+    &:focus {
+        background: none;
+        color: $brand-primary;
+    }
+    i {
+        font-size: 2rem;
+    }
+}
+
 .header {
-    margin-bottom: 25px;
-    margin-top: 50px;
+    padding: 0;
+    .title-bar {
+        position: absolute;
+        text-align: center;
+        right: 0;
+        left: 0;
+        top: 18px;
+        h2 {
+            font-size: 30px;
+            font-weight: 300;
+            line-height: 0.57;
+            text-align: center;
+            color: #ffffff;
+        }
+    }
+    #navbar {
+        padding-top: 10px;
+    }
     .navbar-brand {
-        @extend .text-2x;
-        color: $white;
-        padding-top:5px;
-        padding-bottom: 5px;
+        height: 60px;
+        padding: 0;
+        margin-top: 15px;
+        >img {
+            height: 100%;
+            width: auto;
+        }
     }
     .navbar {
-        margin-bottom: 0;
         .navbar-header {
             .navbar-toggle {
-                >i {
-                    color: $white;
+                @extend .nav-item;
+                &:after {
+                    content: none;
                 }
             }
         }
         .nav {
             >li {
                 >a {
-                    color: $white;
-                    background: none;
-                    position: relative;
-                    @extend .text-lg;
-                    padding: 2px 18px;
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        width: 1px;
-                        height: 20px;
-                        right: 0;
-                        background: $white;
-                    }
-                    &:hover,
-                    &:focus {
-                        background: none;
-                        color: $brand-primary;
-                    }
-
-                    i{
-                      font-size: 2rem;
-                    }
+                    padding-top: 30px;
+                    padding-bottom: 30px;
+                    @extend .nav-item;
                 }
                 &:last-child {
                     >a {
@@ -56,7 +81,7 @@
         @media (max-height: 768px) {
             .navbar-header {
                 .navbar-toggle {
-                    margin-top: -6px;
+                    margin-top: 10px;
                 }
             }
         }
@@ -64,13 +89,29 @@
     &.signin-header {
         @media (min-height: 768px) {
             margin-top: 150px;
+            margin-bottom: 30px;
         }
     }
-    @media (max-height: 768px) {
-        margin-top: 20px;
-        margin-bottom: 10px;
-        .container {
-            padding: 0;
+    @media (max-width: 768px) {
+        .navbar {
+            margin-bottom: 0;
+        }
+        .navbar-brand {
+            margin-left: 15px;
+            margin-top: 15px;
+            height: 36px;
+            >img {
+                padding: 0px;
+            }
+        }
+        .title-bar {
+            top: 0;
+            h2 {
+                font-size: 23px;
+            }
+        }
+        .app-content {
+            top: 60px;
         }
     }
 }

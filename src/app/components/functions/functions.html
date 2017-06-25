@@ -1,0 +1,14 @@
+<app-header data-is-authenticated="$ctrl.isAuthenticated()" data-ng-hide="$ctrl.App.getDetailView() && $ctrl.App.isSmallDevice()"></app-header>
+<div class="app-content clearfix" id="app-content" data-ng-class="{'top-0': $ctrl.App.getDetailView() && $ctrl.App.isSmallDevice()}">
+  <div class="page-appFunctions">
+    <div class="row marketing">
+      <div class="col-md-4 left-panel" data-ng-hide="$ctrl.App.getDetailView() && $ctrl.App.isSmallDevice()">
+        <functions-list on-select="$ctrl.onSelect(function)"></functions-list>
+      </div>
+      <div class="col-md-8 col-md-offset-4" data-ng-hide="!$ctrl.App.getDetailView() && $ctrl.App.isSmallDevice()">
+        <div ui-view="function-detail" class="animated" data-ng-class="{'fadeInRight' : $ctrl.App.isSmallDevice(), 'fadeInUp' : !$ctrl.App.isSmallDevice()}" style="position: relative"></div>
+        <!--function-detail data-ng-if="$ctrl.function" data-function="$ctrl.function"></div>-->
+      </div>
+    </div>
+  </div>
+</div>

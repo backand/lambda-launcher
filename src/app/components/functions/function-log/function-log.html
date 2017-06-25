@@ -1,0 +1,30 @@
+<div class="logs">
+  <div class="scrollable">
+    <div class="scrollable-content">
+      <ul class="list m-a-0" data-ng-if="$ctrl.runs.length > 0">
+        <li class="list-item p-x-0" data-ng-repeat="run in $ctrl.runs | orderBy: '-executionTime' ">
+          <div class="row">
+            <div class="col-sm-1 col-xs-2" style="max-width:45px;">
+              <span class="w-32 circle avatar avatar-text" data-ng-class="{'btn-success' : run.StatusCode == 200, 'btn-danger' : run.StatusCode != 200}">
+      <i class="fa" data-ng-class="{'fa-check' : run.StatusCode == 200, 'fa-times' : run.StatusCode != 200}"></i>
+      </span>
+            </div>
+            <div class="col-sm-8 col-xs-7">
+              <pre class="pretify" hm-read-more hm-text="{{ run.Payload}}" hm-limit="{{$ctrl.$detectViewPort.viewPortWidth <= 786 ? $ctrl.$detectViewPort.viewPortWidth / 4.5 : 155}}"
+          hm-more-text="read more" hm-less-text=" - read less"></pre>
+            </div>
+            <div class="col-sm-3 col-xs-3 pull-right small" style="padding-right: 0">
+              <div><span class="_300">{{ run.executionTime | date : 'dd/MM/yyyy'}}</span></div>
+              <div><span class="_300">{{ run.executionTime | date : 'h:m:s a'}}</span></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="alert alert-info" data-ng-if="$ctrl.runs.length === 0">
+    <p>No log found</p>
+  </div>
+</div>

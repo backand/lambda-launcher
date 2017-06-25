@@ -17,8 +17,9 @@
     .module('LambdaLauncher')
     .service('App', AppService);
   /** @ngInject */
-  function AppService() {
-    var self = this;
+  function AppService($detectViewPort) {
+    var self = this,
+    functionDetailView = false;
     self.pageTitle = '';
     /**
      * social Providers
@@ -48,6 +49,17 @@
         label: 'Azure AD',
         className: 'windows'
       }
+    }
+
+    self.setDetailView = function(flag){
+      functionDetailView = flag;
+    };
+    self.getDetailView = function(){
+      return functionDetailView;
+    };
+
+    self.isSmallDevice = function(){
+      return $detectViewPort.viewPortWidth <= 768;
     }
   }
 

@@ -1,11 +1,11 @@
 /**
  * @ngdoc Component
- * @name LambdaLauncher.component.layout
+ * @name LambdaLauncher.component.functionLog
  *
  * @module LambdaLauncher
  *
  * @description
- * layout component - A application main component which render application layout
+ * Lambda functions list component - Manage applications Lambda functions
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -13,15 +13,19 @@
   'use strict';
   angular
     .module('LambdaLauncher')
-    .component('layout', {
-      template: '<div class="container app-wrapper"><toaster-container toaster-options="{\'time-out\': 3000}"></toaster-container><block-ui></block-ui><div ui-view></div><app-footer></app-footer></div>',
+    .component('functionLog', {
+      bindings: {
+        function: '<',
+        runs : '<'
+      },
+      templateUrl: 'app/components/functions/function-log/function-log.html',
       controller: [
+        'Lambda',
         '$log',
-        'Backand',
-        '$state',
-        'toaster',
-        'Auth',
-        function ($log, Backand, $state,toaster,Auth) {
+        '_',
+        '$rootScope',
+        '$scope',
+        function (Lambda, $log, _, $rootScope, $scope) {
           var $ctrl = this;
 
           /**
@@ -35,6 +39,7 @@
           /**
            * public properties
            */
+
           /**
             * @function
             * @name initialization
@@ -43,11 +48,13 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            $log.info('app component initialized');
-            
-            $ctrl.isAuthenticated = Auth.isAuthenticated;
-            
+            $log.warn('function runs ', $ctrl.runs);
+            getRuns();
           }
+
+          function getRuns() {
+          }
+          //end of controller
         }]
     });
 })();

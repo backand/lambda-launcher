@@ -1,0 +1,31 @@
+<form class="form-horizontal parametersForm" data-ng-submit="$ctrl.updateParameters()" name="$ctrl.form">
+  <div class="alert alert-info" data-ng-if="!$ctrl.parameters">
+    <p>No Input Parameters</p>
+  </div>
+  <div class="scrollable">
+    <div class="scrollable-content">
+      <div data-ng-if="$ctrl.parameters">
+        <div class="form-group row" data-ng-repeat="param in $ctrl.parameters track by $index">
+          <label for="id_{{::param.name}}" class="col-sm-2 control-label" data-ng-bind="param.name"></label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="id_{{::param.name}}" data-ng-model="param.value" placeholder="Type here">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-10 col-xs-8 col-sm-offset-2">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" data-ng-model="$ctrl.isSaveParamEnable"> Save parameter
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10 launch-btn">
+            <button type="submit" class="btn btn-primary p-x-lg pull-right">LAUNCH</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

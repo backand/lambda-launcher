@@ -1,4 +1,12 @@
-.app-content {
+html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    width: 100%;
     min-height: 100%;
     overflow: hidden;
     z-index: 2;
@@ -7,7 +15,25 @@
     left: 0;
     right: 0;
     margin: 0;
-    padding-bottom: 50px;
     background: url(../assets/images/bg/bg.jpg) no-repeat;
     background-size: cover;
+    padding-bottom: 40px;
+}
+
+.app-wrapper {
+    position: relative;
+    height: 100%;
+}
+
+.app-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 100px;
+    min-height: 100%;
+    background: #fff;
+    @media (max-width: 768px) {
+        top: 60px;
+    }
 }

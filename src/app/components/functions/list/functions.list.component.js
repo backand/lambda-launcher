@@ -1,11 +1,11 @@
 /**
  * @ngdoc Component
- * @name LambdaLauncher.component.appFunctions
+ * @name LambdaLauncher.component.functionsList
  *
  * @module LambdaLauncher
  *
  * @description
- * appFunctions component - Manage applications Lambda functions
+ * Lambda functions list component - Manage applications Lambda functions
  *
  * @author Mohan Singh ( gmail::mslogicmaster@gmail.com, skype :: mohan.singh42 )
  */
@@ -13,8 +13,11 @@
   'use strict';
   angular
     .module('LambdaLauncher')
-    .component('appFunctions', {
-      templateUrl: 'app/components/appFunctions/appFunctions.html',
+    .component('functionsList', {
+      bindings: {
+        onSelect: '&'
+      },
+      templateUrl: 'app/components/functions/list/functions.list.html',
       controller: [
         'Lambda',
         '$log',
@@ -24,8 +27,9 @@
         'blockUI',
         'ENV_CONFIG',
         '$injector',
-        'Analytics',
-        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector, Analytics) {
+        'App',
+        '$scope',
+        function (Lambda, $log, $state, _, toaster, blockUI, ENV_CONFIG, $injector, App, $scope) {
           var $ctrl = this;
 
           /**
@@ -36,10 +40,12 @@
           /**
            * public methods
            */
-          $ctrl.runFunction = runFunction;
+          $ctrl.getRandomColor = getRandomColor;
+          $ctrl.selectFn = selectFn;
           /**
            * public properties
            */
+          $ctrl.App = App;
 
           /**
             * @function
@@ -49,7 +55,8 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            getAllRuns();
+            $ctrl._ = _;
+            $ctrl.$state = $state;
             getFunctions();
           }
 
@@ -85,10 +92,23 @@
           }
 
           function functionsHandler(data) {
-            var functions = data ? data.data.data : [];
+            var functions = data || [];
             $ctrl.functions = functions;
             if (functions.length > 0) {
               updateFunctionParameters(functions);
+              if ($ctrl.$state.params.function_id) {
+                var fn = _.find($ctrl.functions, {iD : Number($ctrl.$state.params.function_id)});
+                if (fn && !App.isSmallDevice()) {
+                  App.setDetailView(false);
+                  selectFn(fn);
+                }
+              }
+            }
+            if (!$ctrl.$state.params.function_id) {
+              if (!App.isSmallDevice()) {
+                App.setDetailView(false);
+                selectFn($ctrl.functions[0]);
+              }
             }
           }
 
@@ -112,62 +132,27 @@
             });
           }
 
-          function runFunction(func, $event) {
-            $event.preventDefault();
-            var funcId = func.iD;
-            var parameters = Lambda
-              .getParameters(funcId);
-
-            /**
-             * Lets not stop user to run function if he has not updated params
-             */
-            /*if (!Lambda.isParamsUpdated(funcId)) {
-              $state.go('dashboard.parameters', { function_id: funcId });
-              return;
-            }*/
-            var params = {};
-            _.forEach(parameters, function (p) {
-              params[p.name.trim()] = p.value;
-            });
-            blockUI.start();
-            Analytics.track('LL_RunFunction', {name: func.name});
-            Lambda
-              .runFunction(func.name, params)
-              .then(function (response) {
-                saveRun(funcId, {
-                  Payload: response.data,
-                  StatusCode: response.status
-                });
-                toaster.success('Success', 'Function has been executed successfully.');
-                $log.info('Function run successful', response);
-                blockUI.stop();
-              }, function (error) {
-                toaster.error('Error', 'Error occured while executing function.');
-                $log.error('Function run error', error);
-                saveRun(funcId, {
-                  Payload: error.data.errorMessage || error.statusText,
-                  StatusCode: error.status
-                });
-                blockUI.stop();
-              });
+          function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+              color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
           }
 
-          function containsEmptyValue(params) {
-            return _.every(params, ['value', '']);
+          function selectFn(fn) {
+            if (App.isSmallDevice()) {
+              App.setDetailView(true);
+            }
+            $state.go('dashboard.appFunctions.detail', { function_id: fn.iD });
           }
 
-          function getAllRuns() {
-            $ctrl.fuctionRuns = Lambda.getRuns();
-          }
-
-          function saveRun(funcId, resultSet) {
-            $log.info(resultSet);
-            var runInstance = angular.copy(resultSet);
-            runInstance.executionTime = _.now();
-            Lambda.saveRun(funcId, runInstance);
-            getAllRuns();
-          }
-
+          $scope.$watch(function(){
+            return Lambda.getRuns();
+          },function(newV, oldV){
+            $ctrl.runs = angular.copy(newV);
+          },true)
           //end of controller
         }]
     });

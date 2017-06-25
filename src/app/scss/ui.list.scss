@@ -26,6 +26,14 @@
         padding-left: 0;
         padding-right: 0;
     }
+
+    &.hover{
+      cursor: pointer;
+      &:hover,  &.active{
+        background-color: #e9e9e9;
+      }
+    }
+   
 }
 
 .list-left {
@@ -33,6 +41,10 @@
     padding-right: 1rem;
     +.list-body {
         margin-left: 56px;
+    }
+
+    .avatar-text{
+      color: #fff;
     }
 }
 

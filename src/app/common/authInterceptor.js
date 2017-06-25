@@ -32,7 +32,7 @@
               'The session has expired, please sign in again.' :
               null;
           $injector.get('$log').error(errorMessage); 
-          $injector.get('$state').go(envConstants.ROUTE_LOGIN_STATE, { error: errorMessage, app: Backand.defaults.appName }, { reload: true });
+          $injector.get('$state').go(envConstants.ROUTE_LOGIN_STATE, { err: errorMessage, app: Backand.defaults.appName }, { reload: true });
           $injector.get('Auth').logout();
         }
         return $q.reject(rejection);

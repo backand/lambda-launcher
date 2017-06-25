@@ -1,4 +1,5 @@
 <div class="container page-signin">
+  <app-header></app-header>
   <div class="jumbotron signIn" block-ui="signin">
     <!-- /login page content -->
     <div class="row">
@@ -11,7 +12,7 @@
             <button class="btn btn-lg btn-block btn-social"  
             type="button" ng-click="$ctrl.socialSignin(provider.name)"
             data-ng-class="'btn-'+ $ctrl.providers[provider.name].className">
-            <i ng-class="'fa-' + $ctrl.providers[provider.name].className" class="fa"></i>{{$ctrl.providers[provider.name].label}}</button>
+            <i ng-class="'fa-' + $ctrl.providers[provider.name].className" class="fa"></i><span>{{$ctrl.providers[provider.name].label}}</span></button>
           </div>
         </div>
       </div>

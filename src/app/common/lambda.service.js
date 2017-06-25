@@ -17,7 +17,8 @@
     .service('Lambda', LambdaService);
   /** @ngInject */
   function LambdaService(Backand, $q, $localStorage, _, $timeout) {
-    var self = this;
+    var self = this,
+      functions = [];
 
     /**
      * Exposed bindable methods
@@ -26,11 +27,12 @@
     self.runFunction = runFunction;
     self.getParameters = getParameters;
     self.saveParameters = saveParameters;
+    self.getRun = getRun;
     self.getRuns = getRuns;
     self.saveRun = saveRun;
-    self.setParamsUpdated = setParamsUpdated;
-    self.isParamsUpdated = isParamsUpdated;
-
+    self.enableSaveParams = enableSaveParams;
+    self.isSaveParamEnable = isSaveParamEnable;
+    self.getFunction = getFunction;
 
 
     /**
@@ -41,12 +43,36 @@
      * @returns promise
      */
     function getFunctions(params) {
+      var deffered = $q.defer();
       params = params || {};
-      return Backand.invoke({
+      Backand.invoke({
         method: 'GET',
-        url: '/1/action/config',
+        url: '1/action/config',
         params: params
-      })
+      }).then(function (response) {
+        var functions = _.get(response, 'data.data');
+        self.functions = functions || [];
+        deffered.resolve(functions);
+      }).catch(function (err) {
+        deffered.reject(err);
+      });
+      return deffered.promise;
+    }
+
+    /**
+     * @name getFunction
+     * @description get function By iD
+     * 
+     * @param {object} fnId function Id
+     * @returns function
+     */
+    function getFunction(fnId) {
+      if (!_.isArray(self.functions)) {
+        return;
+      }
+      return _.find(self.functions, function (f) {
+        return f.iD == fnId;
+      });
     }
 
     /**
@@ -62,12 +88,12 @@
       if (!_.isString(action) && _.isEmpty(action)) {
         throw Error('Invalid action');
       }
-      data = data ;
-      if(_.keys(params).length === 0){
+      data = data;
+      if (_.keys(params).length === 0) {
         params = '';
       }
 
-      if(_.keys(data).length === 0){
+      if (_.keys(data).length === 0) {
         data = '';
       }
 
@@ -85,10 +111,10 @@
      * @returns {array|object}
      */
     function getParameters(function_id) {
-       var params ;
-      if(function_id){
+      var params;
+      if (function_id) {
         params = $localStorage.parameters ? $localStorage.parameters[function_id] : undefined;
-      }else {
+      } else {
         params = $localStorage.parameters || undefined;
       }
       return params;
@@ -115,7 +141,10 @@
     function saveParameters(fId, params) {
       var deffered = $q.defer();
       if (!fId || _.isEmpty(params)) {
-        throw Error('fId and params are required to store function parameters');
+        $timeout(function () {
+          deffered.resolve(parameters);
+        }, 1);
+        return deffered.promise;
       }
       var parameters = getParameters();
       parameters = parameters || {};
@@ -158,26 +187,44 @@
     }
 
     /**
+     * @name getRun
+     * @description get run from $localStorage by functionID
+     * 
+     * @param {integer} fnId Function ID
+     * @returns array |object
+     */
+    function getRun(fnId) {
+      var r, runs = _.get($localStorage, 'runs');
+      runs = runs || {};
+
+      r = _.get(runs, fnId);
+
+      return _.isArray(r) ? r : [];
+    }
+
+    /**
      * @name getRuns
      * @description get all runs from $localStorage
      * 
      * @returns array |object
      */
     function getRuns() {
-      return $localStorage.runs || {};
+      var r, runs = _.get($localStorage, 'runs');
+      runs = runs || {};
+      return runs;
     }
 
     /**
      * @name saveRun
      * @description stores result of lambda function execution in $localStorage.runs
      * $localStorage.runs = {
-     *   f_1 : {
+     *   f_1 : [{
      *    StatusCode : 200,
      *    executionTime : 4783683289,
      *    Payload : responseBody
-     *   },
-     *   f_2 : {}
-     *   f_3 : {}
+     *   }],
+     *   f_2 : [{....}]
+     *   f_3 : [{....}]
      * }
      * where f_1,f_2,f_3 are function Ids
      * 
@@ -187,32 +234,39 @@
      * @returns void
      */
     function saveRun(fId, run) {
-      var runs = getRuns();
-      runs[fId] = run;
+      var r, runs = _.get($localStorage, 'runs') || {};
+      r = _.isArray(runs[fId]) ? runs[fId] : [];
+      if (r.length >= 5) {
+        r.unshift(run);
+        r.length = 5;
+      } else {
+        r.unshift(run);
+      }
+      runs[fId] = r;
       $localStorage.runs = angular.copy(runs);
     }
 
     /**
-     * @name setParamsUpdated
+     * @name enableSaveParams
      * @description Update boolean flag= true against a function
-     * if user has visited function params config page, Lets not restrcit him to take to param config page when he try to run function
      * 
      * @param {integer} funcId function ID
+     * @param {boolean} flag
      * @returns void
      */
-    function setParamsUpdated(funcId){
+    function enableSaveParams(funcId, flag) {
       var functions = $localStorage.functions || {};
-      functions[funcId] = true;
+      functions[funcId] = flag;
       $localStorage.functions = functions;
     }
     /**
-     * @name isParamsUpdated
+     * @name isSaveParamEnable
      * @description checks if boolean flag = true against a function
      * 
      * @param {integer} funcId 
      * @returns 
      */
-    function isParamsUpdated(funcId){
+    function isSaveParamEnable(funcId) {
       return $localStorage.functions && $localStorage.functions[funcId];
     }
 

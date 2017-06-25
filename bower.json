@@ -1,5 +1,5 @@
 {
-  "name": "angularBackand",
+  "name": "lambdalauncher",
   "version": "0.0.0",
   "dependencies": {
     "jquery": "~2.1.4",
@@ -7,7 +7,6 @@
     "angular-ui-router": "~0.2.15",
     "bootstrap-sass": "~3.3.5",
     "angular-toastr": "~1.5.0",
-    "animate.css": "~3.4.0",
     "angular": "~1.5.x",
     "ui-router-route-to-components": "^0.1.0",
     "lodash": "^4.17.4",
@@ -15,7 +14,11 @@
     "angular-animate": "~1.5.x",
     "angular-bootstrap": "^2.5.0",
     "backand-angular1-sdk": "^2.0.4",
-    "ngstorage": "^0.3.11"
+    "ngstorage": "^0.3.11",
+    "angular-color-this": "https://github.com/eknowles/angular-color-this.git#v1.0.1",
+    "animate.css": "^3.5.2",
+    "angular-read-more": "^1.0.6",
+    "angular-sanitize": "~1.5.x"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.x"
@@ -34,6 +37,9 @@
   },
   "resolutions": {
     "jquery": "~2.1.4",
-    "angular": "~1.5.x"
+    "angular": "~1.5.x",
+    "animate.css": "^3.5.2",
+    "angular-animate": "~1.5.x",
+    "angular-sanitize": "~1.5.x"
   }
 }

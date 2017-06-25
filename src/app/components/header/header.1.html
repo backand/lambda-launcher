@@ -1,0 +1,31 @@
+<div class="header signin-header clearfix">
+  <section class="logo text-center" data-ng-if="!$ctrl.isLoggedIn()">
+     <a ui-sref="login({app: $ctrl.appName})" title="Lambda Functions">
+       <img src="./assets/images/aws-lambda-launcher-logo.png"></a>
+  </section>
+  <div data-ng-if="$ctrl.isLoggedIn()">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+            aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <i class="fa fa-user-circle-o fa-2x"></i>
+          </button>
+          <div class="navbar-brand _300 text-left">
+            <a data-ng-click="$ctrl.back($event)" data-ng-href="" class="text-white">
+              <i class="fa fa-angle-left text-large m-r-md"></i></a>
+            <span data-ng-bind="$ctrl.App.pageTitle" class="text-large"></span>
+          </div>
+        </div>
+        <div id="navbar" class="navbar-collapse navbar-right collapse m-t-sm" aria-expanded="false" >
+          <ul class="nav navbar-nav">
+            <li><a data-ng-href=""><i class="fa fa-user-circle-o"></i></a> </li>
+            <li><a data-ng-href="" data-ng-click="$ctrl.logout($event)">Log Out</a></li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </nav>
+  </div>
+</div>

@@ -41,6 +41,11 @@
                 margin-top: 40px;
             }
         }
+
+        &.reset-password{
+          border-left:0 none;
+          padding-left:0;
+        }
     }
     @media (max-width: 768px) {
         .jumbotron {

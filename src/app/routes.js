@@ -19,14 +19,21 @@
 
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
-    
+
     $urlRouterProvider.when('/:app', '/:app/functions');
     $stateProvider
       .state('login', {
-        url: '/:app/login?error&t',
+        url: '/:app/login?err&t',
         component: 'signin',
         data: {
           title: 'Login'
+        }
+      })
+       .state('reset-password', {
+        url: '/:app/reset-password?token',
+        component: 'resetPassword',
+        data: {
+          title: 'Reset Password'
         }
       })
       .state('dashboard', {
@@ -39,22 +46,25 @@
       })
       .state('dashboard.appFunctions', {
         url: '/functions?t',
-        component: 'appFunctions',
+        component: 'functions',
         data: {
           requiresLogin: true,
           title: 'Launch Functions'
         }
-      })
-      .state('dashboard.parameters', {
-        url: '/functions/:function_id/parameters',
-        component: 'appParams',
+      }).state('dashboard.appFunctions.detail', {
+        url: '/:function_id',
+        views: {
+          'function-detail': {
+            component: 'functionDetail'
+          }
+        },
         data: {
           requiresLogin: true,
-          title: 'Parameters'
+          title: 'Launch Functions'
         }
       });
 
-    $urlRouterProvider.otherwise('/');
+    //$urlRouterProvider.otherwise('/');
   }
 
 })();
