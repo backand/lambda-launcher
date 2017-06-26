@@ -29,3 +29,8 @@ gulp.task('default', ['clean'], function () {
 });
 
 //backand sync --app lambdalauncher --master e923eafd-1853-46b8-b0e9-99b336979035 --user e6b8e25f-6eb3-4919-a44f-91c95f480cf8 --folder /Users/itay/dev/lambda-launcher/dist
+
+//qa
+/*
+backand sync --app lambdademoqa --master a8af5e53-d05e-4f0c-ac63-d3b70a3306ba --user eddb6882-587d-11e7-9066-06bcf2b21c8c --folder /Users/itay/dev/lambda-launcher/dist
+*/

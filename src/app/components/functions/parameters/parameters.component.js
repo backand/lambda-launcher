@@ -29,7 +29,8 @@
         'blockUI',
         '$rootScope',
         '$scope',
-        function ($log, $stateParams, Lambda, $state, toaster, _, blockUI, $rootScope, $scope) {
+        'Analytics',
+        function ($log, $stateParams, Lambda, $state, toaster, _, blockUI, $rootScope, $scope, Analytics) {
           var $ctrl = this, function_id;
 
           /**
@@ -115,6 +116,7 @@
               params[p.name.trim()] = encodeURIComponent(p.value);
             });
             blockUI.start();
+            Analytics.track('ll_runfunction');
             Lambda
               .runFunction(func.name, params)
               .then(function (response) {

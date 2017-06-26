@@ -5,3 +5,5 @@ coverage/
 .idea/
 .tmp/
 dist/
+.awspublish-hosting.backand.io
+.backand-credentials.json
