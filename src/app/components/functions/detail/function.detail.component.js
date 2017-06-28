@@ -27,7 +27,8 @@
         '$rootScope',
         'App',
         '$detectViewPort',
-        function ($log, _, $stateParams, Lambda, blockUI, toaster, $rootScope, App, $detectViewPort) {
+        '$scope',
+        function ($log, _, $stateParams, Lambda, blockUI, toaster, $rootScope, App, $detectViewPort,$scope) {
           var $ctrl = this,
             functionId = $stateParams.function_id;
 
@@ -44,7 +45,7 @@
           /**
            * public properties
            */
-           $ctrl.$detectViewPort = $detectViewPort;
+          $ctrl.$detectViewPort = $detectViewPort;
           /**
             * @function
             * @name initialization
@@ -53,30 +54,37 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
-            getFunction();
             getRuns();
           }
           function getRuns() {
             $ctrl.runs = Lambda.getRun(functionId);
           }
           function getFunction() {
-             $ctrl.function = Lambda
+            $ctrl.function = Lambda
               .getFunction(functionId) || {};
           }
 
-          function onRunLaunch(){
+          function onRunLaunch() {
             getRuns();
           }
 
-          function launchFunction(fn){
+          function launchFunction(fn) {
             $rootScope.$emit('EVENT:LAUNCH_FUNCTION', {
-              function : angular.copy(fn)
+              function: angular.copy(fn)
             })
           }
 
-          function back(){
+          function back() {
             App.setDetailView(false);
           }
+
+          var eventHandler = $rootScope.$on('EVENT:ON_LOAD_FUNCTIONS', function () {
+            getFunction();
+          })
+
+          $scope.$on('$destroy', function () {
+            eventHandler();
+          });
           //end of controller
         }]
     });

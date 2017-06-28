@@ -25,15 +25,15 @@
           hm-more-text="read more" hm-less-text=" - read less"></p>
       </div>
     </div>
-    <div class="section-body">
+    <div class="section-body" data-ng-if="$ctrl.function.iD">
       <uib-tabset active="activePill" class="with-base">
         <uib-tab index="0" heading="Parameters">
-          <div class="p-a-md" data-ng-if="$ctrl.function">
+          <div class="p-a-md">
             <parameters data-function="$ctrl.function" on-run-launch="$ctrl.onRunLaunch()"></parameters>
           </div>
         </uib-tab>
         <uib-tab index="1" heading="Log">
-          <div class="p-a-md bg-white" data-ng-if="$ctrl.function.iD">
+          <div class="p-a-md bg-white" >
             <function-log data-function="$ctrl.function" data-runs="$ctrl.runs"></function-log>
           </div>
         </uib-tab>

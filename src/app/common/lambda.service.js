@@ -16,7 +16,7 @@
     .module('LambdaLauncher')
     .service('Lambda', LambdaService);
   /** @ngInject */
-  function LambdaService(Backand, $q, $localStorage, _, $timeout) {
+  function LambdaService(Backand, $q, $localStorage, _, $timeout, $rootScope) {
     var self = this,
       functions = [];
 
@@ -53,6 +53,7 @@
         var functions = _.get(response, 'data.data');
         self.functions = functions || [];
         deffered.resolve(functions);
+        $rootScope.$emit('EVENT:ON_LOAD_FUNCTIONS');
       }).catch(function (err) {
         deffered.reject(err);
       });

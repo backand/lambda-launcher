@@ -67,6 +67,7 @@
           }
 
           function onChanges(bindings) {
+            $log.info('Parameters', bindings);
             if (!bindings.function.isFirstChange()) {
             }
 
