@@ -30,7 +30,7 @@
     .title-bar {
         position: absolute;
         text-align: center;
-        right: 0;
+        right: 50px;
         left: 0;
         top: 18px;
         h2 {
@@ -56,10 +56,13 @@
     .navbar {
         .navbar-header {
             .navbar-toggle {
+              >a{
                 @extend .nav-item;
                 &:after {
                     content: none;
                 }
+              }
+                
             }
         }
         .nav {
