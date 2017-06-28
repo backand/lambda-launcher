@@ -2,7 +2,9 @@
   <nav class="navbar navbar-static-top">
     <div class="navbar-header">
       <a data-ng-href="" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"><i class="fa fa-user-circle-o"></i></a>
-      <a class="navbar-brand" href="/"><img src="./assets/images/lambda-launcher-icon.png" alt="Lambda launcher">
+      <a class="navbar-brand" href="/">
+      <img src="./assets/images/lambda-launcher-icon.png" alt="Lambda launcher" class="hidden-xs">
+      <img src="./assets/images/logo-mobile.png" alt="Lambda launcher" class="visible-xs">
         </a>
     </div>
     <div class="title-bar">
@@ -19,7 +21,7 @@
 </div>
 
 <div class="header signin-header clearfix" data-ng-if="!$ctrl.isLoggedIn()">
-  <section class="logo text-center" >
+  <section class="logo text-center">
     <a ui-sref="login({app: $ctrl.appName})" title="Lambda Functions">
        <img src="./assets/images/aws-lambda-launcher-logo.png"></a>
   </section>
