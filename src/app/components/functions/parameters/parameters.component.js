@@ -124,7 +124,7 @@
                   Payload: response.data,
                   StatusCode: response.status
                 });
-                toaster.success('Success', 'Function has been executed successfully.');
+                toaster.success('Success', 'Function was executed successfully.');
                 $log.info('Function run successful', response);
                 blockUI.stop();
                 clearParamValues();
