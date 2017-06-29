@@ -97,7 +97,7 @@
             if (functions.length > 0) {
               updateFunctionParameters(functions);
               if ($ctrl.$state.params.function_id) {
-                var fn = _.find($ctrl.functions, {iD : Number($ctrl.$state.params.function_id)});
+                var fn = _.find($ctrl.functions, { iD: Number($ctrl.$state.params.function_id) });
                 if (fn && !App.isSmallDevice()) {
                   App.setDetailView(false);
                   selectFn(fn);
@@ -115,14 +115,24 @@
           function updateFunctionParameters(functions) {
             _.forEach(functions, function (f) {
               $log.info('function', f);
-              var funcParams = Lambda.getParameters(f.iD);
-              if (!_.isEmpty(f.inputParameters) && !funcParams) {
-                var params = _.split(f.inputParameters, ',');
+              var funcParams, params, storedParams;
+              funcParams = Lambda.getParameters(f.iD);
+              params = _.trim(f.inputParameters) ? _.split(f.inputParameters, ',') : '';
+              storedParams = _.map(funcParams, function (f) {
+                return f.name;
+              });
+
+              if(_.isEmpty(f.inputParameters)){
+                 Lambda
+                  .saveParameters(f.iD, []);
+              }else if ((!_.isEmpty(f.inputParameters) && !funcParams) || !_.isEqual(params, storedParams)) {
                 $log.info('inputParameters', f);
+               
                 params = _.map(params, function (p) {
+                   var value = _.find(funcParams, { key : _.camelCase(p) });
                   return {
                     name: p,
-                    value: '',
+                    value: _.get(value,'value') || '',
                     key: _.camelCase(p)
                   }
                 });
@@ -148,11 +158,11 @@
             $state.go('dashboard.appFunctions.detail', { function_id: fn.iD });
           }
 
-          $scope.$watch(function(){
+          $scope.$watch(function () {
             return Lambda.getRuns();
-          },function(newV, oldV){
+          }, function (newV) {
             $ctrl.runs = angular.copy(newV);
-          },true)
+          }, true)
           //end of controller
         }]
     });
