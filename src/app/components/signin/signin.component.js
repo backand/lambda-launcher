@@ -84,7 +84,7 @@
             Auth
               .socialSignin(provider)
               .then(function () {
-                $state.go(ENV_CONFIG.ROUTE_HOME_STATE, { app: $state.params.app });
+                $state.go(ENV_CONFIG.ROUTE_HOME_STATE, { app: $state.params.app || '' });
               }, function (error) {
                 //handle error
                 $log.error(error);

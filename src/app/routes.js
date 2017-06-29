@@ -72,7 +72,8 @@
       });
 
     $urlRouterProvider.otherwise(function ($injector, $location) {
-      var state = $injector.get('$state');
+      var state;
+      state = $injector.get('$state');
       state.go('default', { url: $location.path() }, { location: true });
     });
   }
