@@ -36,16 +36,17 @@
            * component's lifeCycle hooks
            */
           $ctrl.$onInit = initialization;
+          /**
+           * public methods
+           */
           $ctrl.launchFunction = launchFunction;
           $ctrl.onRunLaunch = onRunLaunch;
           $ctrl.back = back;
           /**
-           * public methods
-           */
-          /**
            * public properties
            */
           $ctrl.$detectViewPort = $detectViewPort;
+          $ctrl.activeTab = 0;
           /**
             * @function
             * @name initialization
@@ -66,6 +67,7 @@
           }
 
           function onRunLaunch() {
+            $ctrl.activeTab = 1;
             getRuns();
           }
 

@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="section-body" data-ng-if="$ctrl.function.iD">
-      <uib-tabset active="activePill" class="with-base">
+      <uib-tabset active="$ctrl.activeTab" class="with-base">
         <uib-tab index="0" heading="Parameters">
           <div class="p-a-md">
             <parameters data-function="$ctrl.function" on-run-launch="$ctrl.onRunLaunch()"></parameters>

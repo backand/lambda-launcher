@@ -84,7 +84,7 @@
             saveParams();
           }
           function clearParamValues() {
-            if($ctrl.isSaveParamEnable){
+            if ($ctrl.isSaveParamEnable) {
               return;
             }
             _.forEach($ctrl.parameters, function (p) {
@@ -112,7 +112,7 @@
                 .getParameters(funcId);
             }
 
-            var params = {};
+            params = {};
             _.forEach(parameters, function (p) {
               params[p.name.trim()] = p.value;
             });
@@ -146,7 +146,7 @@
             runInstance.executionTime = _.now();
             Lambda.saveRun(funcId, runInstance);
 
-            if (typeof $ctrl.onRunLaunch === 'function') {
+            if (_.isFunction($ctrl.onRunLaunch)) {
               $ctrl.onRunLaunch();
             }
           }
