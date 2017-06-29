@@ -27,6 +27,8 @@
 
 .header {
     padding: 0;
+
+
     .title-bar {
         position: absolute;
         text-align: center;
@@ -96,6 +98,20 @@
         }
     }
     @media (max-width: 768px) {
+          .logo{
+      >a{
+        img{
+          &.visible-xs{
+            display: inline-block !important;
+            margin-top: 15px;
+          }
+
+          &.hidden-xs{
+            display: none !important;
+          }
+        }
+      }
+    }
         .navbar {
             margin-bottom: 0;
         }
