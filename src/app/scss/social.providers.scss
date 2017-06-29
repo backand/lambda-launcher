@@ -67,8 +67,8 @@
                      line-height: 4rem;
                  }
              }
-             @media (max-width: 766px) {
-                 background-image: none;
+             @media (min-width: 766px) {
+                 background-image: none !important;
              }
          }
      }
