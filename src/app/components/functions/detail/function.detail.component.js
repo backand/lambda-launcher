@@ -54,6 +54,7 @@
             * been constructed and had their bindings initialized
             */
           function initialization() {
+            getFunction();
             getRuns();
           }
           function getRuns() {

@@ -20,13 +20,20 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/:app', '/:app/functions');
+   // $urlRouterProvider.when('/app/:app', '/:app/functions');
     $stateProvider
       .state('login', {
         url: '/:app/login?err&t',
         component: 'signin',
         data: {
           title: 'Login'
+        }
+      })
+      .state('default', {
+        url: '/',
+        component: 'default',
+        data: {
+          title: 'Home Page'
         }
       })
        .state('reset-password', {
@@ -64,7 +71,7 @@
         }
       });
 
-    //$urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
   }
 
 })();
