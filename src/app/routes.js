@@ -20,7 +20,7 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
 
-   // $urlRouterProvider.when('/app/:app', '/:app/functions');
+    $urlRouterProvider.when('/{app:[0-9a-zA-Z]{1,}}', '/{app:[0-9a-zA-Z]{1,}}/functions');
     $stateProvider
       .state('login', {
         url: '/:app/login?err&t',
