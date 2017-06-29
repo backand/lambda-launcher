@@ -114,7 +114,7 @@
 
             var params = {};
             _.forEach(parameters, function (p) {
-              params[p.name.trim()] = encodeURIComponent(p.value);
+              params[p.name.trim()] = p.value;
             });
             blockUI.start();
             Analytics.track('ll_runfunction');
