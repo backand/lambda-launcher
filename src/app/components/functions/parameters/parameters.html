@@ -1,10 +1,10 @@
 <form class="form-horizontal parametersForm" data-ng-submit="$ctrl.updateParameters()" name="$ctrl.form">
-  <div class="alert alert-info" data-ng-if="!$ctrl.parameters">
+  <div class="alert alert-info" data-ng-if="$ctrl.parameters.length === 0">
     <p>No Input Parameters</p>
   </div>
   <div class="scrollable">
     <div class="scrollable-content">
-      <div data-ng-if="$ctrl.parameters">
+      <div data-ng-if="$ctrl.parameters.length > 0">
         <div class="form-group row" data-ng-repeat="param in $ctrl.parameters track by $index">
           <label for="id_{{::param.name}}" class="col-sm-2 control-label" data-ng-bind="param.name"></label>
           <div class="col-sm-10">

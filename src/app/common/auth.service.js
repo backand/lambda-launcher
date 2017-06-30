@@ -32,7 +32,7 @@
     self.logout = logout;
     self.AutherizeRoutes = AutherizeRoutes;
     self.isLoggedIn = isLoggedIn;
-
+    self.IsAnonymousToken = IsAnonymousToken;
 
     /**
      * @name getCurrentUser
@@ -160,6 +160,10 @@
     function onSignin(data) {
       Analytics.identify(data.fullName, data.username);
       getCurrentUser();
+    }
+
+    function IsAnonymousToken(){
+      return Backand.defaults.anonymousToken ? true:false;
     }
 
     //end of service  

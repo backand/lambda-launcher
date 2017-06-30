@@ -16,9 +16,8 @@
     .module('LambdaLauncher')
     .service('Lambda', LambdaService);
   /** @ngInject */
-  function LambdaService(Backand, $q, $localStorage, _, $timeout) {
-    var self = this,
-      functions = [];
+  function LambdaService(Backand, $q, $localStorage, _, $timeout, $rootScope) {
+    var self = this;
 
     /**
      * Exposed bindable methods
@@ -53,6 +52,7 @@
         var functions = _.get(response, 'data.data');
         self.functions = functions || [];
         deffered.resolve(functions);
+        $rootScope.$emit('EVENT:ON_LOAD_FUNCTIONS');
       }).catch(function (err) {
         deffered.reject(err);
       });
@@ -140,7 +140,7 @@
      */
     function saveParameters(fId, params) {
       var deffered = $q.defer();
-      if (!fId || _.isEmpty(params)) {
+      if (!fId) {
         $timeout(function () {
           deffered.resolve(parameters);
         }, 1);
@@ -148,14 +148,21 @@
       }
       var parameters = getParameters();
       parameters = parameters || {};
-      var fParams = parameters[fId];
-      if (!_.isArray(fParams)) {
-        fParams = [];
-      }
-      if (_.isArray(params)) {
+      var fParams = parameters[fId] || [];
+
+      if (_.isArray(params) && params.length > 0) {
+        _.forEach(fParams, function (fp) {
+          var pIdx = _.findIndex(params, { key: fp.key });
+          if (pIdx === -1) {
+            fParams.splice(pIdx, 1);
+          }
+        });
+
         _.forEach(params, function (p) {
           storeParameter(fParams, p);
         })
+      } else if (_.isArray(params) && params.length === 0) {
+        fParams.length =0;
       } else {
         storeParameter(fParams, params);
       }

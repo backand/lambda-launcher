@@ -27,11 +27,13 @@
 
 .header {
     padding: 0;
+
+
     .title-bar {
         position: absolute;
         text-align: center;
-        right: 0;
-        left: 0;
+        right: 50px;
+        left: 50px;
         top: 18px;
         h2 {
             font-size: 30px;
@@ -56,10 +58,13 @@
     .navbar {
         .navbar-header {
             .navbar-toggle {
+              >a{
                 @extend .nav-item;
                 &:after {
                     content: none;
                 }
+              }
+                
             }
         }
         .nav {
@@ -93,6 +98,20 @@
         }
     }
     @media (max-width: 768px) {
+          .logo{
+      >a{
+        img{
+          &.visible-xs{
+            display: inline-block !important;
+            margin-top: 15px;
+          }
+
+          &.hidden-xs{
+            display: none !important;
+          }
+        }
+      }
+    }
         .navbar {
             margin-bottom: 0;
         }

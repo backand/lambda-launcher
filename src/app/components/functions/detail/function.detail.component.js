@@ -27,7 +27,8 @@
         '$rootScope',
         'App',
         '$detectViewPort',
-        function ($log, _, $stateParams, Lambda, blockUI, toaster, $rootScope, App, $detectViewPort) {
+        '$scope',
+        function ($log, _, $stateParams, Lambda, blockUI, toaster, $rootScope, App, $detectViewPort,$scope) {
           var $ctrl = this,
             functionId = $stateParams.function_id;
 
@@ -35,16 +36,17 @@
            * component's lifeCycle hooks
            */
           $ctrl.$onInit = initialization;
+          /**
+           * public methods
+           */
           $ctrl.launchFunction = launchFunction;
           $ctrl.onRunLaunch = onRunLaunch;
           $ctrl.back = back;
           /**
-           * public methods
-           */
-          /**
            * public properties
            */
-           $ctrl.$detectViewPort = $detectViewPort;
+          $ctrl.$detectViewPort = $detectViewPort;
+          $ctrl.activeTab = 0;
           /**
             * @function
             * @name initialization
@@ -60,23 +62,32 @@
             $ctrl.runs = Lambda.getRun(functionId);
           }
           function getFunction() {
-             $ctrl.function = Lambda
+            $ctrl.function = Lambda
               .getFunction(functionId) || {};
           }
 
-          function onRunLaunch(){
+          function onRunLaunch() {
+            $ctrl.activeTab = 1;
             getRuns();
           }
 
-          function launchFunction(fn){
+          function launchFunction(fn) {
             $rootScope.$emit('EVENT:LAUNCH_FUNCTION', {
-              function : angular.copy(fn)
+              function: angular.copy(fn)
             })
           }
 
-          function back(){
+          function back() {
             App.setDetailView(false);
           }
+
+          var eventHandler = $rootScope.$on('EVENT:ON_LOAD_FUNCTIONS', function () {
+            getFunction();
+          })
+
+          $scope.$on('$destroy', function () {
+            eventHandler();
+          });
           //end of controller
         }]
     });

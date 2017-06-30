@@ -40,7 +40,7 @@
     $httpProvider.interceptors.push('authInterceptor');
     $localStorageProvider.setKeyPrefix(appName + '_');
     //configure backand
-    var config = { appName: appName };
+    var config = { appName: appName, isMobile: false };
 
     if (anonymousToken) {
       config.anonymousToken = anonymousToken;

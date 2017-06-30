@@ -36,6 +36,9 @@
           createdAt: new Date().getTime()
         });
       }
+      if(window.JacoRecorder){
+        window.JacoRecorder.identify(email, function callback(err){});
+      }
     }
 
     /**
@@ -46,6 +49,15 @@
     function track(eventName, eventObject) {
       if (analytics) {
         analytics.track(eventName, eventObject);
+      }
+      if(window.JacoRecorder){
+        window.JacoRecorder.push(['session.setAttribute', {
+          attributeName: eventName, attributeValue: eventObject
+        }, function (err) {
+          if (err) {
+            console.error('error setting attribute');
+          }
+        }]);
       }
     }
 

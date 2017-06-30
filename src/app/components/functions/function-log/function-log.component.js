@@ -22,10 +22,7 @@
       controller: [
         'Lambda',
         '$log',
-        '_',
-        '$rootScope',
-        '$scope',
-        function (Lambda, $log, _, $rootScope, $scope) {
+        function (Lambda, $log) {
           var $ctrl = this;
 
           /**

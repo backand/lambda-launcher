@@ -1,8 +1,19 @@
 <div class="header clearfix example3" data-ng-if="$ctrl.isLoggedIn()">
   <nav class="navbar navbar-static-top">
     <div class="navbar-header">
-      <a data-ng-href="" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"><i class="fa fa-user-circle-o"></i></a>
-      <a class="navbar-brand" href="/"><img src="./assets/images/lambda-launcher-icon.png" alt="Lambda launcher">
+      <!-- Simple dropdown -->
+      <span uib-dropdown  class="visible-xs navbar-toggle" style="position: static;">
+      <a href id="simple-dropdown" uib-dropdown-toggle >
+        <i class="fa fa-user-circle-o"></i>
+      </a>
+      <ul class="dropdown-menu pull-right" uib-dropdown-menu aria-labelledby="simple-dropdown">
+       <li><a data-ng-href="" data-ng-click="$ctrl.logout($event)">Log Out</a></li>
+      </ul>
+    </span>
+
+      <a class="navbar-brand" href="/">
+      <img src="./assets/images/lambda-launcher-icon.png" alt="Lambda launcher" class="hidden-xs">
+      <img src="./assets/images/logo-mobile.png" alt="Lambda launcher" class="visible-xs">
         </a>
     </div>
     <div class="title-bar">
@@ -19,7 +30,8 @@
 </div>
 
 <div class="header signin-header clearfix" data-ng-if="!$ctrl.isLoggedIn()">
-  <section class="logo text-center" >
+  <section class="logo text-center">
     <a ui-sref="login({app: $ctrl.appName})" title="Lambda Functions">
-       <img src="./assets/images/aws-lambda-launcher-logo.png"></a>
+       <img src="./assets/images/lambda-launcher-icon.png" alt="Lambda launcher" class="visible-xs">
+       <img src="./assets/images/aws-lambda-launcher-logo.png" class="hidden-xs"></a>
   </section>

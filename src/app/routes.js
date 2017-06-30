@@ -20,17 +20,24 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/:app', '/:app/functions');
+    $urlRouterProvider.when('/{app:[0-9a-zA-Z]{1,}}', '/{app:[0-9a-zA-Z]{1,}}/functions');
     $stateProvider
       .state('login', {
-        url: '/:app/login?err&t',
+        url: '/{app:[0-9a-zA-Z]{1,}}/login?err&t',
         component: 'signin',
         data: {
           title: 'Login'
         }
       })
-       .state('reset-password', {
-        url: '/:app/reset-password?token',
+      .state('default', {
+        url: '/',
+        component: 'default',
+        data: {
+          title: 'Home Page'
+        }
+      })
+      .state('reset-password', {
+        url: '/{app:[0-9a-zA-Z]{1,}}/reset-password?token',
         component: 'resetPassword',
         data: {
           title: 'Reset Password'
@@ -38,7 +45,7 @@
       })
       .state('dashboard', {
         absolute: true,
-        url: '/:app',
+        url: '/{app:[0-9a-zA-Z]{1,}}',
         data: {
           requiresLogin: true
         },
@@ -64,7 +71,11 @@
         }
       });
 
-    //$urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise(function ($injector, $location) {
+      var state;
+      state = $injector.get('$state');
+      state.go('default', { url: $location.path() }, { location: true });
+    });
   }
 
 })();

@@ -67,6 +67,7 @@
           }
 
           function onChanges(bindings) {
+            $log.info('Parameters', bindings);
             if (!bindings.function.isFirstChange()) {
             }
 
@@ -83,7 +84,7 @@
             saveParams();
           }
           function clearParamValues() {
-            if($ctrl.isSaveParamEnable){
+            if ($ctrl.isSaveParamEnable) {
               return;
             }
             _.forEach($ctrl.parameters, function (p) {
@@ -111,9 +112,9 @@
                 .getParameters(funcId);
             }
 
-            var params = {};
+            params = {};
             _.forEach(parameters, function (p) {
-              params[p.name.trim()] = encodeURIComponent(p.value);
+              params[p.name.trim()] = p.value;
             });
             blockUI.start();
             Analytics.track('ll_runfunction');
@@ -124,7 +125,7 @@
                   Payload: response.data,
                   StatusCode: response.status
                 });
-                toaster.success('Success', 'Function has been executed successfully.');
+                toaster.success('Success', 'Function was executed successfully.');
                 $log.info('Function run successful', response);
                 blockUI.stop();
                 clearParamValues();
@@ -145,7 +146,7 @@
             runInstance.executionTime = _.now();
             Lambda.saveRun(funcId, runInstance);
 
-            if (typeof $ctrl.onRunLaunch === 'function') {
+            if (_.isFunction($ctrl.onRunLaunch)) {
               $ctrl.onRunLaunch();
             }
           }

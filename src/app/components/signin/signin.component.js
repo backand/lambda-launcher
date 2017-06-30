@@ -55,6 +55,7 @@
             $ctrl.providers = angular.copy(App.socialProviders);
             $ctrl.error = $injector.get('$stateParams').err ? $base64.decode($injector.get('$stateParams').err) : '';
             getSocialProviders();
+            $ctrl.showGuest = Auth.IsAnonymousToken();
           }
 
           /**
@@ -84,11 +85,15 @@
             Auth
               .socialSignin(provider)
               .then(function () {
-                $state.go(ENV_CONFIG.ROUTE_HOME_STATE, { app: $state.params.app });
+                $state.go(ENV_CONFIG.ROUTE_HOME_STATE, { app: $state.params.app || '' });
               }, function (error) {
                 //handle error
                 $log.error(error);
-                toaster.error(error.data.error_description);
+                if(error.data){
+                  toaster.error(error.data.error_description);
+                } else if(error.message){
+                  toaster.error(error.message);
+                }
               });
           }
 
@@ -108,7 +113,12 @@
               }, function (error) {
                 blockUI.stop();
                 $log.error(error);
-                toaster.error(error.data.error_description);
+                if(error.data){
+                  toaster.error(error.data.error_description);
+                } else if(error.message){
+                  toaster.error(error.message);
+                }
+
               });
           }
 

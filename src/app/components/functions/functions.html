@@ -6,7 +6,7 @@
         <functions-list on-select="$ctrl.onSelect(function)"></functions-list>
       </div>
       <div class="col-md-8 col-md-offset-4" data-ng-hide="!$ctrl.App.getDetailView() && $ctrl.App.isSmallDevice()">
-        <div ui-view="function-detail" class="animated" data-ng-class="{'fadeInRight' : $ctrl.App.isSmallDevice(), 'fadeInUp' : !$ctrl.App.isSmallDevice()}" style="position: relative"></div>
+        <div ui-view="function-detail" class="animated" data-ng-class="{'fadeIn' : $ctrl.App.isSmallDevice(), 'fadeInUp' : !$ctrl.App.isSmallDevice()}" style="position: relative"></div>
         <!--function-detail data-ng-if="$ctrl.function" data-function="$ctrl.function"></div>-->
       </div>
     </div>
