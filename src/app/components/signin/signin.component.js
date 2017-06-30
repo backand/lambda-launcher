@@ -88,7 +88,11 @@
               }, function (error) {
                 //handle error
                 $log.error(error);
-                toaster.error(error.data.error_description);
+                if(error.data){
+                  toaster.error(error.data.error_description);
+                } else if(error.message){
+                  toaster.error(error.message);
+                }
               });
           }
 
@@ -108,7 +112,12 @@
               }, function (error) {
                 blockUI.stop();
                 $log.error(error);
-                toaster.error(error.data.error_description);
+                if(error.data){
+                  toaster.error(error.data.error_description);
+                } else if(error.message){
+                  toaster.error(error.message);
+                }
+
               });
           }
 
