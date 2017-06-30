@@ -63,7 +63,7 @@
               <div class="form-group p-b-lg signin-btn">
                 <button type="submit" class="btn btn-lg btn-round btn-primary btn-block text-u-c">login</button>
               </div>
-              <div class="text-right text-danger center">
+              <div class="text-right text-danger center" ng-if="$ctrl.showGuest">
                 <a ui-sref="dashboard.appFunctions({app: $ctrl.appName})">guest access -></a>
               </div>
               <div class="ng-hide">

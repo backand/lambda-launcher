@@ -55,6 +55,7 @@
             $ctrl.providers = angular.copy(App.socialProviders);
             $ctrl.error = $injector.get('$stateParams').err ? $base64.decode($injector.get('$stateParams').err) : '';
             getSocialProviders();
+            $ctrl.showGuest = Auth.IsAnonymousToken();
           }
 
           /**
